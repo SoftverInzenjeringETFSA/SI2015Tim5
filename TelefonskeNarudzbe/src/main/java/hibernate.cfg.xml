@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory name="">
+  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+  <property name="hibernate.connection.password">root</property>
+  <property name="hibernate.connection.url">jdbc:mysql://localhost/si2015tim5</property>
+  <property name="hibernate.connection.username">root</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+  <property name="hibernate.hbm2ddl.auto">update</property>
+  <mapping resource="ba/unsa/etf/si/TelefonskeNarudzbe/DomainModels/Jelo.hbm.xml"/>
+  <mapping resource="ba/unsa/etf/si/TelefonskeNarudzbe/DomainModels/Jelovnik.hbm.xml"/>
+  <mapping resource="ba/unsa/etf/si/TelefonskeNarudzbe/DomainModels/Kupac.hbm.xml"/>
+  <mapping resource="ba/unsa/etf/si/TelefonskeNarudzbe/DomainModels/Narudzba.hbm.xml"/>
+  <mapping resource="ba/unsa/etf/si/TelefonskeNarudzbe/DomainModels/Osoba.hbm.xml"/>
+  <mapping resource="ba/unsa/etf/si/TelefonskeNarudzbe/DomainModels/Sastojak.hbm.xml"/>
+  <mapping resource="ba/unsa/etf/si/TelefonskeNarudzbe/DomainModels/Zaposlenik.hbm.xml"/>
+ </session-factory>
+</hibernate-configuration>

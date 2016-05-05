@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 05-May-2016 22:44:36 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak" table="SASTOJAK">
+        <id name="naziv" type="java.lang.String">
+            <column name="NAZIV" />
+            <generator class="native" />
+        </id>
+        <property name="opis" type="java.lang.String">
+            <column name="OPIS" />
+        </property>
+        <property name="mjernaJedinica" type="java.lang.String">
+            <column name="MJERNAJEDINICA" />
+        </property>
+    </class>
+</hibernate-mapping>

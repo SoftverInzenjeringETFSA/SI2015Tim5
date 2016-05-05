@@ -1,4 +1,4 @@
-package ba.unsa.etf.si.TelefonskeNarudzbe;
+package ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface;
 
 import java.awt.EventQueue;
 

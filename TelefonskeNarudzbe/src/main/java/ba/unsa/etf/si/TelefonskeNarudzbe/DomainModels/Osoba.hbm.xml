@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 05-May-2016 22:44:36 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Osoba" table="OSOBA" abstract="true">
+        <id name="imePrezime" type="java.lang.String">
+            <column name="IMEPREZIME" />
+            <generator class="native" />
+        </id>
+        <discriminator type="string">
+            <column name="DISCR_COL" />
+        </discriminator>
+    </class>
+</hibernate-mapping>
