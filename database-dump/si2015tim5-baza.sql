@@ -178,7 +178,7 @@ CREATE TABLE `radno_mjesto` (
   `opis` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -187,7 +187,7 @@ CREATE TABLE `radno_mjesto` (
 
 LOCK TABLES `radno_mjesto` WRITE;
 /*!40000 ALTER TABLE `radno_mjesto` DISABLE KEYS */;
-INSERT INTO `radno_mjesto` VALUES (1,'radnik na telefonu','osoba se javlja na telefon pri pozivu, te komunicira sa kupcem i unosi podatke o narudžbi u računar'),(2,'kuhar','osoba priprema jela prema naružbi'),(3,'dostavljač','osoba dostavlja pripremljene narudžbe na adresu kupca');
+INSERT INTO `radno_mjesto` VALUES (1,'radnik na telefonu','osoba se javlja na telefon pri pozivu, te komunicira sa kupcem i unosi podatke o narudžbi u računar'),(2,'kuhar','osoba priprema jela prema naružbi'),(3,'dostavljač','osoba dostavlja pripremljene narudžbe na adresu kupca'),(4,'sef','osoba zaduzena za upravljanje sistemom za telefonske narudžbe');
 /*!40000 ALTER TABLE `radno_mjesto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -315,4 +315,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-05 21:16:16
+-- Dump completed on 2016-05-05 23:05:36
