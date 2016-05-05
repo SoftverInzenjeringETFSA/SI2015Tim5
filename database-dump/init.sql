@@ -18,8 +18,7 @@ USE `SI2015Tim5` ;
 -- ----------------------------------------------------- 
 CREATE TABLE IF NOT EXISTS `SI2015Tim5`.`Jelo`( 
 `id` INT(3) NOT NULL AUTO_INCREMENT, 
-`naziv` VARCHAR(50) NOT NULL, 
-`sastojci` INTEGER(3) NOT NULL,  
+`naziv` VARCHAR(50) NOT NULL,
 `cijena` double NOT NULL,
 PRIMARY KEY (`id`)) 
 ENGINE = InnoDB;  
@@ -49,6 +48,7 @@ CREATE UNIQUE INDEX `naziv_UNIQUE` ON `SI2015Tim5`.`Sastojak` (`naziv` ASC);
 CREATE TABLE IF NOT EXISTS `SI2015Tim5`.`Sastojci_Jelo_Veza`( 
 `JeloId` INT(3) NOT NULL, 
 `SastojakId` INT(10) NOT NULL, 
+`kolicina` INT(2) NOT NULL,
 PRIMARY KEY (`JeloId`, `SastojakId`), 
 CONSTRAINT `fk_Sastojci_Jelo_Veza_Jelo` 
 FOREIGN KEY (`JeloId`) 
@@ -61,12 +61,8 @@ REFERENCES `SI2015Tim5`.`Sastojak` (`id`)
 ON DELETE NO ACTION 
 ON UPDATE NO ACTION) 
 ENGINE = InnoDB;  
-CREATE INDEX 
-`fk_Sastojci_Jelo_Veza_Jelo_index` ON `SI2015Tim5`.`Sastojci_Jelo_Veza`
-(`JeloId` ASC);  
-CREATE INDEX
-`fk_Sastojci_Jelo_Veza_Sastojak_index` ON `SI2015Tim5`.`Sastojci_Jelo_Veza`
-(`SastojakId` ASC)  
+CREATE INDEX `fk_Sastojci_Jelo_Veza_Jelo_index` ON `SI2015Tim5`.`Sastojci_Jelo_Veza`(`JeloId` ASC);  
+CREATE INDEX `fk_Sastojci_Jelo_Veza_Sastojak_index` ON `SI2015Tim5`.`Sastojci_Jelo_Veza`(`SastojakId` ASC);
 
 
 
@@ -247,7 +243,7 @@ CREATE INDEX
 (`JeloId` ASC);  
 CREATE INDEX
 `fk_Narudžba_Jelo_Veza_Narudžba_index` ON `SI2015Tim5`.`Narudžba_Jelo_Veza`
-(`NarudžbaId` ASC)  
+(`NarudžbaId` ASC) ;
 
 
 
