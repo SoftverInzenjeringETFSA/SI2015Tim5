@@ -10,7 +10,6 @@
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
   <property name="hibernate.hbm2ddl.auto">update</property>
   <mapping resource="ba/unsa/etf/si/TelefonskeNarudzbe/DomainModels/Jelo.hbm.xml"/>
-  <mapping resource="ba/unsa/etf/si/TelefonskeNarudzbe/DomainModels/Jelovnik.hbm.xml"/>
   <mapping resource="ba/unsa/etf/si/TelefonskeNarudzbe/DomainModels/Kupac.hbm.xml"/>
   <mapping resource="ba/unsa/etf/si/TelefonskeNarudzbe/DomainModels/Narudzba.hbm.xml"/>
   <mapping resource="ba/unsa/etf/si/TelefonskeNarudzbe/DomainModels/Osoba.hbm.xml"/>

@@ -6,7 +6,7 @@
     <class name="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Narudzba" table="NARUDZBA">
         <id name="idnarudzbe" type="int">
             <column name="IDNARUDZBE" />
-            <generator class="native" />
+            <generator class="assigned" />
         </id>
         <list name="listaJela" inverse="false" table="JELO" lazy="true">
             <key>
