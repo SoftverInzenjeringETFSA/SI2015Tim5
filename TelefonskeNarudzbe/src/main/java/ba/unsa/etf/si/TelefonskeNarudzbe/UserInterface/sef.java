@@ -16,6 +16,8 @@ import javax.swing.JMenu;
 import javax.swing.JList;
 import javax.swing.JTextField;
 
+import org.apache.log4j.Logger;
+
 public class sef {
 
 	private JFrame frame;
@@ -26,7 +28,7 @@ public class sef {
 	private JTextField textField_2;
 	private JTable table_3;
 	private JTable table_5;
-
+	final static Logger logger = Logger.getLogger(sef.class);
 	/**
 	 * Launch the application.
 	 */
@@ -37,7 +39,8 @@ public class sef {
 					sef window = new sef();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.info(e);
+					//e.printStackTrace();
 				}
 			}
 		});

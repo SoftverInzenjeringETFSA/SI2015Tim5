@@ -3,7 +3,9 @@ package ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels;
 import java.util.Date;
 import java.util.List;
 
-public class Narudzba {
+public class Narudzba implements java.io.Serializable
+{
+	private static final long serialVersionUID = 1L;
 	private int idnarudzbe;
 	private List<Jelo> listaJela;
 	private Status statusNarudzbe;
@@ -121,5 +123,8 @@ public class Narudzba {
 	public void setVrijemeDostave(Date vrijemeDostave) {
 		this.vrijemeDostave = vrijemeDostave;
 	}
-
+	public Narudzba()
+	{
+		
+	}
 }

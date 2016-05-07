@@ -2,7 +2,9 @@ package ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels;
 
 import java.util.Date;
 
-public class Zaposlenik extends Osoba{
+public class Zaposlenik extends Osoba implements java.io.Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
 	private RadnoMjesto radnoMjesto;
@@ -39,5 +41,8 @@ public class Zaposlenik extends Osoba{
 	public void setDatumRodjenja(Date datumRodjenja) {
 		this.datumRodjenja = datumRodjenja;
 	}
-
+	public Zaposlenik()
+	{
+		
+	}
 }

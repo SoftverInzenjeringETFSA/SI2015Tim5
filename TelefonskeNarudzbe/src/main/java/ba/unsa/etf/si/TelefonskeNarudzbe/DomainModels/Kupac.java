@@ -1,6 +1,8 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels;
 
-public class Kupac extends Osoba {
+public class Kupac extends Osoba implements java.io.Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private String adresa;
 	private String brojTelefona;
 
@@ -19,5 +21,8 @@ public class Kupac extends Osoba {
 	public void setBrojTelefona(String brojTelefona) {
 		this.brojTelefona = brojTelefona;
 	}
-
+	public Kupac()
+	{
+		
+	}
 }

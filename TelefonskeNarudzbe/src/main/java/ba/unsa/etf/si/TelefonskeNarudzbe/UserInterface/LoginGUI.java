@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import org.apache.log4j.Logger;
+
 import javax.swing.JButton;
 
 
@@ -14,7 +17,7 @@ public class LoginGUI
 	private JFrame frmPrijavaNaSistem;
 	private JTextField textField;
 	private JTextField textField_1;
-
+	final static Logger logger = Logger.getLogger(LoginGUI.class);
 	/**
 	 * Launch the application.
 	 */
@@ -25,7 +28,8 @@ public class LoginGUI
 					LoginGUI window = new LoginGUI();
 					window.frmPrijavaNaSistem.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.info(e);
+					//e.printStackTrace();
 				}
 			}
 		});

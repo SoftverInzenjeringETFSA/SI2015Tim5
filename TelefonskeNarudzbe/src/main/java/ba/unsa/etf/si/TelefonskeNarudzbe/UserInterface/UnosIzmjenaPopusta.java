@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.apache.log4j.Logger;
+
 import javax.swing.JLabel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -24,7 +27,7 @@ public class UnosIzmjenaPopusta extends JFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private UnosIzmjenaPopusta forma = this;
-
+	final static Logger logger = Logger.getLogger(UnosIzmjenaPopusta.class);
 	/**
 	 * Launch the application.
 	 */
@@ -35,7 +38,8 @@ public class UnosIzmjenaPopusta extends JFrame {
 					UnosIzmjenaPopusta frame = new UnosIzmjenaPopusta();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.info(e);
+					//e.printStackTrace();
 				}
 			}
 		});

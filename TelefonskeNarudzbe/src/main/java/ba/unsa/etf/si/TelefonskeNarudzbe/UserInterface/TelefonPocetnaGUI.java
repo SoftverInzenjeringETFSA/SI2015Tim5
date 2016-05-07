@@ -9,13 +9,16 @@ import javax.swing.JMenuItem;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+
+import org.apache.log4j.Logger;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class TelefonPocetnaGUI {
 
 	private JFrame frmSpremanjeNarudbi;
-
+	final static Logger logger = Logger.getLogger(TelefonPocetnaGUI.class);
 	/**
 	 * Launch the application.
 	 */
@@ -26,7 +29,8 @@ public class TelefonPocetnaGUI {
 					TelefonPocetnaGUI window = new TelefonPocetnaGUI();
 					window.frmSpremanjeNarudbi.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.info(e);
+					//e.printStackTrace();
 				}
 			}
 		});

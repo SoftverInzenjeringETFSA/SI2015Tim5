@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.apache.log4j.Logger;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -25,7 +28,7 @@ public class UnosIzmjenaSastojka extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private UnosIzmjenaSastojka forma = this;
-
+	final static Logger logger = Logger.getLogger(UnosIzmjenaSastojka.class);
 	/**
 	 * Launch the application.
 	 */
@@ -36,7 +39,8 @@ public class UnosIzmjenaSastojka extends JFrame {
 					UnosIzmjenaSastojka frame = new UnosIzmjenaSastojka();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.info(e);
+					//e.printStackTrace();
 				}
 			}
 		});

@@ -2,33 +2,37 @@ package ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels;
 
 import java.util.List;
 
-public class Jelo {
-private String naziv;
-private Double cijena;
-private List<Sastojak> sastojci;
+public class Jelo implements java.io.Serializable{
 
-public String getNaziv() {
-	return naziv;
-}
+	private static final long serialVersionUID = 1L;
+	private String naziv;
+	private Double cijena;
+	private List<Sastojak> sastojci;
 
-public void setNaziv(String naziv) {
-	this.naziv = naziv;
-}
+	public String getNaziv() {
+		return naziv;
+	}
 
-public Double getCijena() {
-	return cijena;
-}
+	public void setNaziv(String naziv) {
+		this.naziv = naziv;
+	}
 
-public void setCijena(Double cijena) {
-	this.cijena = cijena;
-}
+	public Double getCijena() {
+		return cijena;
+	}
 
-public List<Sastojak> getSastojci() {
-	return sastojci;
-}
+	public void setCijena(Double cijena) {
+		this.cijena = cijena;
+	}
 
-public void setSastojci(List<Sastojak> sastojci) {
-	this.sastojci = sastojci;
-}
+	public List<Sastojak> getSastojci() {
+		return sastojci;
+	}
 
+	public void setSastojci(List<Sastojak> sastojci) {
+		this.sastojci = sastojci;
+	}
+
+	public Jelo() {
+	}
 }

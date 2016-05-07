@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.apache.log4j.Logger;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -30,7 +33,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 	private JTextField textField_1;
 	private JPasswordField passwordField;
 	private JPasswordField passwordField_1;
-
+	final static Logger logger = Logger.getLogger(UnosIzmjenaRadnika.class);
 	/**
 	 * Launch the application.
 	 */
@@ -41,7 +44,8 @@ public class UnosIzmjenaRadnika extends JFrame {
 					UnosIzmjenaRadnika frame = new UnosIzmjenaRadnika();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.info(e);
+					//e.printStackTrace();
 				}
 			}
 		});

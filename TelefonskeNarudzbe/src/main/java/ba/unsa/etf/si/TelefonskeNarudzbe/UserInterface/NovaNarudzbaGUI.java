@@ -10,6 +10,9 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
+
+import org.apache.log4j.Logger;
+
 import java.awt.Color;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -30,7 +33,7 @@ public class NovaNarudzbaGUI {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
-
+	final static Logger logger = Logger.getLogger(NovaNarudzbaGUI.class);
 	/**
 	 * Launch the application.
 	 */
@@ -41,7 +44,8 @@ public class NovaNarudzbaGUI {
 					NovaNarudzbaGUI window = new NovaNarudzbaGUI();
 					window.frmInformacijeONarudbi.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.info(e);
+					//e.printStackTrace();
 				}
 			}
 		});

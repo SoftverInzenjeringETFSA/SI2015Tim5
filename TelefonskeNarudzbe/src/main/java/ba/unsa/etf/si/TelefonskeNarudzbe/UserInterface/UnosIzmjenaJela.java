@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.jboss.logging.Logger;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
@@ -24,7 +27,7 @@ public class UnosIzmjenaJela extends JFrame {
 	private JTextField textField_1;
 	private JButton btnZavriUreivanje;
 	private UnosIzmjenaJela forma = this;
-
+	final static Logger logger = Logger.getLogger(UnosIzmjenaJela.class);
 	/**
 	 * Launch the application.
 	 */
@@ -35,7 +38,8 @@ public class UnosIzmjenaJela extends JFrame {
 					UnosIzmjenaJela frame = new UnosIzmjenaJela();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.info(e);
+					//e.printStackTrace();
 				}
 			}
 		});

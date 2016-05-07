@@ -11,11 +11,15 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JList;
 import javax.swing.JTextArea;
+
+import org.apache.log4j.Logger;
+
 import java.awt.Font;
 
 public class KuharGUI {
 
 	private JFrame frmSpremanjeNarudbi;
+	final static Logger logger = Logger.getLogger(KuharGUI.class);
 
 	/**
 	 * Launch the application.
@@ -27,7 +31,8 @@ public class KuharGUI {
 					KuharGUI window = new KuharGUI();
 					window.frmSpremanjeNarudbi.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.info(e);
+					//e.printStackTrace();
 				}
 			}
 		});

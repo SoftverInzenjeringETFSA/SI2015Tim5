@@ -11,12 +11,15 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JList;
 import javax.swing.border.LineBorder;
+
+import org.apache.log4j.Logger;
+
 import java.awt.Color;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class DostavljacGUI {
-
+	final static Logger logger = Logger.getLogger(DostavljacGUI.class);
 	private JFrame frmDostavaNarudbi;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -33,7 +36,8 @@ public class DostavljacGUI {
 					DostavljacGUI window = new DostavljacGUI();
 					window.frmDostavaNarudbi.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.info(e);
+					//e.printStackTrace();
 				}
 			}
 		});

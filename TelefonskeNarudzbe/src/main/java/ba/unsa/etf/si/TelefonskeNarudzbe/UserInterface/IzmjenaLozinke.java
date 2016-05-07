@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.apache.log4j.Logger;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -24,7 +27,7 @@ public class IzmjenaLozinke extends JFrame {
 	private JPasswordField passwordField_1;
 	private JPasswordField passwordField_2;
 	private IzmjenaLozinke forma = this;
-
+	final static Logger logger = Logger.getLogger(IzmjenaLozinke.class);
 	/**
 	 * Launch the application.
 	 */
@@ -35,7 +38,8 @@ public class IzmjenaLozinke extends JFrame {
 					IzmjenaLozinke frame = new IzmjenaLozinke();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.info(e);
+					//e.printStackTrace();
 				}
 			}
 		});
