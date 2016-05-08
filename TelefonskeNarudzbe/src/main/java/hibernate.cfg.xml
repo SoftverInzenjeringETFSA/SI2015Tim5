@@ -3,12 +3,12 @@
                                          "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
  <session-factory name="">
-  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-  <property name="hibernate.connection.password">root</property>
-  <property name="hibernate.connection.url">jdbc:mysql://localhost/si2015tim5</property>
-  <property name="hibernate.connection.username">root</property>
+  <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+  <property name="connection.password">si2015tim5</property>
+  <property name="connection.url">jdbc:mysql://localhost:3306/si2015tim5?useLegacyDatetimeCode=false&amp;useSSL=false</property>
+  <property name="connection.username">si2015tim5</property>
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-  <property name="hibernate.hbm2ddl.auto">update</property>
+  <property name="hbm2ddl.auto">update</property>
   <mapping resource="ba/unsa/etf/si/TelefonskeNarudzbe/DomainModels/Jelo.hbm.xml"/>
   <mapping resource="ba/unsa/etf/si/TelefonskeNarudzbe/DomainModels/Kupac.hbm.xml"/>
   <mapping resource="ba/unsa/etf/si/TelefonskeNarudzbe/DomainModels/Narudzba.hbm.xml"/>

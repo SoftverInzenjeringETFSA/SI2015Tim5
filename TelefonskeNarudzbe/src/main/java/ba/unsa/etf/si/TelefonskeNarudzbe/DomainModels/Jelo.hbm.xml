@@ -3,20 +3,13 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 05-May-2016 22:44:36 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Jelo" table="JELO">
+    <class name="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Jelo" table="jelo">
         <id name="naziv" type="java.lang.String">
-            <column name="NAZIV" />
+            <column name="naziv" />
             <generator class="assigned" />
         </id>
         <property name="cijena" type="java.lang.Double">
-            <column name="CIJENA" />
+            <column name="cijena" />
         </property>
-        <list name="sastojci" inverse="false" table="SASTOJAK" lazy="true">
-            <key>
-                <column name="NAZIV" />
-            </key>
-            <list-index></list-index>
-            <one-to-many class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak" />
-        </list>
     </class>
 </hibernate-mapping>
