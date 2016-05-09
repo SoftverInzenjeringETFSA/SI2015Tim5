@@ -8,6 +8,10 @@ import javax.swing.border.EmptyBorder;
 
 import org.apache.log4j.Logger;
 
+import com.mysql.cj.api.Session;
+
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Narudzba;
+
 import javax.swing.JLabel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -15,6 +19,9 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import org.hibernate.Transaction;
+import org.hibernate.Session;
+import org.hibernate.SharedSessionContract;
 
 public class UnosIzmjenaPopusta extends JFrame {
 
@@ -48,6 +55,7 @@ public class UnosIzmjenaPopusta extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public UnosIzmjenaPopusta() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 340, 300);
@@ -118,4 +126,6 @@ public class UnosIzmjenaPopusta extends JFrame {
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
+	
+
 }

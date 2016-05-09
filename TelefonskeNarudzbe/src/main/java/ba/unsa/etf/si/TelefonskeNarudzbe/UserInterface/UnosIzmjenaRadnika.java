@@ -6,6 +6,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import org.apache.log4j.Logger;
+import org.hibernate.SharedSessionContract;
+import org.hibernate.Transaction;
+import com.mysql.cj.api.Session;
+
+import Util.HibernateUtil;
+
+
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Narudzba;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -18,10 +26,15 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
+
+import java.util.Scanner;
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
 public class UnosIzmjenaRadnika extends JFrame {
+	static Scanner sc = new Scanner(System.in);
 
 	/**
 	 * 
@@ -37,12 +50,16 @@ public class UnosIzmjenaRadnika extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
+	
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					UnosIzmjenaRadnika frame = new UnosIzmjenaRadnika();
 					frame.setVisible(true);
+					Session session = (Session) HibernateUtil.getSessionFactory().openSession();
+					//nadjiRadnika(session);
 				} catch (Exception e) {
 					logger.info(e);
 					//e.printStackTrace();
@@ -162,5 +179,19 @@ public class UnosIzmjenaRadnika extends JFrame {
 					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);
+	}
+	private static void nadjiRadnika(Session session) {
+		
+	
+	Transaction t = ((SharedSessionContract) session).beginTransaction();
+	System.out.println("Unesite id narudzbe");
+	long id = sc.nextLong();
+	Zaposlenik s = (Zaposlenik) ((org.hibernate.Session) session).get(Zaposlenik.class, id);
+	if (s==null) {
+	System.out.println("Nema studenta sa tim IDom u bazi");
+	} else {
+	System.out.println("Student: "+s.getUsername()+" "+s.getPassword());
+	}
+	t.commit();
 	}
 }
