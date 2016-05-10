@@ -4,15 +4,18 @@
 <!-- Generated 05-May-2016 22:44:36 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak" table="SASTOJAK">
-        <id name="naziv" type="java.lang.String">
-            <column name="NAZIV" />
-            <generator class="assigned" />
+        <id name="id" type="java.lang.String">
+            <column name="id" />
+            <generator class="increment" />
         </id>
+        <property name="naziv" type="java.lang.String">
+            <column name="naziv" />
+        </property>
         <property name="opis" type="java.lang.String">
-            <column name="OPIS" />
+            <column name="opis" />
         </property>
         <property name="mjernaJedinica" type="java.lang.String">
-            <column name="MJERNAJEDINICA" />
+            <column name="mjernaJedinica" />
         </property>
     </class>
 </hibernate-mapping>

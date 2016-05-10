@@ -6,27 +6,18 @@ import java.util.List;
 public class Narudzba implements java.io.Serializable
 {
 	private static final long serialVersionUID = 1L;
-	private int idnarudzbe;
+	private Long id;
 	private List<Jelo> listaJela;
-	private Status statusNarudzbe;
+	private Long statusNarudzbe;
 	private double cijena;
-	private Kupac narucioc;
-	private Zaposlenik primaoc;
+	private Long narucioc;
+	private Long primaoc;
 	private Date vrijemePrijema;
-	private Zaposlenik kuhar;
+	private Long kuhar;
 	private Date vrijemePocetkaPripreme;
-	private Date vrijemeZavrsetkaPripreme;
-	private Zaposlenik dostavljac;
+	private Long dostavljac;
 	private Date vrijemePreuzimanja;
 	private Date vrijemeDostave;
-
-	public int getIdnarudzbe() {
-		return idnarudzbe;
-	}
-
-	public void setIdnarudzbe(int idnarudzbe) {
-		this.idnarudzbe = idnarudzbe;
-	}
 
 	public List<Jelo> getListaJela() {
 		return listaJela;
@@ -36,11 +27,11 @@ public class Narudzba implements java.io.Serializable
 		this.listaJela = listaJela;
 	}
 
-	public Status getStatusNarudzbe() {
+	public Long getStatusNarudzbe() {
 		return statusNarudzbe;
 	}
 
-	public void setStatusNarudzbe(Status statusNarudzbe) {
+	public void setStatusNarudzbe(Long statusNarudzbe) {
 		this.statusNarudzbe = statusNarudzbe;
 	}
 
@@ -52,19 +43,19 @@ public class Narudzba implements java.io.Serializable
 		this.cijena = cijena;
 	}
 
-	public Kupac getNarucioc() {
+	public Long getNarucioc() {
 		return narucioc;
 	}
 
-	public void setNarucioc(Kupac narucioc) {
+	public void setNarucioc(Long narucioc) {
 		this.narucioc = narucioc;
 	}
 
-	public Zaposlenik getPrimaoc() {
+	public Long getPrimaoc() {
 		return primaoc;
 	}
 
-	public void setPrimaoc(Zaposlenik primaoc) {
+	public void setPrimaoc(Long primaoc) {
 		this.primaoc = primaoc;
 	}
 
@@ -76,11 +67,11 @@ public class Narudzba implements java.io.Serializable
 		this.vrijemePrijema = vrijemePrijema;
 	}
 
-	public Zaposlenik getKuhar() {
+	public Long getKuhar() {
 		return kuhar;
 	}
 
-	public void setKuhar(Zaposlenik kuhar) {
+	public void setKuhar(Long kuhar) {
 		this.kuhar = kuhar;
 	}
 
@@ -91,20 +82,12 @@ public class Narudzba implements java.io.Serializable
 	public void setVrijemePocetkaPripreme(Date vrijemePocetkaPripreme) {
 		this.vrijemePocetkaPripreme = vrijemePocetkaPripreme;
 	}
-
-	public Date getVrijemeZavrsetkaPripreme() {
-		return vrijemeZavrsetkaPripreme;
-	}
-
-	public void setVrijemeZavrsetkaPripreme(Date vrijemeZavrsetkaPripreme) {
-		this.vrijemeZavrsetkaPripreme = vrijemeZavrsetkaPripreme;
-	}
-
-	public Zaposlenik getDostavljac() {
+	
+	public Long getDostavljac() {
 		return dostavljac;
 	}
 
-	public void setDostavljac(Zaposlenik dostavljac) {
+	public void setDostavljac(Long dostavljac) {
 		this.dostavljac = dostavljac;
 	}
 
@@ -126,5 +109,13 @@ public class Narudzba implements java.io.Serializable
 	public Narudzba()
 	{
 		
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

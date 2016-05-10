@@ -6,11 +6,10 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-
-import Util.HibernateUtil;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Jelo;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Kupac;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Osoba;
+import ba.unsa.etf.si.TelefonskeNarudzbe.Util.HibernateUtil;
 
 /**
  * Hello world!

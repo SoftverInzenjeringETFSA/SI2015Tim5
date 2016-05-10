@@ -7,7 +7,7 @@ public class Zaposlenik extends Osoba implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
-	private RadnoMjesto radnoMjesto;
+	private Long radnoMjesto;
 	private Date datumRodjenja;
 
 	public String getUsername() {
@@ -26,11 +26,11 @@ public class Zaposlenik extends Osoba implements java.io.Serializable{
 		this.password = password;
 	}
 
-	public RadnoMjesto getRadnoMjesto() {
+	public Long getRadnoMjesto() {
 		return radnoMjesto;
 	}
 
-	public void setRadnoMjesto(RadnoMjesto radnoMjesto) {
+	public void setRadnoMjesto(Long radnoMjesto) {
 		this.radnoMjesto = radnoMjesto;
 	}
 

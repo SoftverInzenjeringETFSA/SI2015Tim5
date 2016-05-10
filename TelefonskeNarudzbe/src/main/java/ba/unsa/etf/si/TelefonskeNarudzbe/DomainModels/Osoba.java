@@ -1,9 +1,10 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels;
 
-public abstract class Osoba implements java.io.Serializable
+public class Osoba implements java.io.Serializable
 {
 
 	private static final long serialVersionUID = 1L;
+	private Long id;
 	private String imePrezime;
 
 	public String getImePrezime() {
@@ -16,6 +17,14 @@ public abstract class Osoba implements java.io.Serializable
 	public Osoba()
 	{
 		
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

@@ -3,6 +3,7 @@ package ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels;
 public class Sastojak implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private Long id;
 	private String naziv;
 	private String opis;
 	private String mjernaJedinica;
@@ -32,5 +33,13 @@ public class Sastojak implements java.io.Serializable {
 	}
 
 	public Sastojak() {
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

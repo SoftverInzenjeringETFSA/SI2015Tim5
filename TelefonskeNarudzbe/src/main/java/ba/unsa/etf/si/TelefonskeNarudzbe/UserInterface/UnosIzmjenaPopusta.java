@@ -20,7 +20,6 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import org.hibernate.Transaction;
-import org.hibernate.Session;
 import org.hibernate.SharedSessionContract;
 
 public class UnosIzmjenaPopusta extends JFrame {

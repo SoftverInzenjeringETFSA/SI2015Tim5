@@ -10,9 +10,6 @@ import org.hibernate.SharedSessionContract;
 import org.hibernate.Transaction;
 import com.mysql.cj.api.Session;
 
-import Util.HibernateUtil;
-
-
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Narudzba;
 
 import javax.swing.GroupLayout;
@@ -33,6 +30,7 @@ import javax.swing.JPasswordField;
 
 import java.util.Scanner;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
+import ba.unsa.etf.si.TelefonskeNarudzbe.Util.HibernateUtil;
 public class UnosIzmjenaRadnika extends JFrame {
 	static Scanner sc = new Scanner(System.in);
 

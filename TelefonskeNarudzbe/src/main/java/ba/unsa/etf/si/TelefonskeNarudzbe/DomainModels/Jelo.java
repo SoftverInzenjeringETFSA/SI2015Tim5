@@ -5,6 +5,7 @@ import java.util.List;
 public class Jelo implements java.io.Serializable{
 
 	private static final long serialVersionUID = 1L;
+	private Long id;
 	private String naziv;
 	private Double cijena;
 	private List<Sastojak> sastojci;
@@ -34,5 +35,13 @@ public class Jelo implements java.io.Serializable{
 	}
 
 	public Jelo() {
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }
