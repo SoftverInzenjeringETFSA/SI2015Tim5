@@ -1,8 +1,5 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels;
 
-import java.util.Date;
-import java.util.List;
-
 public class Jelo implements java.io.Serializable{
 
 	private static final long serialVersionUID = 1L;

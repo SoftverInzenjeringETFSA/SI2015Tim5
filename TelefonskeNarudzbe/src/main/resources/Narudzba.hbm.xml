@@ -38,5 +38,11 @@
         <property name="vrijemeDostave" type="java.util.Date">
             <column name="vrijemeDostave" />
         </property>
+       <property name="opis" type="java.lang.String">
+            <column name="opis" />
+        </property>
+        <property name="novacaDostavljeno" type="java.lang.Double">
+            <column name="novacaDostavljeno" />
+        </property>
     </class>
 </hibernate-mapping>

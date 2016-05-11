@@ -15,5 +15,9 @@
   <mapping resource="Osoba.hbm.xml"/>
   <mapping resource="Sastojak.hbm.xml"/>
   <mapping resource="Zaposlenik.hbm.xml"/>
+  <mapping
+   class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.NarudzbaJeloVeza" resource="NarudzbaJeloVeza.hbm.xml"/>
+  <mapping
+   class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.SastojciJeloVeza" resource="SastojciJeloVeza.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>

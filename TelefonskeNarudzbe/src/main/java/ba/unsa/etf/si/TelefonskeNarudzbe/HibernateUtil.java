@@ -1,4 +1,4 @@
-package ba.unsa.etf.si.TelefonskeNarudzbe.Util;
+package ba.unsa.etf.si.TelefonskeNarudzbe;
 import org.apache.log4j.Logger; 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

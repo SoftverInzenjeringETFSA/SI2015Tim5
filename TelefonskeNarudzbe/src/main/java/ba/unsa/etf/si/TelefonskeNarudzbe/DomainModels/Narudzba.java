@@ -18,7 +18,8 @@ public class Narudzba implements java.io.Serializable
 	private Long dostavljac;
 	private Date vrijemePreuzimanja;
 	private Date vrijemeDostave;
-
+	private String opis; 
+	private Double novacaDostavljeno;
 
 	public Narudzba(Long id, Long statusNarudzbe, double cijena, Long narucioc, Long primaoc, Date vrijemePrijema,
 			Long kuhar, Date vrijemePocetkaPripreme, Long dostavljac, Date vrijemePreuzimanja, Date vrijemeDostave) {
@@ -127,5 +128,17 @@ public class Narudzba implements java.io.Serializable
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getOpis() {
+		return opis;
+	}
+	public void setOpis(String opis) {
+		this.opis = opis;
+	}
+	public Double getNovacaDostavljeno() {
+		return novacaDostavljeno;
+	}
+	public void setNovacaDostavljeno(Double novacaDostavljeno) {
+		this.novacaDostavljeno = novacaDostavljeno;
 	}
 }
