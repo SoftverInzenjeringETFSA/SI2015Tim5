@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="ba.unsa.etf.si.TelefonskeNarudzbe.Util.HibernateUtil"/>
+<fullyQualifiedTypeName name="Util.HibernateUtil"/>
+<fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+<fullyQualifiedTypeName name="antlr.collections.List"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="org.hibernate.annotations.GenericGenerator"/>
+<fullyQualifiedTypeName name="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Jelo"/>
 </qualifiedTypeNameHistroy>

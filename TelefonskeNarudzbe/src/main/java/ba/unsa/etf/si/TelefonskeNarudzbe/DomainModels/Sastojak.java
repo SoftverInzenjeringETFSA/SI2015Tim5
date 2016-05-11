@@ -1,14 +1,34 @@
+
 package ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels;
 
-import java.util.Date;
+import java.util.List;
 
+import javax.persistence.*;
+
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
 public class Sastojak implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
 	private Long id;
+	@Column(unique=true)
 	private String naziv;
 	private String opis;
 	private String mjernaJedinica;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = SastojciJeloVeza.class)
+	private List<SastojciJeloVeza> sastojciJeloVeza;
+	
+
+	public List<SastojciJeloVeza> getSastojciJeloVeza() {
+		return sastojciJeloVeza;
+	}
+	public void setSastojciJeloVeza(List<SastojciJeloVeza> sastojciJeloVeza) {
+		this.sastojciJeloVeza = sastojciJeloVeza;
+	}
 	public Sastojak(Long id,String naziv,String opis, String mjernaJedinica){
 		super();
 			//this.id= id;

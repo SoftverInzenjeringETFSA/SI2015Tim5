@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.hibernate.eclipse.launch.ConsoleConfigurationLaunchConfigurationType">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="TelefonskeNarudzbe"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="4"/>
+</listAttribute>
+<booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="true"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="TelefonskeNarudzbe"/>
+<stringAttribute key="org.hibernate.eclipse.launch.CFG_XML_FILE" value="\TelefonskeNarudzbe\src\main\resources\hibernate.cfg.xml"/>
+<stringAttribute key="org.hibernate.eclipse.launch.CONFIGURATION_FACTORY" value="CORE"/>
+<listAttribute key="org.hibernate.eclipse.launch.FILE_MAPPINGS">
+<listEntry value="/TelefonskeNarudzbe/src/main/resources/Kupac.hbm.xml"/>
+<listEntry value="/TelefonskeNarudzbe/src/main/resources/Narudzba.hbm.xml"/>
+<listEntry value="/TelefonskeNarudzbe/src/main/resources/NarudzbaJeloVeza.hbm.xml"/>
+<listEntry value="/TelefonskeNarudzbe/src/main/resources/Sastojak.hbm.xml"/>
+<listEntry value="/TelefonskeNarudzbe/src/main/resources/SastojciJeloVeza.hbm.xml"/>
+<listEntry value="/TelefonskeNarudzbe/src/main/resources/Zaposlenik.hbm.xml"/>
+</listAttribute>
+<stringAttribute key="org.hibernate.eclipse.launch.HIBERNATE_VERSION" value="5.1"/>
+</launchConfiguration>

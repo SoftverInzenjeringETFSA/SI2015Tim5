@@ -1,28 +1,73 @@
+
 package ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels;
 
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.*;
+
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
 public class Narudzba implements java.io.Serializable
 {
 	private static final long serialVersionUID = 1L;
+	@Id 
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
+	@Column(name="id", unique=true, nullable =false)
 	private Long id;
+	
 	//private List<Jelo> listaJela;
 	private Long statusNarudzbe;
 	private double cijena;
-	private Long narucioc;
-	private Long primaoc;
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="KupacOsobaId", insertable = false, updatable = false)
+	private Kupac narucioc;
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="ZaposlenikOsobaId_Primalac", insertable = false, updatable = false)
+	private Zaposlenik primaoc;
 	private Date vrijemePrijema;
-	private Long kuhar;
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="ZaposlenikOsobaId_Kuhar", insertable = false, updatable = false)
+	private Zaposlenik kuhar;
 	private Date vrijemePocetkaPripreme;
-	private Long dostavljac;
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="ZaposlenikOsobaId_Dostavljac", insertable = false, updatable = false)
+	private Zaposlenik dostavljac;
 	private Date vrijemePreuzimanja;
 	private Date vrijemeDostave;
 	private String opis; 
-	private Double novacaDostavljeno;
+	private int status;
+	public int getStatus() {
+		return status;
+	}
 
-	public Narudzba(Long id, Long statusNarudzbe, double cijena, Long narucioc, Long primaoc, Date vrijemePrijema,
-			Long kuhar, Date vrijemePocetkaPripreme, Long dostavljac, Date vrijemePreuzimanja, Date vrijemeDostave) {
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public Kupac getNarucioc() {
+		return narucioc;
+	}
+
+	public Zaposlenik getPrimaoc() {
+		return primaoc;
+	}
+
+	public Zaposlenik getKuhar() {
+		return kuhar;
+	}
+
+	public Zaposlenik getDostavljac() {
+		return dostavljac;
+	}
+	private Double novacaDostavljeno;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = NarudzbaJeloVeza.class)
+	private List<NarudzbaJeloVeza> narudzbaJeloVeza;
+
+	public Narudzba(Long id, Long statusNarudzbe, double cijena, Kupac narucioc, Zaposlenik primaoc, Date vrijemePrijema,
+			Zaposlenik kuhar, Date vrijemePocetkaPripreme, Zaposlenik dostavljac, Date vrijemePreuzimanja, Date vrijemeDostave) {
 		super();
 		this.id= id;
 		//private List<Jelo> listaJela;
@@ -38,10 +83,32 @@ public class Narudzba implements java.io.Serializable
 		this.vrijemeDostave= vrijemeDostave;
 
 	}
+	
+	public void setNarucioc(Kupac narucioc) {
+		this.narucioc = narucioc;
+	}
+
+	public void setPrimaoc(Zaposlenik primaoc) {
+		this.primaoc = primaoc;
+	}
+
+	public void setKuhar(Zaposlenik kuhar) {
+		this.kuhar = kuhar;
+	}
+
+	public void setDostavljac(Zaposlenik dostavljac) {
+		this.dostavljac = dostavljac;
+	}
+
 	public Long getStatusNarudzbe() {
 		return statusNarudzbe;
 	}
-
+	public List<NarudzbaJeloVeza> getNarudzbaJeloVeza() {
+		return narudzbaJeloVeza;
+	}
+	public void setNarudzbaJeloVeza(List<NarudzbaJeloVeza> narudzbaJeloVeza) {
+		this.narudzbaJeloVeza = narudzbaJeloVeza;
+	}
 	public void setStatusNarudzbe(Long statusNarudzbe) {
 		this.statusNarudzbe = statusNarudzbe;
 	}
@@ -54,21 +121,7 @@ public class Narudzba implements java.io.Serializable
 		this.cijena = cijena;
 	}
 
-	public Long getNarucioc() {
-		return narucioc;
-	}
-
-	public void setNarucioc(Long narucioc) {
-		this.narucioc = narucioc;
-	}
-
-	public Long getPrimaoc() {
-		return primaoc;
-	}
-
-	public void setPrimaoc(Long primaoc) {
-		this.primaoc = primaoc;
-	}
+	
 
 	public Date getVrijemePrijema() {
 		return vrijemePrijema;
@@ -78,14 +131,7 @@ public class Narudzba implements java.io.Serializable
 		this.vrijemePrijema = vrijemePrijema;
 	}
 
-	public Long getKuhar() {
-		return kuhar;
-	}
-
-	public void setKuhar(long idKuhara) {
-		this.kuhar = idKuhara;
-	}
-
+	
 	public Date getVrijemePocetkaPripreme() {
 		return vrijemePocetkaPripreme;
 	}
@@ -94,13 +140,7 @@ public class Narudzba implements java.io.Serializable
 		this.vrijemePocetkaPripreme = vrijemePocetkaPripreme;
 	}
 	
-	public Long getDostavljac() {
-		return dostavljac;
-	}
-
-	public void setDostavljac(Long dostavljac) {
-		this.dostavljac = dostavljac;
-	}
+	
 
 	public Date getVrijemePreuzimanja() {
 		return vrijemePreuzimanja;

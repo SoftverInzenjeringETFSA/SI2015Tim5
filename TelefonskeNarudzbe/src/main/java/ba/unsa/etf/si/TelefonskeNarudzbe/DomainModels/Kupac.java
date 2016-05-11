@@ -1,22 +1,48 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels;
-
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.*;
+
+import org.hibernate.annotations.GenericGenerator;
+
+
+
+@Entity
 public class Kupac implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
+	@Column(name="id", unique=true, nullable =false)
 	private Long id;
-	private String imePrezime;
 	private String adresa;
 	private String brojTelefona;
-	public Kupac(Long id,String imePrezime, String adresa, String brojTelefona){
+	private String info;
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+	}
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Narudzba.class)
+	private List<Narudzba> narudzbe;
 	
-		//this.id= id;
+	public Kupac(Long id, String adresa, String brojTelefona){
+	
+		this.id= id;
 		//private List<Jelo> listaJela;
 		this.adresa= adresa;
 		this.brojTelefona= brojTelefona;
-
-
+		}
+	
+	public List<Narudzba> getNarudzbe() {
+		return narudzbe;
+	}
+	public void setNarudzbe(List<Narudzba> narudzbe) {
+		this.narudzbe = narudzbe;
 	}
 	public String getAdresa() {
 		return adresa;
@@ -37,12 +63,7 @@ public class Kupac implements java.io.Serializable {
 	{
 		
 	}
-	public String getImePrezime() {
-		return imePrezime;
-	}
-	public void setImePrezime(String imePrezime) {
-		this.imePrezime = imePrezime;
-	}
+	
 	public Long getId() {
 		return id;
 	}

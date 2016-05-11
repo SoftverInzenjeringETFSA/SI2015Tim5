@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.Controllers;
-
+/*
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -17,9 +17,9 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 
-import Util.HibernateUtil;
-import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.*;
 
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.*;
+import Util.HibernateUtil;
 public class KuharController {
 	
 	private int brojNarudzbi;
@@ -82,7 +82,9 @@ public class KuharController {
 		
 		Transaction t = session.beginTransaction();
 		
-		String hql = "Select Narudzba FROM Narudzba n WHERE str(n.id) like :id";
+		String hql = "Select new ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Narudzba(n.id,n.statusNarudzbe,n.cijena,n.narucioc,"+
+	        "n.primaoc,n.vrijemePrijema,n.kuhar,n.vrijemePocetkaPripreme,n.dostavljac,n.vrijemePreuzimanja,"+
+	        "n.vrijemeDostave) from Narudzba n WHERE str(n.id) like :id";
 		Query query = session.createQuery(hql);
 		query.setString("id", id);
 	
@@ -132,3 +134,4 @@ public class KuharController {
 
 
 }
+*/

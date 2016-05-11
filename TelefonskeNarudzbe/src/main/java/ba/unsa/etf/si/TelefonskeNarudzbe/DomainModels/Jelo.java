@@ -1,19 +1,61 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels;
 
-public class Jelo implements java.io.Serializable{
+import java.util.List;
+
+import javax.persistence.Access;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+@Entity
+@Table(name = "jelo")
+
+public class Jelo implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Long id;
+	@Id
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
+	@Column(name="Id")
+	private Long Id;
+	@Column(unique=true)
 	private String naziv;
 	private Double cijena;
-	//private List<Sastojak> sastojci;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = SastojciJeloVeza.class)
+	private List<SastojciJeloVeza> sastojciJeloVeza;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = NarudzbaJeloVeza.class)
+	private List<NarudzbaJeloVeza> narudzbaJeloVeza;
+
 	public Jelo(Long id, String naziv, Double cijena) {
 		super();
-		this.id= id;
-		//private List<Jelo> listaJela;
-		this.naziv= naziv;
-		this.cijena= cijena;
+		this.Id = id;
+		
+		this.naziv = naziv;
+		this.cijena = cijena;
 	}
+
+	public List<SastojciJeloVeza> getSastojciJeloVeza() {
+		return sastojciJeloVeza;
+	}
+
+	public void setSastojciJeloVeza(List<SastojciJeloVeza> sastojciJeloVeza) {
+		this.sastojciJeloVeza = sastojciJeloVeza;
+	}
+
+	public List<NarudzbaJeloVeza> getNarudzbaJeloVeza() {
+		return narudzbaJeloVeza;
+	}
+
+	public void setNarudzbaJeloVeza(List<NarudzbaJeloVeza> narudzbaJeloVeza) {
+		this.narudzbaJeloVeza = narudzbaJeloVeza;
+	}
+
 	public String getNaziv() {
 		return naziv;
 	}
@@ -30,22 +72,14 @@ public class Jelo implements java.io.Serializable{
 		this.cijena = cijena;
 	}
 
-	/*public List<Sastojak> getSastojci() {
-		return sastojci;
-	}
-
-	public void setSastojci(List<Sastojak> sastojci) {
-		this.sastojci = sastojci;
-	}
-*/
 	public Jelo() {
 	}
 
 	public Long getId() {
-		return id;
+		return Id;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.Id = id;
 	}
 }
