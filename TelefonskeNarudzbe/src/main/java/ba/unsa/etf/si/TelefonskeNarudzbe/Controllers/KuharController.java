@@ -17,7 +17,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 
-import ba.unsa.etf.si.TelefonskeNarudzbe.HibernateUtil;
+import Util.HibernateUtil;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.*;
 
 public class KuharController {

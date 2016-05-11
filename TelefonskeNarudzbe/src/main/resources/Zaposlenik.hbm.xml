@@ -3,9 +3,13 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 05-May-2016 22:44:36 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <subclass name="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik" extends="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Osoba" discriminator-value="Z" lazy="false">
-		<property name="id" type="java.lang.Long">
-            <column name="OsobaId" />
+    <class name="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik" table="Zaposlenik">
+		<id name="id" type="java.lang.Long">
+            <column name="id" />
+            <generator class="increment"/>
+        </id>
+		<property name="imePrezime" type="java.lang.String">
+            <column name="imePrezime" />
         </property>
         <property name="username" type="java.lang.String">
             <column name="username" />
@@ -19,5 +23,5 @@
         <property name="radnoMjesto" type="java.lang.Long">
             <column name="Radno_MjestoId"/>
         </property>
-    </subclass>
+    </class>
 </hibernate-mapping>

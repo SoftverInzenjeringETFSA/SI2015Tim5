@@ -262,8 +262,6 @@ public class sef {
 		JButton btnDodajNovoJelo = new JButton("Dodaj novo jelo");
 		btnDodajNovoJelo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				UnosIzmjenaJela forma = new UnosIzmjenaJela();
-				forma.setVisible(true);
 			}
 		});
 		btnDodajNovoJelo.setBounds(97, 575, 161, 29);
@@ -272,8 +270,6 @@ public class sef {
 		JButton btnIzmijeniPostojeeJelo = new JButton("Izmijeni postoje\u0107e jelo");
 		btnIzmijeniPostojeeJelo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				UnosIzmjenaJela forma = new UnosIzmjenaJela();
-				forma.setVisible(true);
 			}
 		});
 		btnIzmijeniPostojeeJelo.setBounds(393, 575, 162, 29);
@@ -305,9 +301,7 @@ public class sef {
 		
 		JButton btnDodajSastojak = new JButton("Dodaj sastojak");
 		btnDodajSastojak.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				UnosIzmjenaSastojka forma = new UnosIzmjenaSastojka();
-				forma.setVisible(true);
+			public void actionPerformed(ActionEvent e) {			
 			}
 		});
 		btnDodajSastojak.setBounds(106, 574, 162, 30);
@@ -316,8 +310,6 @@ public class sef {
 		JButton button_1 = new JButton("Izmijeni sastojak");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UnosIzmjenaSastojka forma = new UnosIzmjenaSastojka();
-				forma.setVisible(true);
 			}
 		});
 		button_1.setBounds(387, 574, 141, 30);
@@ -372,8 +364,6 @@ public class sef {
 		JButton btnIzmijeniSifru = new JButton("Izmijeni lozinku");
 		btnIzmijeniSifru.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				IzmjenaLozinke forma = new IzmjenaLozinke();
-				forma.setVisible(true);
 			}
 		});
 		btnIzmijeniSifru.setBounds(519, 574, 166, 30);
@@ -410,8 +400,6 @@ public class sef {
 		JButton btnDodajPopust = new JButton("Dodaj popust");
 		btnDodajPopust.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				UnosIzmjenaPopusta forma = new UnosIzmjenaPopusta();
-				forma.setVisible(true);
 			}
 		});
 		btnDodajPopust.setBounds(161, 537, 139, 30);
@@ -420,8 +408,6 @@ public class sef {
 		JButton btnNewButton_1 = new JButton("Izmijeni popust");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UnosIzmjenaPopusta forma = new UnosIzmjenaPopusta();
-				forma.setVisible(true);
 			}
 		});
 		btnNewButton_1.setBounds(399, 537, 139, 30);

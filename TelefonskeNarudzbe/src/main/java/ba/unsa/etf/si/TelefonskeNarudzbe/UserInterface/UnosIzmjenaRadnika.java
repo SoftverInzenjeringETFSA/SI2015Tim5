@@ -10,7 +10,7 @@ import org.hibernate.SharedSessionContract;
 import org.hibernate.Transaction;
 import com.mysql.cj.api.Session;
 
-import ba.unsa.etf.si.TelefonskeNarudzbe.HibernateUtil;
+import Util.HibernateUtil;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Narudzba;
 
 import javax.swing.GroupLayout;

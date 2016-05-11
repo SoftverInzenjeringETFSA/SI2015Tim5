@@ -2,15 +2,16 @@ package ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels;
 
 import java.util.Date;
 
-public class Zaposlenik extends Osoba implements java.io.Serializable{
+public class Zaposlenik implements java.io.Serializable{
 
 	private static final long serialVersionUID = 1L;
+	private Long id;
+	private String imePrezime;
 	private String username;
 	private String password;
 	private Long radnoMjesto;
 	private Date datumRodjenja;
 	public Zaposlenik(Long id,String imePrezime,String username, String password, Long radnoMjesto, Date datumRodjenja){
-		super(id,imePrezime);
 			//this.id= id;
 			//private List<Jelo> listaJela;
 			this.username=username;
@@ -54,5 +55,17 @@ public class Zaposlenik extends Osoba implements java.io.Serializable{
 	public Zaposlenik()
 	{
 		
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getImePrezime() {
+		return imePrezime;
+	}
+	public void setImePrezime(String imePrezime) {
+		this.imePrezime = imePrezime;
 	}
 }
