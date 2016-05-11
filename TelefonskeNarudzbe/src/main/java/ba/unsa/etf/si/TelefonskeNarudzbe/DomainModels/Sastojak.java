@@ -1,5 +1,7 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels;
 
+import java.util.Date;
+
 public class Sastojak implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -7,7 +9,15 @@ public class Sastojak implements java.io.Serializable {
 	private String naziv;
 	private String opis;
 	private String mjernaJedinica;
+	public Sastojak(Long id,String naziv,String opis, String mjernaJedinica){
+		super();
+			//this.id= id;
+			//private List<Jelo> listaJela;
+			this.naziv=naziv;
+			this.opis=opis;
+			this.mjernaJedinica=mjernaJedinica;
 
+		}
 	public String getNaziv() {
 		return naziv;
 	}

@@ -6,7 +6,13 @@ public class Osoba implements java.io.Serializable
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String imePrezime;
+	public Osoba(Long id, String imePrezime){
+		super();
+			this.id=id;
+			this.imePrezime= imePrezime;
 
+
+		}
 	public String getImePrezime() {
 		return imePrezime;
 	}

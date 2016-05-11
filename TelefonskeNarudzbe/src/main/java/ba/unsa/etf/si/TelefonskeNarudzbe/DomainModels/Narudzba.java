@@ -7,7 +7,7 @@ public class Narudzba implements java.io.Serializable
 {
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	private List<Jelo> listaJela;
+	//private List<Jelo> listaJela;
 	private Long statusNarudzbe;
 	private double cijena;
 	private Long narucioc;
@@ -19,14 +19,24 @@ public class Narudzba implements java.io.Serializable
 	private Date vrijemePreuzimanja;
 	private Date vrijemeDostave;
 
-	public List<Jelo> getListaJela() {
-		return listaJela;
-	}
 
-	public void setListaJela(List<Jelo> listaJela) {
-		this.listaJela = listaJela;
-	}
+	public Narudzba(Long id, Long statusNarudzbe, double cijena, Long narucioc, Long primaoc, Date vrijemePrijema,
+			Long kuhar, Date vrijemePocetkaPripreme, Long dostavljac, Date vrijemePreuzimanja, Date vrijemeDostave) {
+		super();
+		this.id= id;
+		//private List<Jelo> listaJela;
+		this.statusNarudzbe= statusNarudzbe;
+		this.cijena= cijena;
+		this.narucioc= narucioc;
+		this.primaoc=primaoc;
+		this.vrijemePrijema=vrijemePrijema;
+		this.kuhar=kuhar;
+		this.vrijemePocetkaPripreme= vrijemePocetkaPripreme;
+		this.dostavljac= dostavljac;
+		this.vrijemePreuzimanja= vrijemePreuzimanja;
+		this.vrijemeDostave= vrijemeDostave;
 
+	}
 	public Long getStatusNarudzbe() {
 		return statusNarudzbe;
 	}
@@ -71,8 +81,8 @@ public class Narudzba implements java.io.Serializable
 		return kuhar;
 	}
 
-	public void setKuhar(Long kuhar) {
-		this.kuhar = kuhar;
+	public void setKuhar(long idKuhara) {
+		this.kuhar = idKuhara;
 	}
 
 	public Date getVrijemePocetkaPripreme() {

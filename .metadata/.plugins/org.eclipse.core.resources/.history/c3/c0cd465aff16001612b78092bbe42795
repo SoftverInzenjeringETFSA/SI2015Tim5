@@ -1,0 +1,128 @@
+package ba.unsa.etf.si.TelefonskeNarudzbe.Controllers;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
+
+
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.*;
+import Util.HibernateUtil;
+
+public class KuharController {
+	
+	private int brojNarudzbi;
+	public Session session = HibernateUtil.getSessionFactory().openSession();
+	public Transaction t;
+	
+
+	
+	
+	
+	public boolean promijeniStatusUPreuzeta(int id , Zaposlenik idKuhara){
+		Narudzba narudzba=dajNarudzbuIzBaze(id);
+		Transaction t = session.beginTransaction();
+		Status status=dajStatusIzBaze(2);
+		Narudzba p = (Narudzba) session.get(Narudzba.class,narudzba.getIdnarudzbe());
+		if(p == null) {
+			t.rollback();
+			return false;
+		}
+		p.setKuhar(idKuhara);
+		p.setStatusNarudzbe(status);
+	    
+		session.update(p);
+		t.commit();
+		return true;
+	}
+
+
+	public boolean promijeniStatusUSpremna(int id, int idKuhara){
+	Narudzba narudzba=dajNarudzbuIzBaze(id);
+	Transaction t = session.beginTransaction();
+	Status status=dajStatusIzBaze(3);
+	Narudzba p = (Narudzba) session.get(Narudzba.class,narudzba.getIdnarudzbe());
+	if(p == null) {
+		t.rollback();
+		return false;
+	}
+	
+	p.setStatusNarudzbe(status);
+    
+	session.update(p);
+	t.commit();
+	return true;
+	
+	}
+	public Kupac dajKupca(int id){
+		return new Kupac();
+	}
+	
+	public boolean provjeriDaLiJePreuzeta(int id){
+		Narudzba narudzba=dajNarudzbuIzBaze(id);
+		
+		if(narudzba.getStatusNarudzbe()==Status.values()[2]) return true; else return false;
+	}
+	public Narudzba dajNarudzbuIzBaze (int idd){
+		
+		String id = "%" + idd + "%";
+		
+		Transaction t = session.beginTransaction();
+		
+		String hql = "Select * FROM Narudzba n WHERE str(n.id) like :id";
+		Query query = session.createQuery(hql);
+		query.setString("id", id);
+	
+		t.commit();
+		
+		Narudzba listaNarudzbi =  (Narudzba) query.uniqueResult();
+		return listaNarudzbi;
+	
+	}
+	public Status dajStatusIzBaze(int idd){
+		
+		String id = "%" + idd + "%";
+		
+		Transaction t = session.beginTransaction();
+		
+		String hql = "Select * FROM Status n WHERE str(n.id) like :id";
+		Query query = session.createQuery(hql);
+		query.setString("id", id);
+	
+		t.commit();
+		
+		Status status =  (Status) query.uniqueResult();
+		return status;
+	
+	}
+	public List<Narudzba> dajSveNarudzbeIzBaze (){
+		  Transaction t = session.beginTransaction();
+	  
+	                	
+	        String hql = "Select * FROM Narudzba";
+			Query q = session.createQuery(hql);
+		//	q.setString("naziv",naziv);
+			List<Narudzba> listaNarudzbi =  (List<Narudzba>) q.list();
+			t.commit();	
+			return listaNarudzbi;		
+		}
+		
+	
+	
+	
+	
+	
+
+
+}

@@ -9,7 +9,17 @@ public class Zaposlenik extends Osoba implements java.io.Serializable{
 	private String password;
 	private Long radnoMjesto;
 	private Date datumRodjenja;
+	public Zaposlenik(Long id,String imePrezime,String username, String password, Long radnoMjesto, Date datumRodjenja){
+		super(id,imePrezime);
+			//this.id= id;
+			//private List<Jelo> listaJela;
+			this.username=username;
+			this.password=password;
+			this.radnoMjesto=radnoMjesto;
+			this.datumRodjenja= datumRodjenja;
 
+
+		}
 	public String getUsername() {
 		return username;
 	}
