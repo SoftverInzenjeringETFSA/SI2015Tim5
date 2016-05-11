@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `si2015tim5` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `si2015tim5`;
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: localhost    Database: si2015tim5
@@ -71,13 +73,13 @@ INSERT INTO `kupac` VALUES (1,'Titova 2',33123456),(2,'Grbavička 10',33654321);
 UNLOCK TABLES;
 
 --
--- Table structure for table `narudžba`
+-- Table structure for table `narudzba`
 --
 
-DROP TABLE IF EXISTS `narudžba`;
+DROP TABLE IF EXISTS `narudzba`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `narudžba` (
+CREATE TABLE `narudzba` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `cijena` int(10) NOT NULL,
   `KupacOsobaId` int(10) NOT NULL,
@@ -89,6 +91,7 @@ CREATE TABLE `narudžba` (
   `vrijemePočetkaPripreme` datetime DEFAULT NULL,
   `vrijemePreuzimanja` datetime DEFAULT NULL,
   `vrijemeDostave` datetime DEFAULT NULL,
+  `statusNarudzbe` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_Narudžba_Kupac_index` (`KupacOsobaId`),
@@ -103,41 +106,41 @@ CREATE TABLE `narudžba` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `narudžba`
+-- Dumping data for table `narudzba`
 --
 
-LOCK TABLES `narudžba` WRITE;
-/*!40000 ALTER TABLE `narudžba` DISABLE KEYS */;
-INSERT INTO `narudžba` VALUES (1,9,1,4,5,3,4,'2016-05-05 20:45:00','2016-05-05 20:46:00','2016-05-05 20:59:00','2016-05-05 21:15:00'),(2,6,2,4,5,3,4,'2016-05-05 20:50:00','2016-05-05 20:51:00','2016-05-05 21:05:00','2016-05-05 21:25:00');
-/*!40000 ALTER TABLE `narudžba` ENABLE KEYS */;
+LOCK TABLES `narudzba` WRITE;
+/*!40000 ALTER TABLE `narudzba` DISABLE KEYS */;
+INSERT INTO `narudzba` VALUES (1,9,1,4,5,3,4,'2016-05-05 20:45:00','2016-05-05 20:46:00','2016-05-05 20:59:00','2016-05-05 21:15:00',NULL),(2,6,2,4,5,3,4,'2016-05-05 20:50:00','2016-05-05 20:51:00','2016-05-05 21:05:00','2016-05-05 21:25:00',NULL);
+/*!40000 ALTER TABLE `narudzba` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `narudžba_jelo_veza`
+-- Table structure for table `narudzba_jelo_veza`
 --
 
-DROP TABLE IF EXISTS `narudžba_jelo_veza`;
+DROP TABLE IF EXISTS `narudzba_jelo_veza`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `narudžba_jelo_veza` (
+CREATE TABLE `narudzba_jelo_veza` (
   `JeloId` int(3) NOT NULL,
   `NarudžbaId` int(10) NOT NULL,
   PRIMARY KEY (`JeloId`,`NarudžbaId`),
   KEY `fk_Narudžba_Jelo_Veza_Jelo_index` (`JeloId`),
   KEY `fk_Narudžba_Jelo_Veza_Narudžba_index` (`NarudžbaId`),
   CONSTRAINT `fk_Narudžba_Jelo_Veza_Jelo` FOREIGN KEY (`JeloId`) REFERENCES `jelo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Narudžba_Jelo_Veza_Narudžba` FOREIGN KEY (`NarudžbaId`) REFERENCES `narudžba` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Narudžba_Jelo_Veza_Narudžba` FOREIGN KEY (`NarudžbaId`) REFERENCES `narudzba` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `narudžba_jelo_veza`
+-- Dumping data for table `narudzba_jelo_veza`
 --
 
-LOCK TABLES `narudžba_jelo_veza` WRITE;
-/*!40000 ALTER TABLE `narudžba_jelo_veza` DISABLE KEYS */;
-INSERT INTO `narudžba_jelo_veza` VALUES (1,1),(1,2),(2,1),(3,2);
-/*!40000 ALTER TABLE `narudžba_jelo_veza` ENABLE KEYS */;
+LOCK TABLES `narudzba_jelo_veza` WRITE;
+/*!40000 ALTER TABLE `narudzba_jelo_veza` DISABLE KEYS */;
+INSERT INTO `narudzba_jelo_veza` VALUES (1,1),(1,2),(2,1),(3,2);
+/*!40000 ALTER TABLE `narudzba_jelo_veza` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -150,6 +153,14 @@ DROP TABLE IF EXISTS `osoba`;
 CREATE TABLE `osoba` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `imePrezime` varchar(50) NOT NULL,
+  `DISCRIMINATOR` varchar(255) NOT NULL,
+  `OsobaId` bigint(20) DEFAULT NULL,
+  `adresa` varchar(255) DEFAULT NULL,
+  `brojTelefona` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `datumRođenja` datetime DEFAULT NULL,
+  `Radno_MjestoId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
@@ -161,7 +172,7 @@ CREATE TABLE `osoba` (
 
 LOCK TABLES `osoba` WRITE;
 /*!40000 ALTER TABLE `osoba` DISABLE KEYS */;
-INSERT INTO `osoba` VALUES (1,'Merisa Golić'),(2,'Emina Huskić'),(3,'Admira Husić'),(4,'Ivona Ivković'),(5,'Džana Feratović'),(6,'Arnela Duzan');
+INSERT INTO `osoba` VALUES (1,'Merisa Golić','',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,'Emina Huskić','',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,'Admira Husić','',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,'Ivona Ivković','',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,'Džana Feratović','',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(6,'Arnela Duzan','',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `osoba` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,28 +260,28 @@ INSERT INTO `sastojci_jelo_veza` VALUES (1,1,1),(1,2,1),(1,3,1),(1,4,30),(2,5,10
 UNLOCK TABLES;
 
 --
--- Table structure for table `sastus_narudžbe`
+-- Table structure for table `status_narudzbe`
 --
 
-DROP TABLE IF EXISTS `sastus_narudžbe`;
+DROP TABLE IF EXISTS `status_narudzbe`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `sastus_narudžbe` (
+CREATE TABLE `status_narudzbe` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `opis` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `sastus_narudžbe`
+-- Dumping data for table `status_narudzbe`
 --
 
-LOCK TABLES `sastus_narudžbe` WRITE;
-/*!40000 ALTER TABLE `sastus_narudžbe` DISABLE KEYS */;
-INSERT INTO `sastus_narudžbe` VALUES (1,'primljena'),(2,'uPripremi'),(3,'naDostavi'),(4,'dostavljena');
-/*!40000 ALTER TABLE `sastus_narudžbe` ENABLE KEYS */;
+LOCK TABLES `status_narudzbe` WRITE;
+/*!40000 ALTER TABLE `status_narudzbe` DISABLE KEYS */;
+INSERT INTO `status_narudzbe` VALUES (1,'primljena'),(2,'uPripremi'),(3,'pripremljena'),(4,'naDostavi'),(5,'dostavljena');
+/*!40000 ALTER TABLE `status_narudzbe` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -315,4 +326,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-05 23:05:36
+-- Dump completed on 2016-05-11 10:52:26
