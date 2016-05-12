@@ -39,7 +39,7 @@ public class Narudzba implements java.io.Serializable {
 	private Date vrijemeDostave;
 	private double novacaDostavljeno;
 	private String opis;
-	private Set<Narudzbajeloveza> narudzbajelovezas = new HashSet<Narudzbajeloveza>(0);
+	private Set<NarudzbaJeloVeza> narudzbajelovezas = new HashSet<NarudzbaJeloVeza>(0);
 
 	public Narudzba() {
 	}
@@ -57,7 +57,7 @@ public class Narudzba implements java.io.Serializable {
 	public Narudzba(Kupac kupac, Zaposlenik zaposlenikByZaposlenikOsobaIdDostavljac,
 			Zaposlenik zaposlenikByZaposlenikOsobaIdKuhar, Zaposlenik zaposlenikByZaposlenikOsobaIdPrimalac,
 			double cijena, int status, Date vrijemePrijema, Date vrijemePocetkaPripreme, Date vrijemePreuzimanja,
-			Date vrijemeDostave, double novacaDostavljeno, String opis, Set<Narudzbajeloveza> narudzbajelovezas) {
+			Date vrijemeDostave, double novacaDostavljeno, String opis, Set<NarudzbaJeloVeza> narudzbajelovezas) {
 		this.kupac = kupac;
 		this.zaposlenikByZaposlenikOsobaIdDostavljac = zaposlenikByZaposlenikOsobaIdDostavljac;
 		this.zaposlenikByZaposlenikOsobaIdKuhar = zaposlenikByZaposlenikOsobaIdKuhar;
@@ -202,11 +202,11 @@ public class Narudzba implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "narudzba")
-	public Set<Narudzbajeloveza> getNarudzbajelovezas() {
+	public Set<NarudzbaJeloVeza> getNarudzbajelovezas() {
 		return this.narudzbajelovezas;
 	}
 
-	public void setNarudzbajelovezas(Set<Narudzbajeloveza> narudzbajelovezas) {
+	public void setNarudzbajelovezas(Set<NarudzbaJeloVeza> narudzbajelovezas) {
 		this.narudzbajelovezas = narudzbajelovezas;
 	}
 

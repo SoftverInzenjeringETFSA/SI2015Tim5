@@ -22,7 +22,7 @@ import javax.persistence.Table;
 public class Zaposlenik implements java.io.Serializable {
 
 	private int id;
-	private Radnomjesto radnomjesto;
+	private RadnoMjesto radnomjesto;
 	private String username;
 	private String password;
 	private String datumRodenja;
@@ -33,14 +33,14 @@ public class Zaposlenik implements java.io.Serializable {
 	public Zaposlenik() {
 	}
 
-	public Zaposlenik(int id, Radnomjesto radnomjesto, String username, String password) {
+	public Zaposlenik(int id, RadnoMjesto radnomjesto, String username, String password) {
 		this.id = id;
 		this.radnomjesto = radnomjesto;
 		this.username = username;
 		this.password = password;
 	}
 
-	public Zaposlenik(int id, Radnomjesto radnomjesto, String username, String password, String datumRodenja,
+	public Zaposlenik(int id, RadnoMjesto radnomjesto, String username, String password, String datumRodenja,
 			Set<Narudzba> narudzbasForZaposlenikOsobaIdDostavljac, Set<Narudzba> narudzbasForZaposlenikOsobaIdKuhar,
 			Set<Narudzba> narudzbasForZaposlenikOsobaIdPrimalac) {
 		this.id = id;
@@ -66,11 +66,11 @@ public class Zaposlenik implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "radnoMjesto", nullable = false)
-	public Radnomjesto getRadnomjesto() {
+	public RadnoMjesto getRadnomjesto() {
 		return this.radnomjesto;
 	}
 
-	public void setRadnomjesto(Radnomjesto radnomjesto) {
+	public void setRadnomjesto(RadnoMjesto radnomjesto) {
 		this.radnomjesto = radnomjesto;
 	}
 

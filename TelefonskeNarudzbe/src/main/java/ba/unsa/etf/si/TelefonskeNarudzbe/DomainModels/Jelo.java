@@ -26,7 +26,7 @@ public class Jelo implements java.io.Serializable {
 	private String naziv;
 	private double cijena;
 	private Set<SastojciJeloVeza> sastojciJeloVezas = new HashSet<SastojciJeloVeza>(0);
-	private Set<Narudzbajeloveza> narudzbajelovezas = new HashSet<Narudzbajeloveza>(0);
+	private Set<NarudzbaJeloVeza> narudzbajelovezas = new HashSet<NarudzbaJeloVeza>(0);
 
 	public Jelo() {
 	}
@@ -37,7 +37,7 @@ public class Jelo implements java.io.Serializable {
 	}
 
 	public Jelo(String naziv, double cijena, Set<SastojciJeloVeza> sastojciJeloVezas,
-			Set<Narudzbajeloveza> narudzbajelovezas) {
+			Set<NarudzbaJeloVeza> narudzbajelovezas) {
 		this.naziv = naziv;
 		this.cijena = cijena;
 		this.sastojciJeloVezas = sastojciJeloVezas;
@@ -84,11 +84,11 @@ public class Jelo implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "jelo")
-	public Set<Narudzbajeloveza> getNarudzbajelovezas() {
+	public Set<NarudzbaJeloVeza> getNarudzbajelovezas() {
 		return this.narudzbajelovezas;
 	}
 
-	public void setNarudzbajelovezas(Set<Narudzbajeloveza> narudzbajelovezas) {
+	public void setNarudzbajelovezas(Set<NarudzbaJeloVeza> narudzbajelovezas) {
 		this.narudzbajelovezas = narudzbajelovezas;
 	}
 

@@ -16,17 +16,17 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "narudzbajeloveza", catalog = "si2015tim5")
-public class Narudzbajeloveza implements java.io.Serializable {
+public class NarudzbaJeloVeza implements java.io.Serializable {
 
 	private int id;
 	private Jelo jelo;
 	private Narudzba narudzba;
 	private int kolicina;
 
-	public Narudzbajeloveza() {
+	public NarudzbaJeloVeza() {
 	}
 
-	public Narudzbajeloveza(int id, Jelo jelo, Narudzba narudzba, int kolicina) {
+	public NarudzbaJeloVeza(int id, Jelo jelo, Narudzba narudzba, int kolicina) {
 		this.id = id;
 		this.jelo = jelo;
 		this.narudzba = narudzba;

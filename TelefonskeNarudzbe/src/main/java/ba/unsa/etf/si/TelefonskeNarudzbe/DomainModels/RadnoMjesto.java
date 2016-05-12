@@ -19,21 +19,21 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "radnomjesto", catalog = "si2015tim5")
-public class Radnomjesto implements java.io.Serializable {
+public class RadnoMjesto implements java.io.Serializable {
 
 	private Integer id;
 	private String naziv;
 	private String opis;
 	private Set<Zaposlenik> zaposleniks = new HashSet<Zaposlenik>(0);
 
-	public Radnomjesto() {
+	public RadnoMjesto() {
 	}
 
-	public Radnomjesto(String naziv) {
+	public RadnoMjesto(String naziv) {
 		this.naziv = naziv;
 	}
 
-	public Radnomjesto(String naziv, String opis, Set<Zaposlenik> zaposleniks) {
+	public RadnoMjesto(String naziv, String opis, Set<Zaposlenik> zaposleniks) {
 		this.naziv = naziv;
 		this.opis = opis;
 		this.zaposleniks = zaposleniks;
