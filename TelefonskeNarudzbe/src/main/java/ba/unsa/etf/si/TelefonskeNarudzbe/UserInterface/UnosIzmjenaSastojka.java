@@ -8,7 +8,10 @@ import javax.swing.border.EmptyBorder;
 
 import org.apache.log4j.Logger;
 
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaSastojkaController;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
@@ -68,12 +71,36 @@ public class UnosIzmjenaSastojka extends JFrame {
 		
 		JLabel lblOpis = new JLabel("Opis:");
 		
-		JTextArea textArea = new JTextArea();
+		final JTextArea textArea = new JTextArea();
 		
 		JButton btnNewButton = new JButton("Zavr\u0161i ure\u0111ivanje");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				forma.dispose();
+				UnosIzmjenaSastojkaController controller = new UnosIzmjenaSastojkaController();
+				String naziv = textField.getText();
+				String mjernaJedinica = textField_1.getText();
+				String opis=textArea.getText();
+				if(naziv == null || naziv.isEmpty())
+				{
+					JOptionPane.showMessageDialog(null, "Popunite polje naziv!");
+				}
+				else if (mjernaJedinica == null || mjernaJedinica.isEmpty())
+				{
+					JOptionPane.showMessageDialog(null, "Popunite polje mjerna jedinica!");
+				}
+				else if (opis == null || opis.isEmpty())
+				{
+					JOptionPane.showMessageDialog(null, "Popunite polje opis!");
+				}
+				else
+				{
+				controller.izmjenaSastojka(naziv, mjernaJedinica,opis);
+				JOptionPane.showMessageDialog(null, "Uspjesno dodan/izmijenjen sastojak!");
+				textField.setText("");
+				textField_1.setText("");
+				textArea.setText("");
+				
+				}
 			}
 		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
