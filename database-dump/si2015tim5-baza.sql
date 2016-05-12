@@ -1,6 +1,8 @@
+CREATE DATABASE  IF NOT EXISTS `si2015tim5` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `si2015tim5`;
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: si2015tim5
+-- Host: localhost    Database: si2015tim5
 -- ------------------------------------------------------
 -- Server version	5.7.12-log
 
@@ -26,6 +28,7 @@ CREATE TABLE `jelo` (
   `id` int(3) NOT NULL AUTO_INCREMENT,
   `naziv` varchar(50) NOT NULL,
   `cijena` double NOT NULL,
+  `opis` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `naziv_UNIQUE` (`naziv`)
@@ -38,7 +41,7 @@ CREATE TABLE `jelo` (
 
 LOCK TABLES `jelo` WRITE;
 /*!40000 ALTER TABLE `jelo` DISABLE KEYS */;
-INSERT INTO `jelo` VALUES (1,'Hamburger',3),(2,'Ćevapi - velika porcija',6),(3,'Ćevapi - mala porcija',3);
+INSERT INTO `jelo` VALUES (1,'cevapi 10',7,NULL),(2,'cevapi 5',3.5,NULL),(3,'janjetina 200gr',12,NULL);
 /*!40000 ALTER TABLE `jelo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -53,9 +56,9 @@ CREATE TABLE `kupac` (
   `id` int(10) NOT NULL,
   `adresa` varchar(50) DEFAULT NULL,
   `brojTelefona` int(9) DEFAULT NULL,
-  `imePrezime` varchar(45) DEFAULT NULL,
-  UNIQUE KEY `OsobaId_UNIQUE` (`id`),
-  KEY `fk_Osoba_Kupac_index` (`id`)
+  `info` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `OsobaId_UNIQUE` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -65,7 +68,7 @@ CREATE TABLE `kupac` (
 
 LOCK TABLES `kupac` WRITE;
 /*!40000 ALTER TABLE `kupac` DISABLE KEYS */;
-INSERT INTO `kupac` VALUES (1,'Titova 2',33123456,NULL),(2,'Grbavička 10',33654321,NULL);
+INSERT INTO `kupac` VALUES (1,'aiejfoi',548454545,'aiojiof'),(2,'aisejfoi',548444545,'aiosjiof'),(3,'aissejfoi',544444545,'aiddsjiof');
 /*!40000 ALTER TABLE `kupac` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -78,30 +81,29 @@ DROP TABLE IF EXISTS `narudzba`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `narudzba` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `cijena` int(10) NOT NULL,
+  `cijena` double NOT NULL,
   `KupacOsobaId` int(10) NOT NULL,
-  `Status_NarudžbeId` int(10) NOT NULL,
+  `status` int(10) NOT NULL,
   `ZaposlenikOsobaId_Primalac` int(10) NOT NULL,
   `ZaposlenikOsobaId_Kuhar` int(10) DEFAULT NULL,
-  `ZaposlenikOsobaId_Dostavljač` int(10) DEFAULT NULL,
+  `ZaposlenikOsobaId_Dostavljac` int(10) DEFAULT NULL,
   `vrijemePrijema` datetime NOT NULL,
-  `vrijemePočetkaPripreme` datetime DEFAULT NULL,
+  `vrijemePocetkaPripreme` datetime DEFAULT NULL,
   `vrijemePreuzimanja` datetime DEFAULT NULL,
   `vrijemeDostave` datetime DEFAULT NULL,
-  `statusNarudzbe` bigint(20) DEFAULT NULL,
-  `opis` varchar(255) DEFAULT NULL,
-  `novacaDostavljeno` double DEFAULT NULL,
+  `novacaDostavljeno` double NOT NULL,
+  `opis` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_Narudžba_Kupac_index` (`KupacOsobaId`),
   KEY `fk_Narudžba_Primalac_index` (`ZaposlenikOsobaId_Primalac`),
   KEY `fk_Narudžba_Kuhar_index` (`ZaposlenikOsobaId_Kuhar`),
-  KEY `fk_Narudžba_Dostavljač_index` (`ZaposlenikOsobaId_Dostavljač`),
-  CONSTRAINT `fk_Narudžba_Dostavljač` FOREIGN KEY (`ZaposlenikOsobaId_Dostavljač`) REFERENCES `zaposlenik` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `fk_Narudžba_Dostavljač_index` (`ZaposlenikOsobaId_Dostavljac`),
+  CONSTRAINT `fk_Narudzba_Kupac` FOREIGN KEY (`KupacOsobaId`) REFERENCES `kupac` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Narudžba_Dostavljac` FOREIGN KEY (`ZaposlenikOsobaId_Dostavljac`) REFERENCES `zaposlenik` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Narudžba_Kuhar` FOREIGN KEY (`ZaposlenikOsobaId_Kuhar`) REFERENCES `zaposlenik` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Narudžba_Kupac` FOREIGN KEY (`KupacOsobaId`) REFERENCES `kupac` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Narudžba_Primalac` FOREIGN KEY (`ZaposlenikOsobaId_Primalac`) REFERENCES `zaposlenik` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -110,62 +112,89 @@ CREATE TABLE `narudzba` (
 
 LOCK TABLES `narudzba` WRITE;
 /*!40000 ALTER TABLE `narudzba` DISABLE KEYS */;
-INSERT INTO `narudzba` VALUES (1,9,1,4,5,3,4,'2016-05-05 20:45:00','2016-05-05 20:46:00','2016-05-05 20:59:00','2016-05-05 21:15:00',NULL,NULL,NULL),(2,6,2,4,5,3,4,'2016-05-05 20:50:00','2016-05-05 20:51:00','2016-05-05 21:05:00','2016-05-05 21:25:00',NULL,NULL,NULL);
+INSERT INTO `narudzba` VALUES (1,3,1,2,1,NULL,NULL,'2016-08-08 00:00:00',NULL,NULL,NULL,0,'dd'),(2,3,1,2,1,NULL,NULL,'2016-08-08 00:00:00',NULL,NULL,NULL,0,'dd'),(3,3,1,2,1,NULL,NULL,'2016-08-08 00:00:00',NULL,NULL,NULL,0,'dd'),(4,3,1,2,1,NULL,NULL,'2016-08-08 00:00:00',NULL,NULL,NULL,0,'dd');
 /*!40000 ALTER TABLE `narudzba` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `narudzba_jelo_veza`
+-- Table structure for table `narudzbajeloveza`
 --
 
-DROP TABLE IF EXISTS `narudzba_jelo_veza`;
+DROP TABLE IF EXISTS `narudzbajeloveza`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `narudzba_jelo_veza` (
+CREATE TABLE `narudzbajeloveza` (
+  `id` int(10) NOT NULL,
   `JeloId` int(3) NOT NULL,
   `NarudzbaId` int(10) NOT NULL,
-  PRIMARY KEY (`JeloId`,`NarudzbaId`),
+  `kolicina` int(3) NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `fk_Narudžba_Jelo_Veza_Jelo_index` (`JeloId`),
   KEY `fk_Narudžba_Jelo_Veza_Narudžba_index` (`NarudzbaId`),
-  CONSTRAINT `fk_Narudžba_Jelo_Veza_Jelo` FOREIGN KEY (`JeloId`) REFERENCES `jelo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Narudzba_Jelo_Veza_Jelo` FOREIGN KEY (`JeloId`) REFERENCES `jelo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Narudžba_Jelo_Veza_Narudžba` FOREIGN KEY (`NarudzbaId`) REFERENCES `narudzba` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `narudzba_jelo_veza`
+-- Dumping data for table `narudzbajeloveza`
 --
 
-LOCK TABLES `narudzba_jelo_veza` WRITE;
-/*!40000 ALTER TABLE `narudzba_jelo_veza` DISABLE KEYS */;
-INSERT INTO `narudzba_jelo_veza` VALUES (1,1),(1,2),(2,1),(3,2);
-/*!40000 ALTER TABLE `narudzba_jelo_veza` ENABLE KEYS */;
+LOCK TABLES `narudzbajeloveza` WRITE;
+/*!40000 ALTER TABLE `narudzbajeloveza` DISABLE KEYS */;
+/*!40000 ALTER TABLE `narudzbajeloveza` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `radno_mjesto`
+-- Table structure for table `popust`
 --
 
-DROP TABLE IF EXISTS `radno_mjesto`;
+DROP TABLE IF EXISTS `popust`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `radno_mjesto` (
+CREATE TABLE `popust` (
+  `id` int(3) NOT NULL AUTO_INCREMENT,
+  `od` double NOT NULL,
+  `do` double NOT NULL,
+  `iznos` double NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `popust`
+--
+
+LOCK TABLES `popust` WRITE;
+/*!40000 ALTER TABLE `popust` DISABLE KEYS */;
+/*!40000 ALTER TABLE `popust` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `radnomjesto`
+--
+
+DROP TABLE IF EXISTS `radnomjesto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `radnomjesto` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `naziv` varchar(50) NOT NULL,
   `opis` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `radno_mjesto`
+-- Dumping data for table `radnomjesto`
 --
 
-LOCK TABLES `radno_mjesto` WRITE;
-/*!40000 ALTER TABLE `radno_mjesto` DISABLE KEYS */;
-INSERT INTO `radno_mjesto` VALUES (1,'radnik na telefonu','osoba se javlja na telefon pri pozivu, te komunicira sa kupcem i unosi podatke o narudžbi u računar'),(2,'kuhar','osoba priprema jela prema naružbi'),(3,'dostavljač','osoba dostavlja pripremljene narudžbe na adresu kupca'),(4,'sef','osoba zaduzena za upravljanje sistemom za telefonske narudžbe');
-/*!40000 ALTER TABLE `radno_mjesto` ENABLE KEYS */;
+LOCK TABLES `radnomjesto` WRITE;
+/*!40000 ALTER TABLE `radnomjesto` DISABLE KEYS */;
+INSERT INTO `radnomjesto` VALUES (1,'primalac','ad');
+/*!40000 ALTER TABLE `radnomjesto` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -183,7 +212,7 @@ CREATE TABLE `sastojak` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `naziv_UNIQUE` (`naziv`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -192,7 +221,6 @@ CREATE TABLE `sastojak` (
 
 LOCK TABLES `sastojak` WRITE;
 /*!40000 ALTER TABLE `sastojak` DISABLE KEYS */;
-INSERT INTO `sastojak` VALUES (1,'pljeskvica','pljeskavica od mljevenog mesa','komad'),(2,'salata','zelena salata','list'),(3,'zemička','orkuglo pecivo','komad'),(4,'kečap','paradajz sos','gram'),(5,'ćevap','ćevap od mljeveog mesa','komad'),(6,'somun','vrsta okruglog hljeba','pola kom');
 /*!40000 ALTER TABLE `sastojak` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -204,10 +232,11 @@ DROP TABLE IF EXISTS `sastojci_jelo_veza`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sastojci_jelo_veza` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `JeloId` int(3) NOT NULL,
   `SastojakId` int(10) NOT NULL,
   `kolicina` int(2) NOT NULL,
-  PRIMARY KEY (`JeloId`,`SastojakId`),
+  PRIMARY KEY (`id`),
   KEY `fk_Sastojci_Jelo_Veza_Jelo_index` (`JeloId`),
   KEY `fk_Sastojci_Jelo_Veza_Sastojak_index` (`SastojakId`),
   CONSTRAINT `fk_Sastojci_Jelo_Veza_Jelo` FOREIGN KEY (`JeloId`) REFERENCES `jelo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -221,33 +250,31 @@ CREATE TABLE `sastojci_jelo_veza` (
 
 LOCK TABLES `sastojci_jelo_veza` WRITE;
 /*!40000 ALTER TABLE `sastojci_jelo_veza` DISABLE KEYS */;
-INSERT INTO `sastojci_jelo_veza` VALUES (1,1,1),(1,2,1),(1,3,1),(1,4,30),(2,5,10),(2,6,2),(3,5,5),(3,6,1);
 /*!40000 ALTER TABLE `sastojci_jelo_veza` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `status_narudzbe`
+-- Table structure for table `sastus`
 --
 
-DROP TABLE IF EXISTS `status_narudzbe`;
+DROP TABLE IF EXISTS `sastus`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `status_narudzbe` (
+CREATE TABLE `sastus` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `opis` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `status_narudzbe`
+-- Dumping data for table `sastus`
 --
 
-LOCK TABLES `status_narudzbe` WRITE;
-/*!40000 ALTER TABLE `status_narudzbe` DISABLE KEYS */;
-INSERT INTO `status_narudzbe` VALUES (1,'primljena'),(2,'uPripremi'),(3,'pripremljena'),(4,'naDostavi'),(5,'dostavljena');
-/*!40000 ALTER TABLE `status_narudzbe` ENABLE KEYS */;
+LOCK TABLES `sastus` WRITE;
+/*!40000 ALTER TABLE `sastus` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sastus` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -261,15 +288,13 @@ CREATE TABLE `zaposlenik` (
   `id` int(10) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `datumRođenja` varchar(50) DEFAULT NULL,
-  `Radno_MjestoId` int(10) NOT NULL,
-  `imePrezime` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`,`Radno_MjestoId`),
+  `datumRodenja` varchar(50) DEFAULT NULL,
+  `radnoMjesto` int(10) NOT NULL,
+  `imePrezime` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
   UNIQUE KEY `OsobaId_UNIQUE` (`id`),
-  UNIQUE KEY `Username_UNIQUE` (`username`),
-  KEY `fk_Osoba_Zaposlenik_index` (`id`),
-  KEY `fk_Radno_Mjesto_Zaposlenik_index` (`Radno_MjestoId`),
-  CONSTRAINT `fk_RadnoMjesto_Zaposlenik` FOREIGN KEY (`Radno_MjestoId`) REFERENCES `radno_mjesto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_Radno_Mjesto_Zaposlenik_index` (`radnoMjesto`),
+  CONSTRAINT `fk_RadnoMjesto_Zaposlenik` FOREIGN KEY (`radnoMjesto`) REFERENCES `radnomjesto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -279,7 +304,7 @@ CREATE TABLE `zaposlenik` (
 
 LOCK TABLES `zaposlenik` WRITE;
 /*!40000 ALTER TABLE `zaposlenik` DISABLE KEYS */;
-INSERT INTO `zaposlenik` VALUES (3,'admira_kuhar','admirakuhar','01.01.1994.',2,NULL),(4,'ivona_dostavljac','ivonadostavljac','01.01.1994.',3,NULL),(5,'dzana_operater','dzanaoperater','01.01.1994.',1,NULL);
+INSERT INTO `zaposlenik` VALUES (1,'aissejfoi','ads','2014-5-5',1,NULL);
 /*!40000 ALTER TABLE `zaposlenik` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -292,4 +317,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-11 14:34:16
+-- Dump completed on 2016-05-12 15:54:48
