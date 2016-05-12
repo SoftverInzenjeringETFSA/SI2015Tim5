@@ -80,6 +80,7 @@ public class UnosIzmjenaPopusta extends JFrame {
 		JButton btnNewButton = new JButton("Zavr\u0161i ure\u0111ivanje");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				forma.dispose();
 			}
 		});

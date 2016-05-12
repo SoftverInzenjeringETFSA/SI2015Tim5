@@ -15,13 +15,21 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Kupac;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak;
 
 public class UnosIzmjenaSastojkaController {
-	public static List<?> vratiSveSastojke()
+	public static List<Sastojak> vratiSveSastojke()
 	{
 		  Session sesija = HibernateUtil.getSessionFactory().openSession();
 	        Criteria criteria = sesija.createCriteria(Sastojak.class);
 			List<Sastojak> lista = criteria.list();
 			sesija.close();
 			return lista;
+	}
+	public static Sastojak vratiSastojak(String naziv)
+	{
+		Session sesija = HibernateUtil.getSessionFactory().openSession();
+        Criteria criteria = sesija.createCriteria(Sastojak.class).add(Restrictions.eq("naziv", naziv));
+		Sastojak s = (Sastojak) criteria.uniqueResult();
+		sesija.close();
+		return s;
 	}
 	public static boolean izmjenaSastojka(String naziv, String opis, String mjernaJedinica)
 	{

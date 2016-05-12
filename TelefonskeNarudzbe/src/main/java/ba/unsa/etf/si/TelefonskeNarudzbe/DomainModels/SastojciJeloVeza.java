@@ -23,12 +23,12 @@ public class SastojciJeloVeza implements java.io.Serializable {
 	private Integer id;
 	private Jelo jelo;
 	private Sastojak sastojak;
-	private int kolicina;
+	private Double kolicina;
 
 	public SastojciJeloVeza() {
 	}
 
-	public SastojciJeloVeza(Jelo jelo, Sastojak sastojak, int kolicina) {
+	public SastojciJeloVeza(Jelo jelo, Sastojak sastojak, Double kolicina) {
 		this.jelo = jelo;
 		this.sastojak = sastojak;
 		this.kolicina = kolicina;
@@ -67,12 +67,12 @@ public class SastojciJeloVeza implements java.io.Serializable {
 	}
 
 	@Column(name = "kolicina", nullable = false)
-	public int getKolicina() {
+	public double getKolicina() {
 		return this.kolicina;
 	}
 
-	public void setKolicina(int kolicina) {
-		this.kolicina = kolicina;
+	public void setKolicina(Double double1) {
+		this.kolicina = double1;
 	}
 
 }

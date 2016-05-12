@@ -23,6 +23,7 @@ import javax.persistence.UniqueConstraint;
 public class Jelo implements java.io.Serializable {
 
 	private Integer id;
+	private String opis;
 	private String naziv;
 	private double cijena;
 	private Set<SastojciJeloVeza> sastojciJeloVezas = new HashSet<SastojciJeloVeza>(0);
@@ -90,6 +91,12 @@ public class Jelo implements java.io.Serializable {
 
 	public void setNarudzbajelovezas(Set<NarudzbaJeloVeza> narudzbajelovezas) {
 		this.narudzbajelovezas = narudzbajelovezas;
+	}
+
+	public void setOpis(String opis) {
+		this.opis=opis;
+		// TODO Auto-generated method stub
+		
 	}
 
 }
