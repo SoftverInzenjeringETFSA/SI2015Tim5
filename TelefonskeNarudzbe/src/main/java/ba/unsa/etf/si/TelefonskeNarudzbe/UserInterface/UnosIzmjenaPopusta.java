@@ -8,7 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.apache.log4j.Logger;
 
-import com.mysql.cj.api.Session;
+
 
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Narudzba;
 

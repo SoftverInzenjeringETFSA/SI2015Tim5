@@ -5,7 +5,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import Util.HibernateUtil;
-import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Jelo;
 
 /**
  * Hello world!
@@ -20,8 +19,8 @@ public class App
         System.out.println( "RADIIII" );
         Session sesija = HibernateUtil.getSessionFactory().openSession();
         Transaction t = sesija.beginTransaction();
-    //   String hql = "select id from Jelo"; 
-      Query q = sesija.createQuery("select p.id from " + Jelo.class.getName() + " p");
+        String hql = "select id from Narudzba"; 
+		Query q = sesija.createQuery(hql);
 		System.out.println( "Napravljen query" );
 
 		for (Object o : q.list())
@@ -29,8 +28,6 @@ public class App
 			
 			System.out.println( "Iz baze: " + o);
 		}
-        //t.commit();
-        sesija.close();
 			
 		System.out.println( "Izlistano..." );
     }

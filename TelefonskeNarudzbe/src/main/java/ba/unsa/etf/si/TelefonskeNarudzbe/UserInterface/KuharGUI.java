@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface;
-/*
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -37,11 +37,10 @@ private KuharController kuharKontroler=new KuharController();
 private JPanel glavniPanel;	
 private Narudzba izabranaNarudzba;
 private JTextArea sastojcitextArea ;
-private JTextArea dodatneInformacijeTextArea;
 /**
 	 * Launch the application.
 	 */
-/*	public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -58,7 +57,7 @@ private JTextArea dodatneInformacijeTextArea;
 	/**
 	 * Create the application.
 	 */
-/*	public KuharGUI() {
+	public KuharGUI() {
 		initialize();
 	}
 
@@ -74,16 +73,19 @@ private JTextArea dodatneInformacijeTextArea;
         }
 	}
 	
-	private boolean ProvjeriDaLiJePreuzeta(int id){
-		boolean preuzeta=kuharKontroler.provjeriDaLiJePreuzeta(id);
-		return preuzeta;
-	}
+	//private boolean ProvjeriDaLiJePreuzeta(int id){
+		//boolean preuzeta=kuharKontroler.provjeriDaLiJePreuzeta(id);
+		
+		//return preuzeta;
+//	}
 	
 	private void OtvoriNarudzbu(int id){
-		izabranaNarudzba=kuharKontroler.dajNarudzbuIzBaze(id);
-		sastojcitextArea.setText( Double.toString(izabranaNarudzba.getCijena()));
+		//izabranaNarudzba=kuharKontroler.dajNarudzbuIzBaze(id);
+		sastojcitextArea.setText( Integer.toString(id));
 	}
-	
+	/**
+	 * Initialize the contents of the frame.
+	 */
 	private void initialize() {
 		frmSpremanjeNarudbi = new JFrame();
 		frmSpremanjeNarudbi.setTitle("Spremanje narud\u017Ebi:");
@@ -130,7 +132,7 @@ private JTextArea dodatneInformacijeTextArea;
 		sastojcitextArea.setBounds(183, 84, 241, 149);
 		frmSpremanjeNarudbi.getContentPane().add(sastojcitextArea);
 		
-		 dodatneInformacijeTextArea = new JTextArea();
+		JTextArea dodatneInformacijeTextArea = new JTextArea();
 		dodatneInformacijeTextArea.setBounds(183, 263, 241, 45);
 		frmSpremanjeNarudbi.getContentPane().add(dodatneInformacijeTextArea);
 		
@@ -160,4 +162,4 @@ private JTextArea dodatneInformacijeTextArea;
 		public void actionPerformed(ActionEvent e) {
 		}
 	}
-}*/
+}

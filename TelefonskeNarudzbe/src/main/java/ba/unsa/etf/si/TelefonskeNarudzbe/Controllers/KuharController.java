@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.Controllers;
-/*
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -17,9 +17,9 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 
-
-import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.*;
 import Util.HibernateUtil;
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.*;
+
 public class KuharController {
 	
 	private int brojNarudzbi;
@@ -39,8 +39,8 @@ public class KuharController {
 			t.rollback();
 			return false;
 		}
-		p.setKuhar(idKuhara);
-		p.setStatusNarudzbe(status);
+	//	p.setKuhar(idKuhara);
+		//p.setStatusNarudzbe(status);
 	    
 		session.update(p);
 		t.commit();
@@ -59,7 +59,7 @@ public class KuharController {
 		return false;
 	}
 	
-	p.setStatusNarudzbe((long) 3);
+	//p.setStatusNarudzbe((long) 3);
     
 	session.update(p);
 	t.commit();
@@ -70,11 +70,11 @@ public class KuharController {
 		return new Kupac();
 	}
 	
-	public boolean provjeriDaLiJePreuzeta(int id){
-		Narudzba narudzba=dajNarudzbuIzBaze(id);
+	//public boolean provjeriDaLiJePreuzeta(int id){
+	//	Narudzba narudzba=dajNarudzbuIzBaze(id);
 		
-		if(narudzba.getStatusNarudzbe()==2) return true; else return false;
-	}
+		//if(narudzba.getStatusNarudzbe()==2) return true; else return false;
+	//}
 	public Narudzba dajNarudzbuIzBaze (int idd){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
@@ -82,9 +82,7 @@ public class KuharController {
 		
 		Transaction t = session.beginTransaction();
 		
-		String hql = "Select new ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Narudzba(n.id,n.statusNarudzbe,n.cijena,n.narucioc,"+
-	        "n.primaoc,n.vrijemePrijema,n.kuhar,n.vrijemePocetkaPripreme,n.dostavljac,n.vrijemePreuzimanja,"+
-	        "n.vrijemeDostave) from Narudzba n WHERE str(n.id) like :id";
+		String hql = "Select Narudzba FROM Narudzba n WHERE str(n.id) like :id";
 		Query query = session.createQuery(hql);
 		query.setString("id", id);
 	
@@ -107,7 +105,7 @@ public class KuharController {
 	
 		t.commit();
 		
-		Status status =  (Status) query.uniqueResult();
+		//Status status =  (Status) query.uniqueResult();
 		return (long) 3;
 	
 	}
@@ -134,4 +132,3 @@ public class KuharController {
 
 
 }
-*/
