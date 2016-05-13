@@ -119,34 +119,44 @@ public class UnosIzmjenaPopusta extends JFrame {
 					return;	
 				}
 				try{
-					int popust = Integer.parseInt(textField.getText());
+					double popust = Double.parseDouble(textField.getText());
 					if(popust<0){
 						JOptionPane.showMessageDialog(null, "Popust mora biti nenegativan broj!");
 						return;
 					}
-					int cijenaOd=0;
-					int cijenaDo=0;
-					switch (ind){
-						case 0: 
+					else if (popust>=100){
+						JOptionPane.showMessageDialog(null, "Popust mora biti manji od 100(u procentima)");
+						return;
+					}
+					double cijenaOd=0;
+					double cijenaDo=0;
+					
+					if (ind ==0){
+							
 							cijenaOd=0;
-							cijenaDo=9;
-						case 1:
+							cijenaDo=9;}
+							else if( ind== 1){
 							cijenaOd=10;
-							cijenaDo=19;
-						case 2:
+							cijenaDo=19;}
+							else if (ind==2){
 							cijenaOd=20;
-							cijenaDo=29;
-						case 3:
+							cijenaDo=29;}
+							else if (ind==3){
 							cijenaOd=30;
 							cijenaDo=39;
-						case 4:
+							}
+							else if (ind==4){
 							cijenaOd=40;
 							cijenaDo=49;
-							default:
+							}
+							else if (ind==5){
+							JOptionPane.showMessageDialog(null, "Indeks je:"+ ind);
+							
 							cijenaOd=50;
 							cijenaDo=10000;
-							
-					}
+							}
+				
+					
 					UnosIzmjenaPopustaController c=new UnosIzmjenaPopustaController();
 					c.izmjenaPopusta(cijenaOd, cijenaDo, popust);
 					JOptionPane.showMessageDialog(null, "Popust uspjesno dodan/izmijenjen!");
