@@ -230,9 +230,7 @@ public class UnosIzmjenaJela extends JFrame {
 		// Append a row
 		for (int i = 0; i < sastojci.size(); i++) {
 			model.addRow(new Object[] { ((Sastojak) sastojci.get(i)).getNaziv(), 0 });
-
-			// able.setValueAt(value, i, 10 }
-		}
+	}
 		table_1 = new JTable(model);
 		scrollPane.setViewportView(table_1);
 		contentPane.setLayout(gl_contentPane);
