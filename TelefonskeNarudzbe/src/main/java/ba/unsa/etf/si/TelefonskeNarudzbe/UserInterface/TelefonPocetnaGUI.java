@@ -12,6 +12,8 @@ import javax.swing.SwingConstants;
 
 import org.apache.log4j.Logger;
 
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -26,7 +28,7 @@ public class TelefonPocetnaGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelefonPocetnaGUI window = new TelefonPocetnaGUI();
+					TelefonPocetnaGUI window = new TelefonPocetnaGUI(logovani);
 					window.frmSpremanjeNarudbi.setVisible(true);
 				} catch (Exception e) {
 					logger.info(e);
@@ -39,7 +41,9 @@ public class TelefonPocetnaGUI {
 	/**
 	 * Create the application.
 	 */
-	public TelefonPocetnaGUI() {
+	private static Zaposlenik logovani;
+	public TelefonPocetnaGUI(Zaposlenik zap) {
+		logovani = zap;
 		initialize();
 	}
 
@@ -73,5 +77,7 @@ public class TelefonPocetnaGUI {
 		btnNewButton.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnNewButton.setBounds(78, 37, 139, 23);
 		frmSpremanjeNarudbi.getContentPane().add(btnNewButton);
+		
+		frmSpremanjeNarudbi.setVisible(true);
 	}
 }

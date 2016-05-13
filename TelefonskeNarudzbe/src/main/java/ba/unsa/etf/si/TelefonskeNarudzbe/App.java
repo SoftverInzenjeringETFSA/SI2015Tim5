@@ -13,6 +13,7 @@ import Util.HibernateUtil;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Jelo;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Kupac;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Narudzba;
+import ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface.LoginGUI;
 
 /**
  * Hello world!
@@ -22,21 +23,6 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
-        
-        System.out.println( "RADIIII" );
-        Session sesija = HibernateUtil.getSessionFactory().openSession();
-      	//List<Kupac> lista = criteria.list();
-		//List<Narudzba> listan = new ArrayList<Narudzba> (lista.get(0).getNarudzbas());
-		Criteria c1 = sesija.createCriteria(Narudzba.class);
-        List<Narudzba> j = c1.list();
-		for (Narudzba o : j)
-		{
-			
-			System.out.println( "Iz baze: " + o.getZaposlenikByZaposlenikOsobaIdPrimalac().getImePrezime());
-		}
-			
-		System.out.println( "Izlistano..." );
-
+        	LoginGUI l = new LoginGUI();  
     }
 }

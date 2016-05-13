@@ -151,4 +151,12 @@ public class Zaposlenik implements java.io.Serializable {
 		this.narudzbasForZaposlenikOsobaIdPrimalac = narudzbasForZaposlenikOsobaIdPrimalac;
 	}
 
+	public boolean provjeraPW(String pw)
+	{
+		return (password.equals(pw));
+	}
+
+	public RadnoMjesto getRadnoMjesto() {
+		return radnomjesto;
+	}
 }
