@@ -26,15 +26,14 @@ public class App
         
         System.out.println( "RADIIII" );
         Session sesija = HibernateUtil.getSessionFactory().openSession();
-        Criteria criteria = sesija.createCriteria(Kupac.class);
-		//List<Kupac> lista = criteria.list();
+      	//List<Kupac> lista = criteria.list();
 		//List<Narudzba> listan = new ArrayList<Narudzba> (lista.get(0).getNarudzbas());
-		Criteria c1 = sesija.createCriteria(Jelo.class);
-        List<Jelo> j = c1.list();
-		for (Jelo o : j)
+		Criteria c1 = sesija.createCriteria(Narudzba.class);
+        List<Narudzba> j = c1.list();
+		for (Narudzba o : j)
 		{
 			
-			System.out.println( "Iz baze: " + o.getNaziv());
+			System.out.println( "Iz baze: " + o.getZaposlenikByZaposlenikOsobaIdPrimalac().getImePrezime());
 		}
 			
 		System.out.println( "Izlistano..." );

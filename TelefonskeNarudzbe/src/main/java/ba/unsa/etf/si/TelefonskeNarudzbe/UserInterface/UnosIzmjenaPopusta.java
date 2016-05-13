@@ -125,7 +125,8 @@ public class UnosIzmjenaPopusta extends JFrame {
 						return;
 					}
 					else if (popust>=100){
-						JOptionPane.showMessageDialog(null, "Popust mora biti manji od 100(u procentima)");
+						JOptionPane.showMessageDialog(null, "Popust mora biti manji od 100(u procentima)"
+								+ "");
 						return;
 					}
 					double cijenaOd=0;

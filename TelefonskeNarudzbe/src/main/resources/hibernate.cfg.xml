@@ -3,30 +3,32 @@
 		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.password">root</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/si2015tim5</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <mapping class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Jelo"/>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.password">root</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/si2015tim5</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<mapping class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Jelo" />
 
-<mapping class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Kupac"/>
-<mapping class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Popust"/>
+		<mapping class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Kupac" />
+		<mapping class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Popust" />
 
-<mapping class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Narudzba"/>
+		<mapping class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Narudzba" />
 
-<mapping class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.NarudzbaJeloVeza"/>
+		<mapping
+			class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.NarudzbaJeloVeza" />
 
-<mapping class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak"/>
+		<mapping class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak" />
 
-<mapping class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.SastojciJeloVeza"/>
+		<mapping
+			class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.SastojciJeloVeza" />
 
-<mapping class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik"/>
-
-
-<mapping class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.RadnoMjesto"/>
+		<mapping class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik" />
 
 
-    </session-factory>
+		<mapping class="ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.RadnoMjesto" />
+
+
+	</session-factory>
 </hibernate-configuration>

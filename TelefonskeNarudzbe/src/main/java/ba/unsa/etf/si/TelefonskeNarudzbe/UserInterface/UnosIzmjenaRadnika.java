@@ -12,11 +12,13 @@ import org.hibernate.Transaction;
 
 
 import Util.HibernateUtil;
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaRadnikaController;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Narudzba;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
@@ -25,6 +27,10 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
@@ -83,22 +89,15 @@ public class UnosIzmjenaRadnika extends JFrame {
 		textField.setColumns(10);
 		
 		JLabel lblDatumRoenja = new JLabel("Datum ro\u0111enja:");
-		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
-		
+		 DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		final JFormattedTextField formattedTextField = new JFormattedTextField(format);
 		JLabel lblRadnoMjesto = new JLabel("Radno mjesto:");
 		
-		JComboBox comboBox = new JComboBox();
+		final JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Radnik na telefonu", "Kuhar", "Dostavlja\u010D"}));
 		
 		JLabel lblNewLabel = new JLabel("Dodatne informacije:");
 		
-		JButton btnNewButton = new JButton("Zavr\u0161i ure\u0111ivanje");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				forma.dispose();
-			}
-		});
 		
 		JLabel lblKorisnikoIme = new JLabel("Korisni\u010Dko ime:");
 		
@@ -113,7 +112,50 @@ public class UnosIzmjenaRadnika extends JFrame {
 		
 		passwordField_1 = new JPasswordField();
 		
-		JTextArea textArea = new JTextArea();
+		final JTextArea textArea = new JTextArea();
+		JButton btnNewButton = new JButton("Zavr\u0161i ure\u0111ivanje");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (!Arrays.equals(passwordField.getPassword(), passwordField_1.getPassword())){
+					JOptionPane.showMessageDialog(null, "passwordi se ne slazu!");
+					return;
+				}
+				if (textField.getText().isEmpty() || textField.getText()==null){
+					JOptionPane.showMessageDialog(null, "Popunite polje za ime i prezime!");
+					return;	
+				}
+				if (formattedTextField.getText().isEmpty() || formattedTextField.getText()==null){
+					JOptionPane.showMessageDialog(null, "Popunite polje za datum rodjenja!");
+					return;	
+				}
+				if (textField_1.getText().isEmpty() || textField_1.getText()==null){
+					JOptionPane.showMessageDialog(null, "Popunite polje za Korisnicko ime!");
+					return;	
+				}
+				if (passwordField.getPassword().length==0 || passwordField.getPassword()==null){
+					JOptionPane.showMessageDialog(null, "Popunite polje za password!");
+					return;	
+				}
+				if (passwordField_1.getPassword().length==0 || passwordField_1.getPassword()==null){
+					JOptionPane.showMessageDialog(null, "Isti password morate unijeti i u drugo polje!");
+					return;	
+				}
+				String username=textField_1.getText();
+				char[] pass=passwordField.getPassword();
+				String password=new String (pass);
+				String imePrezime=textField.getText();
+				String opis=textArea.getText();
+				String datum=formattedTextField.getText();
+				int ind = comboBox.getSelectedIndex();
+				int radnoMjesto=ind+1; //Radnik na telefonu:1, Kuhar:2, Dostavljac:3
+				UnosIzmjenaRadnikaController r= new UnosIzmjenaRadnikaController();
+				if(!r.parsirajDatum(datum)) return;
+				if(r.izmijeniRadnika(imePrezime, datum, username, password, radnoMjesto, opis)){
+					JOptionPane.showMessageDialog(null, "Radnik uspjesno dodan/izmijenjen!");
+				}
+			
+			}});
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -177,20 +219,9 @@ public class UnosIzmjenaRadnika extends JFrame {
 					.addComponent(btnNewButton)
 					.addContainerGap())
 		);
-		contentPane.setLayout(gl_contentPane);
-	}
-	/*private static void nadjiRadnika(Session session) {
 		
-	
-	Transaction t = ((SharedSessionContract) session).beginTransaction();
-	System.out.println("Unesite id narudzbe");
-	long id = sc.nextLong();
-	Zaposlenik s = (Zaposlenik) ((org.hibernate.Session) session).get(Zaposlenik.class, id);
-	if (s==null) {
-	System.out.println("Nema studenta sa tim IDom u bazi");
-	} else {
-	System.out.println("Student: "+s.getUsername()+" "+s.getPassword());
+		contentPane.setLayout(gl_contentPane);
+		
+		
 	}
-	t.commit();
-	}*/
 }
