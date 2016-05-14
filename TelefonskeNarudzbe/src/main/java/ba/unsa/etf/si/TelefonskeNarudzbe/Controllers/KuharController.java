@@ -32,37 +32,54 @@ public class KuharController {
 	private Session session = HibernateUtil.getSessionFactory().openSession();
 
 	final static Logger logger = Logger.getLogger(KuharController.class);
+	// mijenja status u preuzeta , ako narudzba ili kuhar ne postoji u bazi
+	// nece moc set
+	// tako da baca izuzetak
+	// funkcija mijenja status, postavlja kuhara i postavlja vrijeme
+	// preuzimanja narudzbe za spremanje
 
 	public boolean promijeniStatusUPreuzeta(int id, int idKuhara) {
 		try {
 			Zaposlenik kuhar = (Zaposlenik) session.createCriteria(Zaposlenik.class)
 					.add(Restrictions.eq("id", idKuhara)).uniqueResult();
 			Narudzba narudzba = dajNarudzbuIzBaze(id);
-			Transaction t = session.beginTransaction();
-			narudzba.setZaposlenikByZaposlenikOsobaIdKuhar(kuhar);
-			narudzba.setStatus(2);
-			session.update(narudzba);
-			t.commit();
-			return true;
+			if (narudzba != null && kuhar != null) {
+				Transaction t = session.beginTransaction();
+				narudzba.setZaposlenikByZaposlenikOsobaIdKuhar(kuhar);
+				narudzba.setStatus(2);
+				session.update(narudzba);
+				t.commit();
+				return true;
+			} else {
+				throw new NullPointerException("Null izuzetak");
+			}
 		} catch (Exception e) {
 			logger.info(e);
 			return false;
 		}
 	}
 
+	// nece biti ne treba test
 	public Zaposlenik dajZaposlenika() {
 		return (Zaposlenik) session.createCriteria(Zaposlenik.class).add(Restrictions.eq("id", 1)).uniqueResult();
 	}
 
+	// mijenja status u spremna za dostavu, ako postoji u baziako ne baca
+	// izuzetak
+
 	public boolean promijeniStatusUSpremna(Integer id, int idKuhara) throws Exception {
 		try {
 			Narudzba narudzba = dajNarudzbuIzBaze(id);
-			Transaction t = session.beginTransaction();
-			narudzba.setVrijemePocetkaPripreme(new java.util.Date());
-			narudzba.setStatus(3);
-			session.update(narudzba);
-			t.commit();
-			return true;
+			if (narudzba != null) {
+				Transaction t = session.beginTransaction();
+				narudzba.setVrijemePocetkaPripreme(new java.util.Date());
+				narudzba.setStatus(3);
+				session.update(narudzba);
+				t.commit();
+				return true;
+			} else {
+				throw new NullPointerException("Null izuzetak");
+			}
 		} catch (Exception e) {
 			logger.info(e);
 			throw e;
@@ -70,6 +87,9 @@ public class KuharController {
 		}
 	}
 
+	// ovdje se trebaju izlistati u string svi sastojci sumarno
+	// sva jela sa pripadnim sastojcima
+	// ima vise pristupa bazi, na bilo koji null se baca izuzetak
 	public String dajNarudzbe(int id) throws Exception {
 		try {
 			String narudzba = "";
@@ -85,40 +105,52 @@ public class KuharController {
 			System.out.println("RADIIII");
 			Session sesija = HibernateUtil.getSessionFactory().openSession();
 			List<Narudzba> nar = sesija.createCriteria(Narudzba.class).add(Restrictions.eq("id", id)).list();
-			List<NarudzbaJeloVeza> veza = new ArrayList<NarudzbaJeloVeza>(nar.get(0).getNarudzbajelovezas());
+			if (nar != null) {
+				List<NarudzbaJeloVeza> veza = new ArrayList<NarudzbaJeloVeza>(nar.get(0).getNarudzbajelovezas());
+				if (veza != null) {
+					for (NarudzbaJeloVeza o : veza) {
+						brJela = o.getKolicina();
+						Integer jelo = o.getJelo().getId();
+						List<Jelo> narj = sesija.createCriteria(Jelo.class).add(Restrictions.eq("id", jelo)).list();
+						if (narj != null) {
+							List<SastojciJeloVeza> vezasj = new ArrayList<SastojciJeloVeza>(
+									narj.get(0).getSastojciJeloVezas());
+							if (vezasj != null) {
+								int indekss = idoviJela.indexOf(o.getJelo().getId());
+								if (indekss == -1) {
+									idoviJela.add(o.getJelo().getId());
+									kolicinejela.add((double) o.getKolicina());
+									nazivijela.add(o.getJelo().getNaziv());
+									String sastojak = "";
+									for (SastojciJeloVeza oo : vezasj) {
+										sastojak += oo.getSastojak().getNaziv() + " "
+												+ Double.toString(oo.getKolicina()) + " * "
+												+ oo.getSastojak().getMjernaJedinica() + "\n";
 
-			for (NarudzbaJeloVeza o : veza) {
-				brJela = o.getKolicina();
-				Integer jelo = o.getJelo().getId();
-				List<Jelo> narj = sesija.createCriteria(Jelo.class).add(Restrictions.eq("id", jelo)).list();
-				List<SastojciJeloVeza> vezasj = new ArrayList<SastojciJeloVeza>(narj.get(0).getSastojciJeloVezas());
+										int indeks = idovi.indexOf(oo.getSastojak().getId());
+										if (indeks == -1) {
+											idovi.add(oo.getSastojak().getId());
+											kolicine.add(brJela * oo.getKolicina());
+											nazivi.add(oo.getSastojak().getNaziv());
+											jedinice.add(oo.getSastojak().getMjernaJedinica());
+										} else {
+											kolicine.set(indeks, (kolicine.get(indeks) + brJela * oo.getKolicina()));
+										}
+									}
+									sastojci.add(sastojak);
+								} else {
+									kolicinejela.set(indekss, kolicinejela.get(indekss) + o.getKolicina());
+								}
+							} else
+								throw new NullPointerException("Null izuzetak");
+						} else
+							throw new NullPointerException("Null izuzetak");
 
-				int indekss = idoviJela.indexOf(o.getJelo().getId());
-				if (indekss == -1) {
-					idoviJela.add(o.getJelo().getId());
-					kolicinejela.add((double) o.getKolicina());
-					nazivijela.add(o.getJelo().getNaziv());
-					String sastojak = "";
-					for (SastojciJeloVeza oo : vezasj) {
-						sastojak += oo.getSastojak().getNaziv() + " " + Double.toString(oo.getKolicina()) + " * "
-								+ oo.getSastojak().getMjernaJedinica() + "\n";
-
-						int indeks = idovi.indexOf(oo.getSastojak().getId());
-						if (indeks == -1) {
-							idovi.add(oo.getSastojak().getId());
-							kolicine.add(brJela * oo.getKolicina());
-							nazivi.add(oo.getSastojak().getNaziv());
-							jedinice.add(oo.getSastojak().getMjernaJedinica());
-						} else {
-							kolicine.set(indeks,  (kolicine.get(indeks) + brJela * oo.getKolicina()));
-						}
 					}
-					sastojci.add(sastojak);
-				} else {
-					kolicinejela.set(indekss, kolicinejela.get(indekss) + o.getKolicina());
-				}
-
-			}
+				} else
+					throw new NullPointerException("Null izuzetak");
+			} else
+				throw new NullPointerException("Null izuzetak");
 			for (int i = 0; i < idovi.size(); i++) {
 				narudzba += nazivi.get(i) + " " + Double.toString(kolicine.get(i)) + " * " + jedinice.get(i) + "\n";
 			}
@@ -135,23 +167,33 @@ public class KuharController {
 		}
 	}
 
+	// narudzba je vec preuzeta ako je status <2
+	// baca izuzetak ako u bazi nije nadjena narudzba
 	public boolean provjeriDaLiJePreuzeta(Integer integer) throws Exception {
 		try {
 			Narudzba narudzba = dajNarudzbuIzBaze(integer);
-			if (narudzba.getStatus() >= 2)
-				return true;
-			else
-				return false;
+			if (narudzba != null) {
+				if (narudzba.getStatus() >= 2)
+					return true;
+				else
+					return false;
+			} else
+				throw new NullPointerException("Null izuzetak");
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
+	// trazi narudzbu u bazi sa zadatim idom
+	// baca izuzetak ako ne postoji u bazi
 	public Narudzba dajNarudzbuIzBaze(int id) throws Exception {
 		try {
 			Narudzba narudzba = (Narudzba) session.createCriteria(Narudzba.class).add(Restrictions.eq("id", id))
 					.uniqueResult();
-			return narudzba;
+			if (narudzba != null)
+				return narudzba;
+			else
+				throw new NullPointerException("Null izuzetak");
 		} catch (Exception e) {
 			logger.info(e);
 			throw e;
@@ -159,7 +201,10 @@ public class KuharController {
 
 	}
 
-	// sve narudzbe
+	// sve narudzbe koje nisu jos preuzete ali su spremne za kuhara, tj narudzbe gdje 
+	// je status =1 , ali takodje prikazuju se i narudzbe koje je preuzeo kuhar koji ih prikazuje
+	// jer samo ih on moze oznaciti spremnim za dostavu , znaci status moze biti 2 u slucaju da je 
+	// spremnom koji je preuzeo isti kao i kuhar koji zeli oznaciti narudzbu spremnom 
 	public List<Narudzba> dajSveNarudzbeIzBaze(int idZap) throws Exception {
 		try {
 			Criteria criteria = session.createCriteria(Narudzba.class, "n");

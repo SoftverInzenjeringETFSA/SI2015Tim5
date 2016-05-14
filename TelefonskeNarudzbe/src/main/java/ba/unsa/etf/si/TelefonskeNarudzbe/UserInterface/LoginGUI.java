@@ -89,8 +89,8 @@ public class LoginGUI
 					//TelefonPocetnaGUI a = new TelefonPocetnaGUI(s.getZaposlenik());
 				}
 				else if(s.getZaposlenik().getRadnomjesto().getId() == 2){
-					KuharGUI k = new KuharGUI();
-				k.otvori(s.getZaposlenik());
+				//	KuharGUI k = new KuharGUI();
+				//k.otvori(s.getZaposlenik());
 				}
 				else if(s.getZaposlenik().getRadnomjesto().getId() == 3){
 					DostavljacGUI d = new DostavljacGUI();

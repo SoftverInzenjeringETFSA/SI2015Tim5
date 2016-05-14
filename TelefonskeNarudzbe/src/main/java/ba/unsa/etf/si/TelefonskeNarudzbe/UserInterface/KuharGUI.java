@@ -45,19 +45,17 @@ public class KuharGUI {
 	private JButton btnPreuzmi;
 	private JList list;
 	private JTextArea dodatneInformacijeTextArea;
-	private static Zaposlenik zap =new Zaposlenik();
+	private Zaposlenik zap = kuharKontroler.dajZaposlenika();
 
 	/**
 	 * Launch the application.
 	 */
-	public static void otvori(final Zaposlenik zapp) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					KuharGUI window = new KuharGUI();
 					window.frmSpremanjeNarudbi.setVisible(true);
-					zap=zapp;
-					
 				} catch (Exception e) {
 					
 					logger.info(e);
@@ -70,7 +68,6 @@ public class KuharGUI {
 	/**
 	 * Create the application.
 	 */
-	
 	public KuharGUI() {
 		initialize();
 	}
@@ -160,7 +157,6 @@ public class KuharGUI {
 	}
 
 	private void initialize() {
-	
 		frmSpremanjeNarudbi = new JFrame();
 		frmSpremanjeNarudbi.setTitle("Spremanje narud\u017Ebi:");
 		frmSpremanjeNarudbi.setBounds(100, 100, 458, 406);

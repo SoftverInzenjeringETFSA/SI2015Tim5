@@ -107,7 +107,7 @@ public class Zaposlenik implements java.io.Serializable {
 	public void setDatumRodenja(String datumRodenja) {
 		this.datumRodenja = datumRodenja;
 	}
-	
+
 	@Column(name = "dodatneInformacije", unique = false, nullable = true, length=500)
 	public String getDodatneInformacije() {
 		return dodatneInformacije;
@@ -154,9 +154,5 @@ public class Zaposlenik implements java.io.Serializable {
 		this.narudzbasForZaposlenikOsobaIdPrimalac = narudzbasForZaposlenikOsobaIdPrimalac;
 	}
 
-	/*public boolean provjeraPW(String pw)
-	{
-		return (password.equals(pw));
-	}*/
-
+	
 }

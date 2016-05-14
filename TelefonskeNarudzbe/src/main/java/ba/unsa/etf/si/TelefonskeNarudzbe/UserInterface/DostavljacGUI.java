@@ -132,7 +132,7 @@ public class DostavljacGUI {
 				double cijena = Double.parseDouble(textNovacaDostavljeno.getText());
 				if (cijena < 0)
 					throw new Exception();
-				dostKontroler.promijeniStatusUSpremna(izabranaNarudzba.getId(), zap.getId());
+				dostKontroler.promijeniStatusUSpremna(izabranaNarudzba.getId());
 				JOptionPane.showMessageDialog(null, "Narudžba je spremna!");
 
 				model.removeElementAt(selectedIndex);
