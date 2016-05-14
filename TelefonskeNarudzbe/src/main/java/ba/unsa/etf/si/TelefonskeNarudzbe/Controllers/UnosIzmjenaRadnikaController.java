@@ -54,7 +54,7 @@ public class UnosIzmjenaRadnikaController {
 				RadnoMjesto rm = vratiRadnoMjesto(radnoMjesto);
 				z.setRadnomjesto(rm);
 				z.setImePrezime(imePrezime);
-				z.setDodatneInformacije(opis);
+			//	z.setDodatneInformacije(opis);
 				session.beginTransaction();
 				session.saveOrUpdate(z);
 				session.getTransaction().commit();	
@@ -73,7 +73,7 @@ public class UnosIzmjenaRadnikaController {
 			RadnoMjesto rm = vratiRadnoMjesto(radnoMjesto);
 			z.setRadnomjesto(rm);
 			z.setImePrezime(imePrezime);
-			z.setDodatneInformacije(opis);
+		//	z.setDodatneInformacije(opis);
 	
 			session.update(z);		
 			t.commit();

@@ -1,4 +1,4 @@
-/*package ba.unsa.etf.si.TelefonskeNarudzbe.Controllers;
+package ba.unsa.etf.si.TelefonskeNarudzbe.Controllers;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -45,23 +45,23 @@ public final class LoginController {
 	
 	private static void pocniLogin(String password) throws Exception {
 		try {
-			if (!zaposlenik.provjeraPW(password))
+			if (!zaposlenik.getPassword().equals(password))
 				throw new IllegalArgumentException("Pogrešan pw");
 		} catch (Exception ex) {
 			throw ex;
 		}
 	}
-	/*
+	
 	public Boolean daLiPostoji(){
 		return (instance != null);
 	}
 	
 	public void ubijSesiju(){
 		//trasaction.commit();
-		session.close();
-		korisnik = null;
+		sesija.close();
+		//korisnik = null;
 		instance = null;
 	}
 	
 
-}*/
+}

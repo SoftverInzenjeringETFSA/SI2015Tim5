@@ -8,6 +8,8 @@ import javax.swing.JTextField;
 
 import org.apache.log4j.Logger;
 
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.LoginController;
+
 //import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.LoginController;
 
 import javax.swing.JButton;
@@ -76,20 +78,21 @@ public class LoginGUI
 		frmPrijavaNaSistem.getContentPane().add(textField_1);
 		
 		JButton btnPrijava = new JButton("Prijava");
-		/*btnPrijava.addActionListener(new ActionListener() {
+		btnPrijava.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				LoginController s = null;
 				try {
 					s = LoginController.getInstance(textField.getText(), textField_1.getText());
 				
-				if(s.getZaposlenik().getRadnoMjesto().getId() == 1){
+				if(s.getZaposlenik().getRadnomjesto().getId() == 1){
 					//TelefonPocetnaGUI a = new TelefonPocetnaGUI(s.getZaposlenik());
 				}
-				else if(s.getZaposlenik().getRadnoMjesto().getId() == 2){
+				else if(s.getZaposlenik().getRadnomjesto().getId() == 2){
 					KuharGUI k = new KuharGUI();
+				k.otvori(s.getZaposlenik());
 				}
-				else if(s.getZaposlenik().getRadnoMjesto().getId() == 3){
+				else if(s.getZaposlenik().getRadnomjesto().getId() == 3){
 					DostavljacGUI d = new DostavljacGUI();
 				}
 				} catch (Exception e1) {
@@ -98,7 +101,7 @@ public class LoginGUI
 				}
 				
 			}
-		});*/
+		});
 		btnPrijava.setBounds(190, 74, 89, 23);
 		frmPrijavaNaSistem.getContentPane().add(btnPrijava);
 		

@@ -1,0 +1,67 @@
+package ba.unsa.etf.si.TelefonskeNarudzbe.Controllers;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+
+import Util.HibernateUtil;
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
+
+public final class LoginController {
+	
+	private static LoginController instance = null;
+	
+	private static Session sesija;
+	public Session getSesija() {
+		return sesija;
+	}
+	private static Transaction transakcija;
+	public Transaction getTransakcija() {
+		return transakcija;
+	}
+	private static Zaposlenik zaposlenik;
+	public Zaposlenik getZaposlenik() {
+		return zaposlenik;
+	}
+	private LoginController(String username, String password) throws Exception{
+		sesija = HibernateUtil.getSessionFactory().openSession();
+		transakcija = sesija.beginTransaction();
+		zaposlenik = null;
+		zaposlenik = (Zaposlenik) sesija.createCriteria(Zaposlenik.class).add(Restrictions.eq("username", username)).uniqueResult();
+		if (zaposlenik != null) {
+			pocniLogin(password);
+		}
+		else{
+			throw new IllegalArgumentException("Pogrešan un");
+		}
+	}
+	
+	public static LoginController getInstance(String username, String password) throws Exception {
+		if(instance == null){
+			instance = new LoginController(username, password);
+		}
+		return instance;
+	}
+	
+	private static void pocniLogin(String password) throws Exception {
+		try {
+			if (!zaposlenik.provjeraPW(password))
+				throw new IllegalArgumentException("Pogrešan pw");
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	public Boolean daLiPostoji(){
+		return (instance != null);
+	}
+	
+	public void ubijSesiju(){
+		//trasaction.commit();
+		session.close();
+		korisnik = null;
+		instance = null;
+	}
+	
+
+}
