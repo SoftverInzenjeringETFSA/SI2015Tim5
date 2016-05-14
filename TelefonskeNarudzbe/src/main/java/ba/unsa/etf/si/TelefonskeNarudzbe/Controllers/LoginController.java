@@ -1,4 +1,4 @@
-package ba.unsa.etf.si.TelefonskeNarudzbe.Controllers;
+/*package ba.unsa.etf.si.TelefonskeNarudzbe.Controllers;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -61,7 +61,7 @@ public final class LoginController {
 		session.close();
 		korisnik = null;
 		instance = null;
-	}*/
+	}
 	
 
-}
+}*/

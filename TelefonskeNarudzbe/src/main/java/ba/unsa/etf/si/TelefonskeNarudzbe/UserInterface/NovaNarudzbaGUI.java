@@ -1,225 +1,409 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface;
 
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.*;
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.*;
+import Util.HibernateUtil;
+
 import java.awt.EventQueue;
+import java.awt.ItemSelectable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JTextPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
 
 import org.apache.log4j.Logger;
 
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JTextField;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.util.Iterator;
 import java.awt.event.ActionEvent;
+import java.time.LocalDateTime;
+
 import javax.swing.SwingConstants;
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
+import java.util.Date;
+import java.util.Set;
+import javax.swing.JTextArea;
 
 public class NovaNarudzbaGUI {
 
 	private JFrame frmInformacijeONarudbi;
-	private JTextField txtLoionika;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField txtAdresa;
+	private JTextField txtBrTelefona;
+	private JTextField txtInformacije;
+	private JTextField txtCijena;
+	private JTextField txtPopust;
+	private JTextField txtUkupno;
+	private JTextField txtKolicina;
+	private JTextPane txtDodatneInformacije;
+	private JScrollPane listScrollPane;
+	private JComboBox comboBox;
+	private DefaultListModel lmodel;
+	private DefaultComboBoxModel cbmodel;
+
+	private NovaNarudzbaController kontroler;
+	private List<Jelo> narucenaJela;
+	private JButton btnObraunaj;
+	private JButton btnNewButton;
+	private static Zaposlenik ja;
+	
+	private List<NarudzbaJeloVeza> njvLista;
+		
 	final static Logger logger = Logger.getLogger(NovaNarudzbaGUI.class);
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
+	
+	//otvara novi prozor
+	public void otvori(final Zaposlenik proslijedjeni)
+	{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					NovaNarudzbaGUI window = new NovaNarudzbaGUI();
 					window.frmInformacijeONarudbi.setVisible(true);
+					ja=new Zaposlenik();
+					ja=proslijedjeni;
 				} catch (Exception e) {
 					logger.info(e);
-					//e.printStackTrace();
+					// e.printStackTrace();
 				}
 			}
 		});
 	}
-
-	/**
-	 * Create the application.
-	 */
+	
+	
 	public NovaNarudzbaGUI() {
+			
+		lmodel = new DefaultListModel();
+		cbmodel = new DefaultComboBoxModel();
+		kontroler = new NovaNarudzbaController();
+		narucenaJela = new ArrayList<Jelo>();
+		btnObraunaj = new JButton("Obra\u010Dunaj ");
+		btnNewButton = new JButton("Spremi ");
+		njvLista=new ArrayList<NarudzbaJeloVeza>();
+		
 		initialize();
+
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	// funkcija za prikaz svih jela u comboboxu iz baze
+	private void prikaziJela() {
+		List<Jelo> jela = kontroler.dajSvaJela();
+
+		for (Jelo i : jela) {
+			cbmodel.addElement(i.getNaziv());
+		}
+	}
+
+	// funkcija za dinamicko dodavanje u listu narucenih jela
+	private void dodajUListu(String naziv) {
+		Jelo j = kontroler.dajJelo(naziv);
+		NarudzbaJeloVeza vezaNJ=new NarudzbaJeloVeza();
+		
+		try {
+			Integer kolicinaJela= Integer.parseInt(txtKolicina.getText());
+			
+			for (int i = 0; i < kolicinaJela; i++) {
+				lmodel.addElement(j.getNaziv());
+				narucenaJela.add(j);
+			}
+			
+			NarudzbaJeloVeza njv=new NarudzbaJeloVeza();
+			njv.setJelo(j);
+			njv.setKolicina(kolicinaJela);
+			
+			njvLista.add(njv);
+		}
+
+		catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Niste unijeli korektno kolicinu jela!");
+		}
+	}
+	
+	
+	private void refreshajDodavanje()
+	{
+		comboBox.setSelectedIndex(-1);
+		txtKolicina.setText("");
+	}
+	
+	
+	// racuna cijenu sa popustom povucenim iz baze i upisuje u textbox
+	private void obracunajCijenu() {
+		double cijenaBezPopusta = 0;
+		double popust;
+		double ukupnaCijena = 0;
+
+		for (Jelo j : narucenaJela) {
+			cijenaBezPopusta += j.getCijena();
+		}
+
+		Popust p = kontroler.dajPopust(cijenaBezPopusta);
+
+		if (p != null)
+			popust = p.getIznos();
+
+		else
+			popust = 0;
+		
+		ukupnaCijena = cijenaBezPopusta - cijenaBezPopusta * popust / 100;
+
+		txtCijena.setText(Double.toString(cijenaBezPopusta));
+		txtPopust.setText(Double.toString(popust) + "%");
+		txtUkupno.setText(Double.toString(ukupnaCijena));
+	}
+	
+	//provjerava da li je uneseno sve sto je potrebno za narudzbu
+	private Boolean provjeriJelSveUpisano() {
+		if (txtCijena.getText().equals("") || txtPopust.getText().equals("") || txtUkupno.getText().equals("")
+				|| txtAdresa.getText().equals("") || txtBrTelefona.getText().equals("") || narucenaJela.isEmpty()) {
+			return false;
+		}
+
+		return true;
+	}
+	
+	//sprema narudzbu u bazu sa svim vezama
+	private Boolean pospremiUBazu() {
+		Kupac k = new Kupac();
+		Narudzba nova=new Narudzba();
+		
+		try{
+			k.setAdresa(txtAdresa.getText());
+			k.setInfo(txtInformacije.getText());
+			k.setBrojTelefona(Integer.parseInt(txtBrTelefona.getText()));
+			
+			nova.setZaposlenikByZaposlenikOsobaIdPrimalac(ja);
+			nova.setCijena(Double.parseDouble(txtUkupno.getText()));
+			nova.setStatus(1);
+			nova.setVrijemePrijema(new Date(System.currentTimeMillis()));
+			nova.setOpis(txtDodatneInformacije.getText());
+				
+			kontroler.spremiNovogKupca(k);
+			nova.setKupac(k);
+			k.getNarudzbas().add(nova);
+			kontroler.spremiNovuNarudzbu(nova);
+			
+				
+			for(NarudzbaJeloVeza i:njvLista)
+			{	
+				i.setNarudzba(nova);
+				//nova.getNarudzbajelovezas().add(i);
+				//i.getJelo().getNarudzbajelovezas().add(i);
+				kontroler.spremiNarudzbaJeloVeza(i);
+			}
+			
+			return true;
+			
+		}
+		
+		catch(Exception e)
+		{
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return false;
+		}
+		
+	}
+	
+	
 	private void initialize() {
+		prikaziJela();
+		
 		frmInformacijeONarudbi = new JFrame();
 		frmInformacijeONarudbi.setTitle("Informacije o narud\u017Ebi");
-		frmInformacijeONarudbi.setBounds(100, 100, 458, 467);
+		frmInformacijeONarudbi.setBounds(100, 100, 461, 478);
 		frmInformacijeONarudbi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmInformacijeONarudbi.getContentPane().setLayout(null);
-		
+
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 34, 408, 27);
+		panel.setBounds(10, 34, 423, 30);
 		frmInformacijeONarudbi.getContentPane().add(panel);
 		panel.setLayout(null);
-		
-		JLabel lblPretragaJela = new JLabel("Pretraga jela");
-		lblPretragaJela.setBounds(10, 0, 89, 27);
+
+		JLabel lblPretragaJela = new JLabel("Jelo:");
+		lblPretragaJela.setBounds(10, 0, 32, 27);
 		panel.add(lblPretragaJela);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setEditable(true);
-		comboBox.setBounds(90, 3, 191, 20);
+
+		comboBox = new JComboBox(cbmodel);
+		comboBox.setEditable(false);
+		comboBox.setBounds(52, 3, 145, 20);
 		panel.add(comboBox);
-		
+
 		JButton btnDodajJelo = new JButton("Dodaj jelo");
-		btnDodajJelo.setBounds(309, 2, 89, 23);
-		panel.add(btnDodajJelo);
-		
-		JList list = new JList();
-		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Hamburger", "Chiken Burger"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
+		btnDodajJelo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dodajUListu((String) cbmodel.getSelectedItem());
+				refreshajDodavanje();
 			}
 		});
-		list.setToolTipText("Hamburger\r\nChicken burger");
+		btnDodajJelo.setBounds(324, 2, 89, 23);
+		panel.add(btnDodajJelo);
+
+		JLabel lblKolicina = new JLabel("Količina:");
+		lblKolicina.setBounds(207, 3, 51, 20);
+		panel.add(lblKolicina);
+
+		txtKolicina = new JTextField();
+		txtKolicina.setBounds(271, 3, 39, 20);
+		txtKolicina.setHorizontalAlignment(JTextField.CENTER);
+		panel.add(txtKolicina);
+		txtKolicina.setColumns(10);
+
+		JList list = new JList(lmodel);
 		list.setBorder(new LineBorder(new Color(0, 0, 0)));
-		list.setBounds(9, 97, 208, 89);
+		list.setBounds(10, 100, 204, 89);
 		frmInformacijeONarudbi.getContentPane().add(list);
-		
+
+		JScrollPane listScrollPane = new JScrollPane(list);
+		listScrollPane.setBounds(10, 100, 204, 89);
+		list.setMinimumSize(new Dimension(150, 100));
+		frmInformacijeONarudbi.getContentPane().add(listScrollPane);
+
 		JLabel lblDodatniOpis = new JLabel("Dodatni opis narud\u017Ebe:");
-		lblDodatniOpis.setBounds(228, 72, 159, 14);
+		lblDodatniOpis.setBounds(246, 75, 159, 14);
 		frmInformacijeONarudbi.getContentPane().add(lblDodatniOpis);
-		
-		JTextPane txtpnHamburgerBezKeapa = new JTextPane();
-		txtpnHamburgerBezKeapa.setText("Hamburger bez ke\u010Dapa, Chiken Burger bez paradajza");
-		txtpnHamburgerBezKeapa.setBounds(227, 97, 191, 89);
-		frmInformacijeONarudbi.getContentPane().add(txtpnHamburgerBezKeapa);
-		
+
+		txtDodatneInformacije = new JTextPane();
+		txtDodatneInformacije.setBounds(237, 100, 184, 89);
+		frmInformacijeONarudbi.getContentPane().add(txtDodatneInformacije);
+
 		JLabel lblNaruenaJela = new JLabel("Naru\u010Dena jela:");
-		lblNaruenaJela.setBounds(10, 72, 87, 14);
+		lblNaruenaJela.setBounds(20, 75, 87, 14);
 		frmInformacijeONarudbi.getContentPane().add(lblNaruenaJela);
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setToolTipText("Podaci o naru\u010Diocu");
-		panel_1.setBounds(10, 197, 408, 119);
+		panel_1.setBounds(10, 210, 423, 119);
 		frmInformacijeONarudbi.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
-		
+
 		JLabel lblNewLabel = new JLabel("Adresa:");
 		lblNewLabel.setBounds(59, 30, 46, 14);
 		panel_1.add(lblNewLabel);
-		
+
 		JLabel lblPodaciOKorisniku = new JLabel("Podaci o naru\u010Diocu");
-		lblPodaciOKorisniku.setBounds(149, 2, 114, 14);
+		lblPodaciOKorisniku.setBounds(165, 0, 114, 14);
 		panel_1.add(lblPodaciOKorisniku);
-		
-		txtLoionika = new JTextField();
-		txtLoionika.setText("Lo\u017Eioni\u010Dka 21");
-		txtLoionika.setBounds(109, 27, 289, 20);
-		panel_1.add(txtLoionika);
-		txtLoionika.setColumns(10);
-		
+
+		txtAdresa = new JTextField();
+		txtAdresa.setBounds(109, 27, 304, 20);
+		panel_1.add(txtAdresa);
+		txtAdresa.setColumns(10);
+
 		JLabel lblNewLabel_1 = new JLabel("Broj telefona:");
 		lblNewLabel_1.setBounds(30, 55, 89, 14);
 		panel_1.add(lblNewLabel_1);
-		
-		textField_1 = new JTextField();
-		textField_1.setText("062-111-383");
-		textField_1.setColumns(10);
-		textField_1.setBounds(109, 52, 289, 20);
-		panel_1.add(textField_1);
-		
+
+		txtBrTelefona = new JTextField();
+		txtBrTelefona.setColumns(10);
+		txtBrTelefona.setBounds(109, 52, 304, 20);
+		panel_1.add(txtBrTelefona);
+
 		JLabel lblNewLabel_2 = new JLabel("Informacije:");
 		lblNewLabel_2.setBounds(38, 81, 114, 14);
 		panel_1.add(lblNewLabel_2);
-		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(109, 78, 289, 20);
-		panel_1.add(textField_2);
-		
+
+		txtInformacije = new JTextField();
+		txtInformacije.setColumns(10);
+		txtInformacije.setBounds(109, 78, 304, 20);
+		panel_1.add(txtInformacije);
+
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(234, 327, 184, 90);
+		panel_2.setBounds(237, 339, 184, 90);
 		frmInformacijeONarudbi.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
-		
+
 		JLabel lblNewLabel_3 = new JLabel("Cijena:");
 		lblNewLabel_3.setBounds(20, 11, 46, 14);
 		panel_2.add(lblNewLabel_3);
-		
-		textField_3 = new JTextField();
-		textField_3.setText("6");
-		textField_3.setEditable(false);
-		textField_3.setBounds(68, 8, 86, 20);
-		panel_2.add(textField_3);
-		textField_3.setColumns(10);
-		
+
+		txtCijena = new JTextField();
+		txtCijena.setEditable(false);
+		txtCijena.setBounds(68, 8, 86, 20);
+		panel_2.add(txtCijena);
+		txtCijena.setColumns(10);
+
 		JLabel lblPopust = new JLabel("Ukupno:");
 		lblPopust.setBounds(20, 61, 46, 14);
 		panel_2.add(lblPopust);
-		
+
 		JLabel label = new JLabel("Popust:");
 		label.setBounds(20, 36, 46, 14);
 		panel_2.add(label);
-		
-		textField_4 = new JTextField();
-		textField_4.setText("0");
-		textField_4.setEditable(false);
-		textField_4.setColumns(10);
-		textField_4.setBounds(68, 33, 86, 20);
-		panel_2.add(textField_4);
-		
-		textField_5 = new JTextField();
-		textField_5.setText("6");
-		textField_5.setEditable(false);
-		textField_5.setColumns(10);
-		textField_5.setBounds(68, 58, 86, 20);
-		panel_2.add(textField_5);
-		
+
+		txtPopust = new JTextField();
+		txtPopust.setEditable(false);
+		txtPopust.setColumns(10);
+		txtPopust.setBounds(68, 33, 86, 20);
+		panel_2.add(txtPopust);
+
+		txtUkupno = new JTextField();
+		txtUkupno.setEditable(false);
+		txtUkupno.setColumns(10);
+		txtUkupno.setBounds(68, 58, 86, 20);
+		panel_2.add(txtUkupno);
+
 		JLabel lblNewLabel_4 = new JLabel("KM");
 		lblNewLabel_4.setBounds(160, 61, 24, 14);
 		panel_2.add(lblNewLabel_4);
-		
+
 		JLabel label_1 = new JLabel("KM");
 		label_1.setBounds(160, 11, 24, 14);
 		panel_2.add(label_1);
-		
+
 		JLabel label_2 = new JLabel("%");
 		label_2.setBounds(160, 36, 24, 14);
 		panel_2.add(label_2);
-		
-		JButton btnObraunaj = new JButton("Obra\u010Dunaj ");
-		btnObraunaj.setBounds(65, 338, 107, 23);
+
+		btnObraunaj.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				obracunajCijenu();
+				if (provjeriJelSveUpisano())
+					btnNewButton.setEnabled(true);
+			}
+		});
+		btnObraunaj.setBounds(76, 357, 107, 23);
 		frmInformacijeONarudbi.getContentPane().add(btnObraunaj);
-		
-		JButton btnNewButton = new JButton("Spremi ");
+
 		btnNewButton.setEnabled(false);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(pospremiUBazu()) {
+					JOptionPane.showMessageDialog(null, "Nova narudzba je unesena.");
+				}
+				
+				else JOptionPane.showMessageDialog(null, "Doslo je do greske.");
+			}
+		});
 		btnNewButton.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnNewButton.setBounds(65, 372, 107, 23);
+		btnNewButton.setBounds(76, 389, 107, 23);
 		frmInformacijeONarudbi.getContentPane().add(btnNewButton);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 97, 21);
 		frmInformacijeONarudbi.getContentPane().add(menuBar);
-		
+
 		JMenu mnNewMenu = new JMenu("Meni");
 		menuBar.add(mnNewMenu);
-		
+
 		JMenuItem mntmOdjava = new JMenuItem("Odjava");
 		mnNewMenu.add(mntmOdjava);
 		btnObraunaj.addActionListener(new ActionListener() {

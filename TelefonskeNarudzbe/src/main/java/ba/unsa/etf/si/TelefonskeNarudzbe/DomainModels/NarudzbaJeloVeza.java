@@ -1,11 +1,14 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 // default package
 // Generated 12-May-2016 01:37:08 by Hibernate Tools 5.1.0.Alpha1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -34,7 +37,7 @@ public class NarudzbaJeloVeza implements java.io.Serializable {
 	}
 
 	@Id
-
+	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;

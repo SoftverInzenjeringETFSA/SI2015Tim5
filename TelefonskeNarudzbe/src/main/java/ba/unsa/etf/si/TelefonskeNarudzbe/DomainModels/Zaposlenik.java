@@ -32,26 +32,10 @@ public class Zaposlenik implements java.io.Serializable {
 	private String datumRodenja;
 	private String imePrezime;
 	private String dodatneInformacije;
-	@Column(name = "dodatneInformacije", unique = false, nullable = true, length=500)
-	public String getDodatneInformacije() {
-		return dodatneInformacije;
-	}
-
-	public void setDodatneInformacije(String dodatneInformacije) {
-		this.dodatneInformacije = dodatneInformacije;
-	}
-
-	public String getImePrezime() {
-		return imePrezime;
-	}
-
-	public void setImePrezime(String imePrezime) {
-		this.imePrezime = imePrezime;
-	}
-
 	private Set<Narudzba> narudzbasForZaposlenikOsobaIdDostavljac = new HashSet<Narudzba>(0);
 	private Set<Narudzba> narudzbasForZaposlenikOsobaIdKuhar = new HashSet<Narudzba>(0);
 	private Set<Narudzba> narudzbasForZaposlenikOsobaIdPrimalac = new HashSet<Narudzba>(0);
+	
 
 	public Zaposlenik() {
 	}
@@ -123,6 +107,25 @@ public class Zaposlenik implements java.io.Serializable {
 	public void setDatumRodenja(String datumRodenja) {
 		this.datumRodenja = datumRodenja;
 	}
+	
+	@Column(name = "dodatneInformacije", unique = false, nullable = true, length=500)
+	public String getDodatneInformacije() {
+		return dodatneInformacije;
+	}
+
+	public void setDodatneInformacije(String dodatneInformacije) {
+		this.dodatneInformacije = dodatneInformacije;
+	}
+	
+	
+	@Column(name = "imePrezime", unique = false, nullable = true, length=20)
+	public String getImePrezime() {
+		return imePrezime;
+	}
+
+	public void setImePrezime(String imePrezime) {
+		this.imePrezime = imePrezime;
+	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "zaposlenikByZaposlenikOsobaIdDostavljac")
 	public Set<Narudzba> getNarudzbasForZaposlenikOsobaIdDostavljac() {
@@ -151,12 +154,9 @@ public class Zaposlenik implements java.io.Serializable {
 		this.narudzbasForZaposlenikOsobaIdPrimalac = narudzbasForZaposlenikOsobaIdPrimalac;
 	}
 
-	public boolean provjeraPW(String pw)
+	/*public boolean provjeraPW(String pw)
 	{
 		return (password.equals(pw));
-	}
+	}*/
 
-	public RadnoMjesto getRadnoMjesto() {
-		return radnomjesto;
-	}
 }

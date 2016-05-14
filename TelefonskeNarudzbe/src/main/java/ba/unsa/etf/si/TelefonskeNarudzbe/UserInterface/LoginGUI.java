@@ -8,7 +8,7 @@ import javax.swing.JTextField;
 
 import org.apache.log4j.Logger;
 
-import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.LoginController;
+//import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.LoginController;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -76,7 +76,7 @@ public class LoginGUI
 		frmPrijavaNaSistem.getContentPane().add(textField_1);
 		
 		JButton btnPrijava = new JButton("Prijava");
-		btnPrijava.addActionListener(new ActionListener() {
+		/*btnPrijava.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				LoginController s = null;
@@ -84,7 +84,7 @@ public class LoginGUI
 					s = LoginController.getInstance(textField.getText(), textField_1.getText());
 				
 				if(s.getZaposlenik().getRadnoMjesto().getId() == 1){
-					TelefonPocetnaGUI a = new TelefonPocetnaGUI(s.getZaposlenik());
+					//TelefonPocetnaGUI a = new TelefonPocetnaGUI(s.getZaposlenik());
 				}
 				else if(s.getZaposlenik().getRadnoMjesto().getId() == 2){
 					KuharGUI k = new KuharGUI();
@@ -98,7 +98,7 @@ public class LoginGUI
 				}
 				
 			}
-		});
+		});*/
 		btnPrijava.setBounds(190, 74, 89, 23);
 		frmPrijavaNaSistem.getContentPane().add(btnPrijava);
 		
