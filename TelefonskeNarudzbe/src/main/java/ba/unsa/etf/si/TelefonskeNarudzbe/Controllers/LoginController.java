@@ -60,8 +60,7 @@ public final class LoginController {
 	public void ubijSesiju(){
 		//trasaction.commit();
 		sesija.close();
-	zaposlenik = null;
-		instance = null;
+	
 	}
 	
 
