@@ -45,7 +45,7 @@ public class TelefonPocetnaGUI {
 		});
 	}
 
-	public static Zaposlenik ja;
+private static Zaposlenik ja;
 
 	public TelefonPocetnaGUI() {
 
