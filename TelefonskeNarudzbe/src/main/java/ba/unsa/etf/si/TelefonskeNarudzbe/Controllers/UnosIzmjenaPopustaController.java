@@ -15,42 +15,59 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Popust;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak;
 
 public class UnosIzmjenaPopustaController {
-	public List<Popust> vratiSvePopuste(){
+	public static Popust vratiPopust(String cijenaOd, String cijenaDo) {
+		Popust p= null;
+		try {
+			Double od = Double.parseDouble(cijenaOd);
+			Double doo = Double.parseDouble(cijenaDo);
+			Session sesija = HibernateUtil.getSessionFactory().openSession();
+			Criteria criteria = sesija.createCriteria(Popust.class).add(Restrictions.eq("od", od)).add(Restrictions.eq("doo", doo));
+			List<Popust> lista = criteria.list();
+			p=lista.get(0);
+			sesija.close();
+			return p;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Doslo je do greske!");
+		}
+		return p;
+	}
+
+	public List<Popust> vratiSvePopuste() {
 		Session sesija = HibernateUtil.getSessionFactory().openSession();
-        Criteria criteria = sesija.createCriteria(Popust.class);
+		Criteria criteria = sesija.createCriteria(Popust.class);
 		List<Popust> lista = criteria.list();
 		sesija.close();
 		return lista;
 	}
-	public boolean izmjenaPopusta(double cijenaOd, double cijenaDo, Double popust)
-	{
-		try{
+
+	public boolean izmjenaPopusta(double cijenaOd, double cijenaDo, Double popust) {
+		try {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			Transaction t = session.beginTransaction();
-	if (session.createCriteria(Popust.class).add(Restrictions.eq("od", cijenaOd)).add(Restrictions.eq("doo", cijenaDo)).uniqueResult() == null){
-			
-			Popust p = new Popust();
-			p.setOd(cijenaOd);
-			p.setDoo(cijenaDo);
-			p.setIznos(popust);
-			session.beginTransaction();
-			session.save(p);
-			session.getTransaction().commit();
-			return true;
-		}
-		else{
+			if (session.createCriteria(Popust.class).add(Restrictions.eq("od", cijenaOd))
+					.add(Restrictions.eq("doo", cijenaDo)).uniqueResult() == null) {
 
-			Criteria criteria = session.createCriteria(Popust.class).add(Restrictions.eq("od", cijenaOd)).add(Restrictions.eq("doo", cijenaDo));
+				Popust p = new Popust();
+				p.setOd(cijenaOd);
+				p.setDoo(cijenaDo);
+				p.setIznos(popust);
+				session.beginTransaction();
+				session.save(p);
+				session.getTransaction().commit();
+				return true;
+			} else {
+
+				Criteria criteria = session.createCriteria(Popust.class).add(Restrictions.eq("od", cijenaOd))
+						.add(Restrictions.eq("doo", cijenaDo));
 				Popust p = (Popust) criteria.uniqueResult();
-			p.setOd(cijenaOd);
-			p.setDoo(cijenaDo);
-			p.setIznos(popust);
-			session.update(p);
-			t.commit();
-			return true;
+				p.setOd(cijenaOd);
+				p.setDoo(cijenaDo);
+				p.setIznos(popust);
+				session.update(p);
+				t.commit();
+				return true;
 			}
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;

@@ -19,6 +19,14 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
 
 public class UnosIzmjenaRadnikaController {
+	public static Zaposlenik vratiRadnika(String imePrezime){
+		Session sesija = HibernateUtil.getSessionFactory().openSession();
+        Criteria criteria = sesija.createCriteria(Zaposlenik.class).add(Restrictions.like("imePrezime", imePrezime));
+		List<Zaposlenik> r = criteria.list();
+		Zaposlenik z = r.get(0);
+		sesija.close();
+		return z;
+	}
 	public List<Zaposlenik> vratiSveRadnike(){
 		Session sesija = HibernateUtil.getSessionFactory().openSession();
         Criteria criteria = sesija.createCriteria(Zaposlenik.class);

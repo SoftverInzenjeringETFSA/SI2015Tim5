@@ -25,6 +25,20 @@ public class Jelo implements java.io.Serializable {
 	private Integer id;
 	private String opis;
 	private String naziv;
+	private Boolean izbrisano;
+	@Column(name = "izbrisano", unique = false, nullable = true)
+	public Boolean getIzbrisano() {
+		return izbrisano;
+	}
+
+	public void setIzbrisano(Boolean izbrisano) {
+		this.izbrisano = izbrisano;
+	}
+
+	public String getOpis() {
+		return opis;
+	}
+
 	private double cijena;
 	private Set<SastojciJeloVeza> sastojciJeloVezas = new HashSet<SastojciJeloVeza>(0);
 	private Set<NarudzbaJeloVeza> narudzbajelovezas = new HashSet<NarudzbaJeloVeza>(0);

@@ -2,6 +2,8 @@ package ba.unsa.etf.si.TelefonskeNarudzbe.Controllers;
 
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -21,8 +23,10 @@ public class BrisanjeJela {
 			Criteria criteria = session.createCriteria(Jelo.class).add(Restrictions.like("naziv", naziv).ignoreCase());
 			List<Jelo> lista = criteria.list();
 			Jelo j = lista.get(0);
-			session.delete(j);
+			j.setIzbrisano(true);
+			session.update(j);
 			t.commit();
+			JOptionPane.showMessageDialog(null, "Jelo uspjesno obrisano!");
 		} catch (Exception e) {
 			logger.error(e);
 			return false;

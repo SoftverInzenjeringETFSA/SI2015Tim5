@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -25,14 +27,53 @@ public class UnosIzmjenaSastojkaController {
 			sesija.close();
 			return lista;
 	}
-	public List<String> vratiSastojkeJela(Jelo jelo)
+	public static List<String> vratiListuSastojakaJela(Jelo jelo)
 	{
-		List<SastojciJeloVeza> vezasj = new ArrayList<SastojciJeloVeza>(jelo.getSastojciJeloVezas());
-		List<String> sastojci = null;
-				for (SastojciJeloVeza oo : vezasj) {
-									sastojci.add(oo.getSastojak().getNaziv()+", ");
-				}
+		 Session sesija = HibernateUtil.getSessionFactory().openSession();
+		 Criteria criteria = sesija.createCriteria(SastojciJeloVeza.class);
+		 List<SastojciJeloVeza> lista=criteria.list();
+			List<String> novalista=new ArrayList<String>();
+			 for (int i=0; i<lista.size(); i++){
+				 if(lista.get(i).getJelo().getId()==jelo.getId())
+				 novalista.add(lista.get(i).getSastojak().getNaziv());
+		 }
+				
 		
+				sesija.close();
+		return novalista;
+	}
+	public static List<String> vratiListuKolicinaSastojakaJela(Jelo jelo)
+	{
+		 Session sesija = HibernateUtil.getSessionFactory().openSession();
+		 Criteria criteria = sesija.createCriteria(SastojciJeloVeza.class);
+		 List<SastojciJeloVeza> lista=criteria.list();
+			List<String> novalista=new ArrayList<String>();
+			 for (int i=0; i<lista.size(); i++){
+				 if(lista.get(i).getJelo().getId()==jelo.getId())
+				 novalista.add(String.valueOf(lista.get(i).getKolicina()));
+		 }
+				
+		
+				sesija.close();
+		return novalista;
+	}
+	public static String vratiSastojkeJela(Jelo jelo)
+	{
+		 Session sesija = HibernateUtil.getSessionFactory().openSession();
+		 Criteria criteria = sesija.createCriteria(SastojciJeloVeza.class);
+		 List<SastojciJeloVeza> lista=criteria.list();
+			List<SastojciJeloVeza> novalista=new ArrayList<SastojciJeloVeza>();
+			 for (int i=0; i<lista.size(); i++){
+				 if(lista.get(i).getJelo().getId()==jelo.getId())
+				 novalista.add(lista.get(i));
+		 }
+				
+		 String sastojci = "";
+				for (SastojciJeloVeza oo : novalista) {
+					
+									sastojci+=oo.getSastojak().getNaziv()+", ";
+				}
+				sesija.close();
 		return sastojci;
 	}
 	public static Sastojak vratiSastojak(String naziv)

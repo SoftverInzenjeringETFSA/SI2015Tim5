@@ -24,7 +24,7 @@ public class BrisanjeRadnika {
 			Transaction t = session.beginTransaction();
 			Criteria criteria = session.createCriteria(Zaposlenik.class).add(Restrictions.like("imePrezime", imePrezime).ignoreCase());
 			List<Zaposlenik> lista = criteria.list();
-			Zaposlenik z = lista.get(0);
+			Zaposlenik z = lista.get(0);	
 			UnosIzmjenaRadnikaController c = new UnosIzmjenaRadnikaController();
 			z.setRadnomjesto(c.vratiRadnoMjesto(z.getRadnomjesto().getId()+3));
 			session.update(z);

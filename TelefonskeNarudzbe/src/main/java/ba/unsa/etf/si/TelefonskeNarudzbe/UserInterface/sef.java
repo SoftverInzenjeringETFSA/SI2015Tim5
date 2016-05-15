@@ -12,6 +12,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
@@ -20,14 +21,28 @@ import javax.swing.JOptionPane;
 import javax.swing.JMenu;
 import javax.swing.JList;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
 
 import org.apache.log4j.Logger;
 
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Jelo;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Narudzba;
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Popust;
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.RadnoMjesto;
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak;
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.SastojciJeloVeza;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.BrisanjeJela;
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.BrisanjePopusta;
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.BrisanjeRadnika;
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.BrisanjeSastojka;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.IzvjestajController;
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaJelaController;
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaPopustaController;
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaRadnikaController;
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaSastojkaController;
 public class sef {
 
 	private JFrame frame;
@@ -361,15 +376,19 @@ public class sef {
 		JPanel JelovnikTab = new JPanel();
 		tabbedPane.addTab("Jelovnik", null, JelovnikTab, null);
 		JelovnikTab.setLayout(null);
-		
-		String[] kolone =  {"Naziv jela", "Cijena(KM)", "Sastojci", "Opis"};
-		Object[][] podaci = {{"Hamburger", "3", "Pljeskavica, salata, kecap, zemicka", ""}, 
-							 {"Cevapi - velika porcija", "6", "10 cevapa, somun", ""},
-							 {"Cevapi - mala porcija", "3", "5 cevapa, pola somuna", ""},
-							 {"Pileci fileti", "4", "200gr. pilecih fileta, somun, salata", ""},
-							 {"Pileci sendvic", "3", "2 pileca fileta, salata, zemicka", ""}
-							};
-		table = new JTable(podaci, kolone);
+		UnosIzmjenaJelaController jc = new UnosIzmjenaJelaController();
+		List<Jelo> listaJela = jc.vratiSvaJela();
+		String[] kolone =  {"Naziv jela", "Cijena(KM)", "Sastojci"};
+		DefaultTableModel tableModel2 = new DefaultTableModel(kolone, 0);
+		for (Jelo j : listaJela) {
+			if(j.getIzbrisano()!=null && j.getIzbrisano()==true) continue;
+			Object[] o = new Object[3];
+			  o[0] = j.getNaziv();
+			  o[1] = j.getCijena();
+			  o[2] = UnosIzmjenaSastojkaController.vratiSastojkeJela(j);
+			  tableModel2.addRow(o);
+			}
+		table = new JTable(tableModel2);
 		table.setBounds(10, 11, 671, 275);
 		table.getColumn("Cijena(KM)").setMaxWidth(70);
 		
@@ -383,6 +402,8 @@ public class sef {
 		JButton btnDodajNovoJelo = new JButton("Dodaj novo jelo");
 		btnDodajNovoJelo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				UnosIzmjenaJela forma = new UnosIzmjenaJela();
+				forma.setVisible(true);
 			}
 		});
 		btnDodajNovoJelo.setBounds(97, 575, 161, 29);
@@ -391,6 +412,11 @@ public class sef {
 		JButton btnIzmijeniPostojeeJelo = new JButton("Izmijeni postoje\u0107e jelo");
 		btnIzmijeniPostojeeJelo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				int selected =table.getSelectedRow();
+				String naziv = (String) table.getValueAt(selected,0);
+				Jelo j = UnosIzmjenaJelaController.vratiJelo(naziv);
+				UnosIzmjenaJela forma = new UnosIzmjenaJela(j);
+				forma.setVisible(true);
 			}
 		});
 		btnIzmijeniPostojeeJelo.setBounds(393, 575, 162, 29);
@@ -398,6 +424,15 @@ public class sef {
 
 		
 		JButton btnIzbriiJelo = new JButton("Izbriši jelo");
+		btnIzbriiJelo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int selected =table.getSelectedRow();
+				String naziv = (String) table.getValueAt(selected,0);
+				BrisanjeJela.BrisiJelo(naziv);
+				((DefaultTableModel)table.getModel()).fireTableDataChanged();
+				((DefaultTableModel)table.getModel()).removeRow(selected);
+			}
+		});
 		btnIzbriiJelo.setBounds(718, 575, 162, 29);
 		JelovnikTab.add(btnIzbriiJelo);
 
@@ -405,14 +440,18 @@ public class sef {
 		JPanel SastojciTab = new JPanel();
 		tabbedPane.addTab("Sastojci", null, SastojciTab, null);
 		SastojciTab.setLayout(null);
-
 		
+		List<Sastojak> listaSastojaka = UnosIzmjenaSastojkaController.vratiSveSastojke();
 		String[] kolone_sastojci = {"Naziv", "Mjerna jedinica sastojka", "Opis"};
-		Object[][] podaci_sastojci = {{"Pljeskavica", "komad", ""},
-									  {"Somun", "komad", ""},
-									  {"Pileći filet", "gram, komad", ""}
-									 };
-		table_2 = new JTable(podaci_sastojci, kolone_sastojci);
+		final DefaultTableModel tableModel3 = new DefaultTableModel(kolone_sastojci, 0);
+		for (Sastojak s : listaSastojaka) {
+			Object[] o = new Object[3];
+			  o[0] = s.getNaziv();
+			  o[1] = s.getMjernaJedinica();
+			  o[2] = s.getOpis();
+			  tableModel3.addRow(o);
+			}
+		table_2 = new JTable(tableModel3);
 		table_2.setBounds(10, 11, 969, 530);
 		SastojciTab.add(table_2);
 		
@@ -422,7 +461,9 @@ public class sef {
 		
 		JButton btnDodajSastojak = new JButton("Dodaj sastojak");
 		btnDodajSastojak.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {			
+			public void actionPerformed(ActionEvent e) {
+				UnosIzmjenaSastojka forma = new UnosIzmjenaSastojka();
+				forma.setVisible(true);
 			}
 		});
 		btnDodajSastojak.setBounds(106, 574, 162, 30);
@@ -431,29 +472,56 @@ public class sef {
 		JButton button_1 = new JButton("Izmijeni sastojak");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int selected =table_2.getSelectedRow();
+				String naziv = (String) table_2.getValueAt(selected,0);
+				Sastojak s = UnosIzmjenaSastojkaController.vratiSastojak(naziv);
+				UnosIzmjenaSastojka forma = new UnosIzmjenaSastojka(s);
+				forma.setVisible(true);
 			}
 		});
 		button_1.setBounds(387, 574, 141, 30);
 		SastojciTab.add(button_1);
 		
+
 		JButton button_2 = new JButton("Izbriši sastojak");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int selected =table_2.getSelectedRow();
+				String naziv = (String) table_2.getValueAt(selected,0);
+				BrisanjeSastojka br = new BrisanjeSastojka();
+				br.BrisiSastojak(naziv);
+				((DefaultTableModel)table_2.getModel()).removeRow(selected);
+				
+			}
+		});
 		button_2.setBounds(710, 574, 141, 30);
 		SastojciTab.add(button_2);
 		
 
+
+		UnosIzmjenaRadnikaController c=new UnosIzmjenaRadnikaController();
+		List<Zaposlenik> listaZaposlenika = c.vratiSveRadnike();
 		String[] kolone_radnici =  {"Ime i prezime", "Datum rođenja", "Radno mjesto", "Korisničko ime", "Lozinka", "Dodatne informacije"};
-		Object[][] podaci_radnici = {{"Merisa Golic", "26.04.1995.", "radnik na telefonu", "operater_merisa", "****", ""},
-									 {"Ivona Ivkovic", "01.01.1994.", "radnik na telefonu", "operater_ivona", "****", ""},
-								     {"Admira Husic", "01.01.1994.", "kuhar", "kuhar_admira", "****", ""},
-								     {"Dzana Feratovic", "01.01.1994.", "kuhar", "kuhar_dzana", "****", ""},
-								     {"Emina Huskic", "01.01.1994.", "dostavljac", "dostavljac_emina", "****", ""},
-								     {"Arnela Duzan", "01.01.1994.", "dostavljac", "dostavljac_arnela", "****", ""}
-									};
-		
 		JPanel KorisniciTab = new JPanel();
+		DefaultTableModel tableModel = new DefaultTableModel(kolone_radnici, 0);
+		
+		for (Zaposlenik z : listaZaposlenika) {
+			if(z.getRadnomjesto().getId()>4) continue;
+			Object[] o = new Object[6];
+			  o[0] = z.getImePrezime();
+			  o[1] = z.getDatumRodenja();
+			  RadnoMjesto rm=c.vratiRadnoMjesto(z.getRadnomjesto().getId());		  
+			  o[2] = rm.getNaziv();
+			  o[3] = z.getUsername();
+			  o[4] = z.getPassword();
+			  o[5] = z.getDodatneInformacije();
+			  tableModel.addRow(o);
+			}
+		            
+		final JTable table_1 = new JTable(tableModel);
+	
 		tabbedPane.addTab("Korisni\u010Dki ra\u010Duni", null, KorisniciTab, null);
 		KorisniciTab.setLayout(null);
-		table_1 = new JTable(podaci_radnici, kolone_radnici);
 		table_1.setBounds(1, 26, 450, 48);
 		
 		KorisniciTab.add(table_1);
@@ -475,7 +543,10 @@ public class sef {
 		JButton btnNewButton = new JButton("Izmijeni podatke");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UnosIzmjenaRadnika forma = new UnosIzmjenaRadnika();
+				int selected =table_1.getSelectedRow();
+				String imePrezime = (String) table_1.getValueAt(selected,0);
+				Zaposlenik z = UnosIzmjenaRadnikaController.vratiRadnika(imePrezime);
+				UnosIzmjenaRadnika forma = new UnosIzmjenaRadnika(z);
 				forma.setVisible(true);
 			}
 		});
@@ -485,6 +556,11 @@ public class sef {
 		JButton btnIzmijeniSifru = new JButton("Izmijeni lozinku");
 		btnIzmijeniSifru.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int selected =table_1.getSelectedRow();
+				String imePrezime = (String) table_1.getValueAt(selected,0);
+				Zaposlenik z = UnosIzmjenaRadnikaController.vratiRadnika(imePrezime);
+				UnosIzmjenaRadnika forma = new UnosIzmjenaRadnika(z);
+				forma.setVisible(true);
 			}
 		});
 		btnIzmijeniSifru.setBounds(519, 574, 166, 30);
@@ -493,7 +569,14 @@ public class sef {
 		JButton button = new JButton("Izbriši radnika");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int selected =table_1.getSelectedRow();
+				String imePrezime = (String) table_1.getValueAt(selected,0);
+				BrisanjeRadnika.BrisiRadnika(imePrezime);
+				((DefaultTableModel)table_1.getModel()).fireTableDataChanged();
+				table_1.repaint();
+				((DefaultTableModel)table_1.getModel()).removeRow(selected);
 			}
+					
 		});
 		button.setBounds(759, 574, 166, 30);
 		KorisniciTab.add(button);
@@ -502,17 +585,19 @@ public class sef {
 		tabbedPane.addTab("Popusti", null, PopustiTab, null);
 		PopustiTab.setLayout(null);
 		
-		Object[][] podaci_popust = {{"0-10", "0"},
-				  					{"10-20", "5"},
-				  					{"30-40", "10"},
-				  					{"50-60", "15"},
-				  					{"70-80", "20"},
-				  					{"90-100", "25"},
-				  					{"100-", "30"}
-				 };
-		String[] kolone_popust = {"Raspon cijena(KM)", "Popust (%)"};
-		
-		table_5 = new JTable(podaci_popust, kolone_popust);
+		UnosIzmjenaPopustaController pc = new UnosIzmjenaPopustaController();
+		List<Popust> listaPopusta = pc.vratiSvePopuste();
+		String[] kolone_popust = {"Cijena od (KM)","Cijena do (KM)", "Popust (%)"};
+		final DefaultTableModel tableModel4 = new DefaultTableModel(kolone_popust, 0);
+		for (Popust p : listaPopusta) {
+			Object[] o = new Object[3];
+			  o[0] = p.getOd();
+			  o[1] = p.getDoo();
+			  o[2] = p.getIznos();
+			  tableModel4.addRow(o);
+			}
+		         
+		table_5 = new JTable(tableModel4);
 		
 		JScrollPane scrollPane_5 = new JScrollPane(table_5);
 		scrollPane_5.setBounds(10, 11, 969, 475);
@@ -521,6 +606,8 @@ public class sef {
 		JButton btnDodajPopust = new JButton("Dodaj popust");
 		btnDodajPopust.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				UnosIzmjenaPopusta forma = new UnosIzmjenaPopusta();
+				forma.setVisible(true);
 			}
 		});
 		btnDodajPopust.setBounds(161, 537, 139, 30);
@@ -529,12 +616,31 @@ public class sef {
 		JButton btnNewButton_1 = new JButton("Izmijeni popust");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int selected =table_5.getSelectedRow();
+				String cijenaOd = String.valueOf(table_5.getValueAt(selected,0));
+				String cijenaDo = String.valueOf(table_5.getValueAt(selected,1));
+				Popust p = UnosIzmjenaPopustaController.vratiPopust(cijenaOd, cijenaDo);
+				UnosIzmjenaPopusta forma = new UnosIzmjenaPopusta(p);
+				forma.setVisible(true);
 			}
 		});
 		btnNewButton_1.setBounds(399, 537, 139, 30);
 		PopustiTab.add(btnNewButton_1);
 		
 		JButton btnIzbriiPopust = new JButton("Izbriši popust");
+		btnIzbriiPopust.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selected =table_5.getSelectedRow();
+				Double cijenaOd =Double.parseDouble(table_5.getValueAt(selected,0).toString());
+				Double cijenaDo = Double.parseDouble(table_5.getValueAt(selected,1).toString());
+				BrisanjePopusta bp = new BrisanjePopusta();
+				bp.BrisiPopust(cijenaOd, cijenaDo);
+				tableModel4.fireTableDataChanged();
+				((DefaultTableModel)table_5.getModel()).removeRow(selected);
+				
+				table_5.repaint();
+			}
+		});
 		btnIzbriiPopust.setBounds(642, 537, 139, 30);
 		PopustiTab.add(btnIzbriiPopust);
 		
@@ -556,5 +662,28 @@ public class sef {
 		jelo_tbl.setVisible(false);
 		scrollPane_jelo.setVisible(false);
 		scrollPane_3.setVisible(false);
+	}
+	private void reloadRadnici(){
+		
+		UnosIzmjenaRadnikaController c=new UnosIzmjenaRadnikaController();
+		List<Zaposlenik> listaZaposlenika = c.vratiSveRadnike();
+		String[] kolone_radnici =  {"Ime i prezime", "Datum rođenja", "Radno mjesto", "Korisničko ime", "Lozinka", "Dodatne informacije"};
+		JPanel KorisniciTab = new JPanel();
+		DefaultTableModel tableModel = new DefaultTableModel(kolone_radnici, 0);
+		
+		for (Zaposlenik z : listaZaposlenika) {
+			if(z.getRadnomjesto().getId()>4) continue;
+			Object[] o = new Object[6];
+			  o[0] = z.getImePrezime();
+			  o[1] = z.getDatumRodenja();
+			  RadnoMjesto rm=c.vratiRadnoMjesto(z.getRadnomjesto().getId());		  
+			  o[2] = rm.getNaziv();
+			  o[3] = z.getUsername();
+			  o[4] = z.getPassword();
+			  o[5] = z.getDodatneInformacije();
+			  tableModel.addRow(o);
+			}
+		            
+		table_1 = new JTable(tableModel);
 	}
 }

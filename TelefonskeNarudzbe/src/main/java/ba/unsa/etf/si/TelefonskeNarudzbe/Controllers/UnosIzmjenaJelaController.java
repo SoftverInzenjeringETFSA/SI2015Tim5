@@ -26,6 +26,14 @@ public class UnosIzmjenaJelaController {
 		sesija.close();
 		return r;
 	}
+	public static Jelo vratiJelo(String naziv){
+		Session sesija = HibernateUtil.getSessionFactory().openSession();
+        Criteria criteria = sesija.createCriteria(Jelo.class).add(Restrictions.like("naziv", naziv).ignoreCase());
+		List<Jelo> r = criteria.list();
+		Jelo j=r.get(0);
+		sesija.close();
+		return j;
+	}
 public static boolean izmjenaJela(String naziv, String opis, Double cijena, List<Sastojak> listaSastojaka,
 			List<Double> listaKolicina) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -42,7 +50,6 @@ public static boolean izmjenaJela(String naziv, String opis, Double cijena, List
 				j.setNaziv(naziv);
 				j.setOpis(opis);
 				j.setCijena(cijena);
-				JOptionPane.showMessageDialog(null, "tu");
 				session.beginTransaction();
 				session.save(j);
 				session.getTransaction().commit();
