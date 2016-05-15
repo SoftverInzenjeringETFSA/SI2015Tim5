@@ -64,7 +64,7 @@ public class sef {
 	private JScrollPane scrollPane_izvjestaj5 = new JScrollPane();
 	private JScrollPane scrollPane_3 = new JScrollPane();
 	final static Logger logger = Logger.getLogger(sef.class);
-	private static String odabirIzvjestaja = new String();
+	private String odabirIzvjestaja = new String();
 	private JButton dugmeGraficki ;
 	/**
 	 * Launch the application.
@@ -870,29 +870,5 @@ public class sef {
 		return s.getId();
 		
 	}
-	private void reloadRadnici() {
-
-		UnosIzmjenaRadnikaController c = new UnosIzmjenaRadnikaController();
-		List<Zaposlenik> listaZaposlenika = c.vratiSveRadnike();
-		String[] kolone_radnici = { "Ime i prezime", "Datum rođenja", "Radno mjesto", "Korisničko ime", "Lozinka",
-				"Dodatne informacije" };
-		JPanel KorisniciTab = new JPanel();
-		DefaultTableModel tableModel = new DefaultTableModel(kolone_radnici, 0);
-
-		for (Zaposlenik z : listaZaposlenika) {
-			if (z.getRadnomjesto().getId() > 4)
-				continue;
-			Object[] o = new Object[6];
-			o[0] = z.getImePrezime();
-			o[1] = z.getDatumRodenja();
-			RadnoMjesto rm = c.vratiRadnoMjesto(z.getRadnomjesto().getId());
-			o[2] = rm.getNaziv();
-			o[3] = z.getUsername();
-			o[4] = z.getPassword();
-			o[5] = z.getDodatneInformacije();
-			tableModel.addRow(o);
-		}
-
-		table_1 = new JTable(tableModel);
-	}
+	
 }
