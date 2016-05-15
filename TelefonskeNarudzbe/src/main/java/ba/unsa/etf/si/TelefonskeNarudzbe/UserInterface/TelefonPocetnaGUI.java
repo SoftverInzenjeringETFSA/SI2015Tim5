@@ -17,17 +17,17 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.NovaNarudzbaController; // i ovo brisati
 
 public class TelefonPocetnaGUI {
 
 	private JFrame frmSpremanjeNarudbi;
-	private static NovaNarudzbaController kontroler = new NovaNarudzbaController(); //i ovo..
+	private static NovaNarudzbaController kontroler = new NovaNarudzbaController(); // i
+																					// ovo..
 	private NovaNarudzbaGUI nova;
-	
-	
+
 	final static Logger logger = Logger.getLogger(TelefonPocetnaGUI.class);
+
 	/**
 	 * Launch the application.
 	 */
@@ -39,23 +39,29 @@ public class TelefonPocetnaGUI {
 					window.frmSpremanjeNarudbi.setVisible(true);
 				} catch (Exception e) {
 					logger.info(e);
-					//e.printStackTrace();
+					// e.printStackTrace();
 				}
 			}
 		});
 	}
+
 	public static Zaposlenik ja;
-	public  TelefonPocetnaGUI() {
-		
+
+	public TelefonPocetnaGUI() {
+
 		initialize();
-		
+
 	}
-	public  TelefonPocetnaGUI(Zaposlenik zaposlenik) {
-		ja=zaposlenik;
+
+	
+
+	public TelefonPocetnaGUI(Zaposlenik zaposlenik) {
+		ja = zaposlenik;
 		initialize();
 		frmSpremanjeNarudbi.setVisible(true);
-		
+
 	}
+
 	private void OdjaviSe() throws Exception {
 		try {
 			kontroler.Odjava();
@@ -67,18 +73,18 @@ public class TelefonPocetnaGUI {
 			throw new Exception();
 		}
 	}
-	/**
-	 * Create the application
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Create the application
+	 * 
+	 * /** Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
+
 		frmSpremanjeNarudbi = new JFrame();
 		frmSpremanjeNarudbi.setBounds(100, 100, 308, 145);
 		frmSpremanjeNarudbi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		frmSpremanjeNarudbi.setJMenuBar(menuBar);
 

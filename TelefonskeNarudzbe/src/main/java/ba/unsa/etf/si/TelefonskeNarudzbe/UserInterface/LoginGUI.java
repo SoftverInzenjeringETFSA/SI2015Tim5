@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import org.apache.log4j.Logger;
@@ -109,7 +110,7 @@ public class LoginGUI
 
 					}
 				}catch (Exception e1) {
-					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null,e1.getMessage());
 					e1.printStackTrace();
 				}
 				

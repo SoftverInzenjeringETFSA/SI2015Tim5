@@ -73,6 +73,7 @@ public class KuharGUI {
 		initialize();
 	}
 
+	
 	public KuharGUI(Zaposlenik zapp) {
 		zap = zapp;
 		initialize();

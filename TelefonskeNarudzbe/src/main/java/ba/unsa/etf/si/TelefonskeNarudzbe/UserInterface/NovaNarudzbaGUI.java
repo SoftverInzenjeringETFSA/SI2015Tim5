@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface;
-
+import ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface.TelefonPocetnaGUI;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.*;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.*;
 import ba.unsa.etf.si.TelefonskeNarudzbe.*;
@@ -33,7 +33,6 @@ import javax.swing.JMenu;
 import javax.swing.JTextField;
 import java.awt.event.*;
 import java.util.Iterator;
-import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 
@@ -70,7 +69,7 @@ public class NovaNarudzbaGUI {
 	private JButton btnObraunaj;
 	private JButton btnNewButton;
 	private static Zaposlenik ja;
-
+private TelefonPocetnaGUI tel=new TelefonPocetnaGUI();
 	private List<NarudzbaJeloVeza> njvLista;
 	private MaskFormatter telefon;
 	final static Logger logger = Logger.getLogger(NovaNarudzbaGUI.class);
@@ -104,6 +103,18 @@ public class NovaNarudzbaGUI {
 
 		initialize();
 
+	}
+	private void OdjaviSe() throws Exception {
+		try {
+			
+			frmInformacijeONarudbi.setVisible(false);
+			LoginGUI log = new LoginGUI();
+			//tel.Ugasi();
+
+		} catch (Exception e) {
+			logger.info(e);
+			throw new Exception();
+		}
 	}
 
 	// funkcija za prikaz svih jela u comboboxu iz baze
@@ -263,6 +274,7 @@ public class NovaNarudzbaGUI {
 	}
 
 	private void initialize() {
+		
 		prikaziJela();
 		
 		telefon = new MaskFormatter();
@@ -277,7 +289,7 @@ public class NovaNarudzbaGUI {
 		frmInformacijeONarudbi = new JFrame();
 		frmInformacijeONarudbi.setTitle("Informacije o narud\u017Ebi");
 		frmInformacijeONarudbi.setBounds(100, 100, 461, 478);
-		frmInformacijeONarudbi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmInformacijeONarudbi.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmInformacijeONarudbi.getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
@@ -315,14 +327,8 @@ public class NovaNarudzbaGUI {
 		panel.add(txtKolicina);
 		txtKolicina.setColumns(10);
 
-		JList list = new JList(lmodel);
-		list.setBorder(new LineBorder(new Color(0, 0, 0)));
-		list.setBounds(10, 100, 204, 89);
-		frmInformacijeONarudbi.getContentPane().add(list);
-
-		JScrollPane listScrollPane = new JScrollPane(list);
+		JScrollPane listScrollPane = new JScrollPane();
 		listScrollPane.setBounds(10, 100, 204, 89);
-		list.setMinimumSize(new Dimension(150, 100));
 		frmInformacijeONarudbi.getContentPane().add(listScrollPane);
 
 		JLabel lblDodatniOpis = new JLabel("Dodatni opis narud\u017Ebe:");
@@ -446,16 +452,6 @@ public class NovaNarudzbaGUI {
 		btnNewButton.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnNewButton.setBounds(76, 389, 107, 23);
 		frmInformacijeONarudbi.getContentPane().add(btnNewButton);
-
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 97, 21);
-		frmInformacijeONarudbi.getContentPane().add(menuBar);
-
-		JMenu mnNewMenu = new JMenu("Meni");
-		menuBar.add(mnNewMenu);
-
-		JMenuItem mntmOdjava = new JMenuItem("Odjava");
-		mnNewMenu.add(mntmOdjava);
 		btnObraunaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
