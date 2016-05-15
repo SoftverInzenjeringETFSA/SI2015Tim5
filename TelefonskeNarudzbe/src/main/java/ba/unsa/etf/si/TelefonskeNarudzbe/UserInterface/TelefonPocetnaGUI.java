@@ -112,9 +112,11 @@ public class TelefonPocetnaGUI {
 		JButton btnNewButton = new JButton("Nova narud\u017Eba");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				nova = new NovaNarudzbaGUI();
-				nova.otvori(ja);
+			
+				nova = new NovaNarudzbaGUI(ja);
+			
 			}
+			
 		});
 		btnNewButton.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnNewButton.setBounds(78, 37, 139, 23);

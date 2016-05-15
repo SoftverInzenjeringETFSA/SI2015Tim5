@@ -74,15 +74,15 @@ private TelefonPocetnaGUI tel=new TelefonPocetnaGUI();
 	private MaskFormatter telefon;
 	final static Logger logger = Logger.getLogger(NovaNarudzbaGUI.class);
 
+
 	// otvara novi prozor
-	public void otvori(final Zaposlenik proslijedjeni) {
+	
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					NovaNarudzbaGUI window = new NovaNarudzbaGUI();
 					window.frmInformacijeONarudbi.setVisible(true);
-					ja = new Zaposlenik();
-					ja = proslijedjeni;
 				} catch (Exception e) {
 					logger.info(e);
 					// e.printStackTrace();
@@ -90,7 +90,6 @@ private TelefonPocetnaGUI tel=new TelefonPocetnaGUI();
 			}
 		});
 	}
-
 	public NovaNarudzbaGUI() {
 
 		lmodel = new DefaultListModel();
@@ -102,6 +101,22 @@ private TelefonPocetnaGUI tel=new TelefonPocetnaGUI();
 		njvLista = new ArrayList<NarudzbaJeloVeza>();
 
 		initialize();
+
+	}
+	
+	
+	public NovaNarudzbaGUI(Zaposlenik zap) {
+ja=zap;
+		lmodel = new DefaultListModel();
+		cbmodel = new DefaultComboBoxModel();
+		kontroler = new NovaNarudzbaController();
+		narucenaJela = new ArrayList<Jelo>();
+		btnObraunaj = new JButton("Obra\u010Dunaj ");
+		btnNewButton = new JButton("Spremi ");
+		njvLista = new ArrayList<NarudzbaJeloVeza>();
+
+		initialize();
+		frmInformacijeONarudbi.setVisible(true);
 
 	}
 	private void OdjaviSe() throws Exception {
