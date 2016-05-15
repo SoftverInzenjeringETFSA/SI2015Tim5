@@ -213,7 +213,7 @@ public class sef {
 		 */
 
 		btnPrikaiIzvjetaj.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			final public void actionPerformed(ActionEvent e) {
 				dugmeGraficki.setVisible(false);
 				btnGenerisiIzvjetaj.setVisible(false);
 				odabirIzvjestaja = new String();
@@ -481,7 +481,7 @@ public class sef {
 		JButton btnDodajNovoJelo = new JButton("Dodaj novo jelo");
 		btnDodajNovoJelo.addActionListener(new ActionListener() {
 			
-			public void actionPerformed(ActionEvent arg0) {
+			final public void actionPerformed(ActionEvent arg0) {
 				dodajNovi=true;
 				UnosIzmjenaJela forma = new UnosIzmjenaJela();
 				forma.setVisible(true);
