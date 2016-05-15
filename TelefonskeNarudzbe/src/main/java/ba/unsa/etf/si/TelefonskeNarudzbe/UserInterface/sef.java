@@ -45,6 +45,7 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaRadnikaControlle
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaSastojkaController;
 public class sef {
 
+
 	private JFrame frame;
 	private JTable table;
 	private JTable table_1;
@@ -55,8 +56,13 @@ public class sef {
 	private JScrollPane scrollPane_dostavljac = new JScrollPane();
 	private JTable jelo_tbl = new JTable();
 	private JScrollPane scrollPane_jelo = new JScrollPane();
+	private JTable izvjestaj4_tbl = new JTable();
+	private JScrollPane scrollPane_izvjestaj4 = new JScrollPane();
+	private JTable izvjestaj5_tbl = new JTable();
+	private JScrollPane scrollPane_izvjestaj5 = new JScrollPane();
 	private JScrollPane scrollPane_3 = new JScrollPane();
 	final static Logger logger = Logger.getLogger(sef.class);
+	private static String odabirIzvjestaja = new String();
 	/**
 	 * Launch the application.
 	 */
@@ -178,34 +184,20 @@ public class sef {
 		IzvjestajiTab.add(scrollPane_4);
 		scrollPane_4.setVisible(false);
 		
-		//tabela 4
-		String[] kolone_izvjestaj_6 = {"Vremenski rok(minute)", "Broj narudžbi", "Procenat"};
-		Object[][] podaci_izvjestaj_6 = {{"","",""}};
-		final JTable table_6 = new JTable(podaci_izvjestaj_6, kolone_izvjestaj_6);
-		table_6.setBounds(109, 340, 340, -61);
-		IzvjestajiTab.add(table_6);
-		final JScrollPane scrollPane_6 = new JScrollPane(table_6);
-		scrollPane_6.setBounds(10, 218, 969, 388);
-		IzvjestajiTab.add(scrollPane_6);
-	
-		//sve tabele neaktivne na pocetku
-		scrollPane_3.setVisible(false);
-		table_3.setVisible(false);
-		scrollPane_4.setVisible(false);
-		table_4.setVisible(false);
-		scrollPane_6.setVisible(false);
-		table_6.setVisible(false);
+
 		*/
+		
+
 		btnPrikaiIzvjetaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnGenerisiIzvjetaj.setVisible(false);
-				String odabrano = list.getSelectedValue().toString();
+				odabirIzvjestaja = list.getSelectedValue().toString();
 				lblDatum.setVisible(false);  
 				lblOd.setVisible(false); 
 				datumOd.setVisible(false);
 				lblDo.setVisible(false);
 				datumDo.setVisible(false);
-				if(odabrano.equals("Izvještaj o svim narudžbama u vremenskom periodu"))
+				if(odabirIzvjestaja.equals("Izvještaj o svim narudžbama u vremenskom periodu"))
 				{
 					btnGenerisiIzvjetaj.setVisible(true);
 					lblDatum.setVisible(true);  
@@ -217,7 +209,7 @@ public class sef {
 					kriterij.setVisible(false);
 					lblKriterij.setVisible(false);
 				}
-				if(odabrano.equals("Izvještaj o svim odrađenim dostavama po dostavljaču"))
+				if(odabirIzvjestaja.equals("Izvještaj o svim odrađenim dostavama po dostavljaču"))
 				{
 					btnGenerisiIzvjetaj.setVisible(true);
 					lblDatum.setVisible(false);  
@@ -231,7 +223,7 @@ public class sef {
 					kriterij.setText("");
 					kriterij.setVisible(true);
 					}
-				if(odabrano.equals("Izvještaj o narudžbama po jelima koja ih čine"))
+				if(odabirIzvjestaja.equals("Izvještaj o narudžbama po jelima koja ih čine"))
 				{
 					btnGenerisiIzvjetaj.setVisible(true);
 					ocistiFormuOdTabela();
@@ -240,14 +232,16 @@ public class sef {
 					kriterij.setText("");
 					kriterij.setVisible(true);
 				}
-				if(odabrano.equals("Statistički izvještaj o vremenu isporuke narudžbi"))
+				if(odabirIzvjestaja.equals("Statistički izvještaj o vremenu isporuke narudžbi"))
 				{
+					btnGenerisiIzvjetaj.setVisible(true);
 					ocistiFormuOdTabela();
 					kriterij.setVisible(false);
 					lblKriterij.setVisible(false);
 				}
-				if(odabrano.equals("Statistički izvjestaj o broju naručenih jela"))
+				if(odabirIzvjestaja.equals("Statistički izvjestaj o broju naručenih jela"))
 				{
+					btnGenerisiIzvjetaj.setVisible(true);
 					ocistiFormuOdTabela();
 					kriterij.setText("");
 					kriterij.setVisible(true);
@@ -263,6 +257,11 @@ public class sef {
 		btnGenerisiIzvjetaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String odabrano = list.getSelectedValue().toString();
+				if(!odabrano.equals(odabirIzvjestaja))
+				{
+					JOptionPane.showMessageDialog(frame, "Kliknite prvo na odaberi izvještaj!");
+					return;
+				}
 				if(odabrano.equals("Izvještaj o svim narudžbama u vremenskom periodu"))
 				{
 					ocistiFormuOdTabela();
@@ -368,8 +367,61 @@ public class sef {
 						}		
 					}
 					//krja treceg izvjetaja
+					
+					//cetvrti izvjestaj
+					if(odabrano.equals("Statistički izvještaj o vremenu isporuke narudžbi"))
+					{
+						ocistiFormuOdTabela();
+						String[] kolone_izvjestaj_6 = {"Vremenski rok(minute)", "Broj narudžbi", "Procenat"};
+						Object[][] podaci_izvjestaj_6 = IzvjestajController.dajVremenaIsporuke();
+						izvjestaj4_tbl = new JTable(podaci_izvjestaj_6, kolone_izvjestaj_6);
+						izvjestaj4_tbl.setBounds(109, 340, 340, -61);
+						IzvjestajiTab.add(izvjestaj4_tbl);
+						scrollPane_izvjestaj4 = new JScrollPane(izvjestaj4_tbl);
+						scrollPane_izvjestaj4.setBounds(10, 218, 969, 388);
+						IzvjestajiTab.add(scrollPane_izvjestaj4);
+						izvjestaj4_tbl.setVisible(true);
+						scrollPane_izvjestaj4.setVisible(true);
+						
+					}
+					//kraj cetvrtog
+					
+					//pocetak petog
+					if(odabrano.equals("Statistički izvjestaj o broju naručenih jela"))
+					{
+						
+						
+						Object[][] podaci_izvjestaj_2;
+						try {
+							ocistiFormuOdTabela();
+							String jelo = kriterij.getText();
+							String[] kolone_izvjestaj_2 = {"Izabrano jelo", "Broj narudžbi izabranog jela"};
+							podaci_izvjestaj_2 = IzvjestajController.dajBrojNarudzbiPoJelu(jelo);
+							izvjestaj5_tbl = new JTable(podaci_izvjestaj_2, kolone_izvjestaj_2);
+							izvjestaj5_tbl.setBounds(109, 340, 340, -61);
+							IzvjestajiTab.add(izvjestaj5_tbl);
+							scrollPane_izvjestaj5 = new JScrollPane(izvjestaj5_tbl);
+							scrollPane_izvjestaj5.setBounds(10, 218, 969, 388);
+							IzvjestajiTab.add(scrollPane_izvjestaj5);
+							scrollPane_izvjestaj5.setVisible(true);
+							izvjestaj5_tbl.setVisible(true);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+							ocistiFormuOdTabela();
+							JOptionPane.showMessageDialog(frame, "U bazi ne postoji traženo jelo");
+							
+						}
+						
+					}
+					//kraj petog
+					
 			}
 		});
+
+		
+	
+	
 
 		
 		//EMINA:
@@ -662,7 +714,14 @@ public class sef {
 		jelo_tbl.setVisible(false);
 		scrollPane_jelo.setVisible(false);
 		scrollPane_3.setVisible(false);
+		izvjestaj4_tbl.setVisible(false);
+		scrollPane_izvjestaj4.setVisible(false);
+		izvjestaj5_tbl.setVisible(false);
+		scrollPane_izvjestaj5.setVisible(false);
 	}
+	
+
+
 	private void reloadRadnici(){
 		
 		UnosIzmjenaRadnikaController c=new UnosIzmjenaRadnikaController();
@@ -687,3 +746,4 @@ public class sef {
 		table_1 = new JTable(tableModel);
 	}
 }
+

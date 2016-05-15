@@ -1,6 +1,7 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.Controllers;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,6 +30,87 @@ public class IzvjestajController {
 	
 	public IzvjestajController()
 	{
+	}
+	
+	public static Object[][] dajVremenaIsporuke(){
+		s = HibernateUtil.getSessionFactory().openSession();
+		Criteria crit = s.createCriteria(Narudzba.class).add(Restrictions.isNotNull("vrijemeDostave"));
+	    List<Narudzba> narudzbe = crit.list();
+	    int[] vremena = new int[narudzbe.size()]; 
+	    int i = 0;
+	    for(Narudzba n : narudzbe)
+	    {
+	    	long milisec = (n.getVrijemeDostave().getTime()-n.getVrijemePrijema().getTime());
+	    	long sec = milisec / 1000;
+	    	int min = (int)(sec / 60);
+	    	vremena[i] = min;
+	    	i++;
+	    }
+	    
+	    for(int v : vremena)
+	    {
+	    	System.out.println(v);
+	    }
+	    int[] manjeOd = new int[7];
+	    int poc = 0, kraj = 10, j = 0;
+	    for(int m : vremena)
+	    {
+	    	manjeOd[j] = zbirNarudzbiPoMinutama(vremena, poc, kraj);
+	    	poc = poc + 10; kraj = kraj + 10;
+	    	if(kraj == 70) kraj = 9999;
+	    	j++;
+	    }
+	    
+	    double[] postoci = new double[7];
+	    i = 0;
+	    for(int m : manjeOd)
+	    {
+	    	if(m != 0) postoci[i] = (double)manjeOd[i] * 100 / (double)narudzbe.size();
+	    	else postoci[i] = 0;
+	    	i++;
+	    }
+	    DecimalFormat df = new DecimalFormat("####0.00");
+	    	
+	    Object[][] vremenaRaspored = {
+	    		{"Manje od 10 minuta", String.valueOf(manjeOd[0]), String.valueOf(df.format(postoci[0]))},
+	    		{"(10,20] minuta", String.valueOf(manjeOd[1]), String.valueOf(df.format(postoci[1]))},
+	    		{"(20,30] minuta", String.valueOf(manjeOd[2]), String.valueOf(df.format(postoci[2]))},
+	    		{"(30,40] minuta", String.valueOf(manjeOd[3]), String.valueOf(df.format(postoci[3]))},
+	    		{"(40,50] minuta", String.valueOf(manjeOd[4]), String.valueOf(df.format(postoci[4]))},
+	    		{"(50,60] minuta", String.valueOf(manjeOd[5]), String.valueOf(df.format(postoci[5]))},
+	    		{"više od 60 minuta", String.valueOf(manjeOd[6]), String.valueOf(df.format(postoci[6]))}	
+	    };
+	    return vremenaRaspored;
+	}
+	
+
+	
+	private static int zbirNarudzbiPoMinutama(int[] kolekcija, int pocetak, int kraj)
+	{
+		int zbir = 0;
+		for(int i : kolekcija)
+		{
+			if(i > pocetak && i <= kraj) zbir++;
+		}
+		return zbir;
+	}
+	
+	public static Object[][] dajBrojNarudzbiPoJelu(String jelo) throws Exception
+	{
+		s = HibernateUtil.getSessionFactory().openSession();
+		List<Jelo> jela = s.createCriteria(Jelo.class)
+        		.add(Restrictions.eq("naziv", jelo))
+				.list();
+		if(jela.size() == 0) throw new Exception();
+        List<NarudzbaJeloVeza>  veza = new ArrayList<NarudzbaJeloVeza> (jela.get(0).getNarudzbajelovezas());
+        List<Narudzba> narj = new ArrayList<Narudzba>();
+        int kolicine = 0;
+		for (NarudzbaJeloVeza o : veza)
+		{
+			kolicine = kolicine + o.getKolicina();
+		}
+	    Object [][] kol = {{jelo,String.valueOf(kolicine)}};
+	    return kol;
 	}
 	
 	//daje podatke na osnovu intervala
@@ -61,13 +143,6 @@ public class IzvjestajController {
 	//narudzbe po jelu
 	public static Object[][] dajNaruzbePoJelu(String jelo) throws Exception {
 		s = HibernateUtil.getSessionFactory().openSession();
-		/*Criteria crit = s.createCriteria(Jelo.class)
-				.add(Restrictions.like("naziv", jelo));
-		List<Jelo> jela = crit.list();
-		if(jela.size() == 0) throw new Exception();
-		Jelo trazenoJelo = jela.get(0);*/
-		
-		
 		List<Jelo> jela = s.createCriteria(Jelo.class)
         		.add(Restrictions.eq("naziv", jelo))
 				.list();
