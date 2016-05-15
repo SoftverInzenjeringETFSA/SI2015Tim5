@@ -92,6 +92,7 @@ public class DostavljacGUI {
 					dostKontroler.promijeniStatusUPreuzeta(izabranaNarudzba.getId(), zap.getId());
 					JOptionPane.showMessageDialog(null, "Narudžba je uspješno preuzeta");
 					model.set(selectedIndex, model.getElementAt(selectedIndex) + "p");
+					racun.createPDF(izabranaNarudzba);
 					btnNarudbaDostavljena.setEnabled(true);
 					textNovacaDostavljeno.setEnabled(true);
 				}
@@ -147,16 +148,16 @@ public class DostavljacGUI {
 	private void PromijeniStatusUspremna() {
 		try {
 			if (selectedIndex != -1) {
-				double cijena = Double.parseDouble(textNovacaDostavljeno.getText());
-				if (cijena < 0)
-					throw new Exception();
+				Double cijena = Double.parseDouble(textNovacaDostavljeno.getText());
+				if (cijena < 0 || !cijena.equals(izabranaNarudzba.getCijena()))
+					throw new Exception("Cijena nije ispravno unesena ili je razlicita od cijene narudžbe.");
 				dostKontroler.promijeniStatusUSpremna(izabranaNarudzba.getId());
-				JOptionPane.showMessageDialog(null, "Narudžba je spremna!");
+				JOptionPane.showMessageDialog(null, "Narudžba je dostavljena!");
 
 				model.removeElementAt(selectedIndex);
 
 				ObrisiPolja();
-				racun.createPDF(izabranaNarudzba);
+			
 
 			} else {
 				JOptionPane.showMessageDialog(null, "Niste odabrali narudžbu");
@@ -164,7 +165,9 @@ public class DostavljacGUI {
 
 		} catch (Exception e) {
 			logger.info(e);
-			JOptionPane.showMessageDialog(null, "Desila se greška!");
+			if (e.getMessage().equals("Cijena nije ispravno unesena ili je razlicita od cijene narudžbe."))
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			else JOptionPane.showMessageDialog(null, "Desila se greška!");
 		}
 
 	}
@@ -194,7 +197,7 @@ public class DostavljacGUI {
 	private void initialize() {
 		frmDostavaNarudbi = new JFrame();
 		frmDostavaNarudbi.setTitle("Dostava narud\u017Ebi");
-		frmDostavaNarudbi.setBounds(100, 100, 450, 396);
+		frmDostavaNarudbi.setBounds(100, 100, 475, 396);
 		frmDostavaNarudbi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmDostavaNarudbi.getContentPane().setLayout(null);
 
@@ -232,7 +235,7 @@ public class DostavljacGUI {
 			}
 		});
 		glavniPanel = new JPanel();
-		glavniPanel.setBounds(10, 69, 424, 279);
+		glavniPanel.setBounds(10, 69, 439, 279);
 		frmDostavaNarudbi.getContentPane().add(glavniPanel);
 		glavniPanel.setLayout(null);
 
@@ -243,7 +246,7 @@ public class DostavljacGUI {
 		listaNarudzbi = new JList(model);
 		scrollPane.setViewportView(listaNarudzbi);
 		panel = new JPanel();
-		panel.setBounds(173, 11, 241, 254);
+		panel.setBounds(173, 11, 256, 254);
 		glavniPanel.add(panel);
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel.setLayout(null);
@@ -310,12 +313,12 @@ public class DostavljacGUI {
 		panel.add(btnPreuzmiNarudbu);
 
 		JLabel lblNovacaDostavljenokm = new JLabel("Novaca dostavljeno (KM):");
-		lblNovacaDostavljenokm.setBounds(20, 195, 132, 14);
+		lblNovacaDostavljenokm.setBounds(10, 197, 148, 14);
 		panel.add(lblNovacaDostavljenokm);
 
 		textNovacaDostavljeno = new JTextField();
 		textNovacaDostavljeno.setColumns(10);
-		textNovacaDostavljeno.setBounds(147, 194, 73, 20);
+		textNovacaDostavljeno.setBounds(158, 194, 73, 20);
 		panel.add(textNovacaDostavljeno);
 		textNovacaDostavljeno.setEnabled(false);
 		btnNarudbaDostavljena = new JButton("Narud\u017Eba dostavljena");
