@@ -86,7 +86,7 @@ public class UnosIzmjenaJela extends JFrame {
 	 * Create the frame.
 	 */
 	public UnosIzmjenaJela() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 455, 410);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -248,7 +248,7 @@ public class UnosIzmjenaJela extends JFrame {
 	}
 	
 	public UnosIzmjenaJela(Jelo j) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 455, 410);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
