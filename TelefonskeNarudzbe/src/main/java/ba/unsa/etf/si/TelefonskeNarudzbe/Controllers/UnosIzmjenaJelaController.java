@@ -42,10 +42,11 @@ public static boolean izmjenaJela(String naziv, String opis, Double cijena, List
 
 		Session session2 = HibernateUtil.getSessionFactory().openSession();
 		Transaction t2 = session2.beginTransaction();
-
+		int ids =-1;
+		if(!sef.dodajNovi) ids=sef.vratiIzabranoJelo();
 		try {
-			if (session.createCriteria(Jelo.class).add(Restrictions.eq("naziv", naziv))
-					.setProjection(Projections.property("naziv")).uniqueResult() == null) {
+			if (session.createCriteria(Jelo.class).add(Restrictions.eq("id", ids))
+					.setProjection(Projections.property("id")).uniqueResult() == null) {
 				System.out.println("Novo jelo");
 				Jelo j = new Jelo();
 				j.setNaziv(naziv);
@@ -65,14 +66,14 @@ public static boolean izmjenaJela(String naziv, String opis, Double cijena, List
 					sjv.setKolicina(listaKolicina.get(i));
 					session2.save(sjv);
 					session2.getTransaction().commit();
-					sef.refreshTabeleJelo();
+			
 				}
 			}
 
 			else {
 				System.out.println("Postoji jelo");
 				Criteria criteria = session.createCriteria(Jelo.class)
-						.add(Restrictions.like("naziv", naziv).ignoreCase());
+						.add(Restrictions.like("id", ids));
 				List<Jelo> lista = criteria.list();
 				Jelo j = lista.get(0);
 				j.setNaziv(naziv);
@@ -107,10 +108,11 @@ public static boolean izmjenaJela(String naziv, String opis, Double cijena, List
 						session2.beginTransaction();
 						session2.save(sjv);
 						session2.getTransaction().commit();
-						sef.refreshTabeleJelo();
+						
 					}
 					
 				}
+				sef.refreshTabeleJelo();
 				session2.close();
 				System.out.println("Jelo je izmijenjeno");
 				return true;

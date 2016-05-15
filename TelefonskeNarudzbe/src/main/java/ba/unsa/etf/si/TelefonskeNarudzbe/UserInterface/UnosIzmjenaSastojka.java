@@ -95,7 +95,7 @@ public class UnosIzmjenaSastojka extends JFrame {
 				}
 				else
 				{
-				controller.izmjenaSastojka(naziv, mjernaJedinica,opis);
+				controller.izmjenaSastojka(naziv,opis,mjernaJedinica);
 				JOptionPane.showMessageDialog(null, "Uspjesno dodan/izmijenjen sastojak!");
 				textField.setText("");
 				textField_1.setText("");
