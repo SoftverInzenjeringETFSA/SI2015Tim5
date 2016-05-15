@@ -20,7 +20,7 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
 import ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface.sef;
 
 public class UnosIzmjenaJelaController {
-	final static Logger logger = Logger.getLogger(UnosIzmjenaJelaController.class);
+	final static Logger logger = Logger.getLogger(UnosIzmjenaJelaController.class); 
 	public List<Jelo> vratiSvaJela(){
 		Session sesija = HibernateUtil.getSessionFactory().openSession();
         Criteria criteria = sesija.createCriteria(Jelo.class);
@@ -57,8 +57,9 @@ public static boolean izmjenaJela(String naziv, String opis, Double cijena, List
 				session.save(j);
 				session.getTransaction().commit();
 				session2.createCriteria(SastojciJeloVeza.class);
-				session2.beginTransaction();
+				session2.beginTransaction(); //jel ovceko?
 				for (int i = 0; i < listaSastojaka.size(); i++) {
+					session2.beginTransaction();
 					if (listaKolicina.get(i).equals(0))
 						continue;
 					SastojciJeloVeza sjv = new SastojciJeloVeza();
@@ -70,7 +71,6 @@ public static boolean izmjenaJela(String naziv, String opis, Double cijena, List
 			
 				}
 			}
-
 			else {
 				System.out.println("Postoji jelo");
 				Criteria criteria = session.createCriteria(Jelo.class)
@@ -83,34 +83,40 @@ public static boolean izmjenaJela(String naziv, String opis, Double cijena, List
 				session.update(j);
 				t.commit();
 				session.close();
-				
-				for (int i = 0; i < listaSastojaka.size(); i++) {
-					if (listaKolicina.get(i) == 0)
-						continue;
-					Criteria criteria2 = session2.createCriteria(SastojciJeloVeza.class).add(Restrictions.like("jelo", j)).add(Restrictions.like("sastojak", listaSastojaka.get(i)));
-					if(criteria2!=null){
+				session2.getTransaction().begin();
+				int i=0;
+			for (Sastojak s: listaSastojaka)
+			{
+				session2.getTransaction().begin();
+					Criteria criteria2 = session2.createCriteria(SastojciJeloVeza.class);
 					List<SastojciJeloVeza> l = criteria2.list();
-					SastojciJeloVeza sjv = l.get(0);
-					sjv.setJelo(j);
-					sjv.setSastojak(listaSastojaka.get(i));
-					sjv.setKolicina(listaKolicina.get(i));
-					session2.getTransaction().begin();
-					session2.update(sjv);		
+					boolean postoji=false;
+					for (SastojciJeloVeza sjv: l)
+					{
+						if(sjv.getJelo().getId()==j.getId() && sjv.getSastojak().getId()==s.getId())
+						{
+							sjv.setJelo(j);
+							sjv.setSastojak(s);
+							sjv.setKolicina(listaKolicina.get(i));
+							if(listaKolicina.get(i)==0) session2.delete(sjv);
+							else session2.update(sjv);
+							postoji=true;//cekaj
+							break;//kako mislis nemoj push mijenjala si samo svoje kontroleremerisa ih je mijenjala zbg logrea samo edituj tamo direktno dodaj ove izmjene
+						}
+					}
+					if(listaKolicina.get(i)==0) continue;
+					if(!postoji){
+							
+							session2.createCriteria(SastojciJeloVeza.class);
+							SastojciJeloVeza sjv = new SastojciJeloVeza();
+							sjv.setJelo(j);
+							sjv.setSastojak(s);
+							sjv.setKolicina(listaKolicina.get(i));
+							session2.save(sjv);	
+							
+					}
 					session2.getTransaction().commit();
-					}
-					else{
-						if (listaKolicina.get(i) == 0)
-							continue;
-						session2.createCriteria(SastojciJeloVeza.class);
-						SastojciJeloVeza sjv = new SastojciJeloVeza();
-						sjv.setJelo(j);
-						sjv.setSastojak(listaSastojaka.get(i));
-						sjv.setKolicina(listaKolicina.get(i));
-						session2.beginTransaction();
-						session2.save(sjv);
-						session2.getTransaction().commit();
-						
-					}
+					i++;
 					
 				}
 				sef.refreshTabeleJelo();
@@ -119,7 +125,7 @@ public static boolean izmjenaJela(String naziv, String opis, Double cijena, List
 				return true;
 			}
 		} catch (Exception e) {
-			logger.info(e);//e.printStackTrace();
+			logger.info(e); 
 			return false;
 		}
 		return true;
