@@ -33,7 +33,15 @@ public class DostavljacController {
 	private int brojNarudzbi;
 	public Transaction t;
 	public Session session = HibernateUtil.getSessionFactory().openSession();
+	public void Odjava() throws Exception {
+		try {
+			session.close();
 
+		} catch (Exception e) {
+			logger.info(e);
+			throw new Exception();
+		}
+	}
 	// ovog nece bit kad rijesimo login tako da nema potrebe za test
 	public Zaposlenik dajZaposlenika() {
 		return (Zaposlenik) session.createCriteria(Zaposlenik.class).add(Restrictions.eq("id", 1)).uniqueResult();

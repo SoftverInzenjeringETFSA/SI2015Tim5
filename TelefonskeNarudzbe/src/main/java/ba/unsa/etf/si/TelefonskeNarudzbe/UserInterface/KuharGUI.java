@@ -57,7 +57,7 @@ public class KuharGUI {
 					KuharGUI window = new KuharGUI();
 					window.frmSpremanjeNarudbi.setVisible(true);
 				} catch (Exception e) {
-					
+
 					logger.info(e);
 					e.printStackTrace();
 				}
@@ -69,7 +69,26 @@ public class KuharGUI {
 	 * Create the application.
 	 */
 	public KuharGUI() {
+
 		initialize();
+	}
+
+	public KuharGUI(Zaposlenik zapp) {
+		zap = zapp;
+		initialize();
+		frmSpremanjeNarudbi.setVisible(true);
+	}
+
+	private void OdjaviSe() throws Exception {
+		try {
+			kuharKontroler.Odjava();
+			frmSpremanjeNarudbi.setVisible(false);
+			LoginGUI log = new LoginGUI();
+
+		} catch (Exception e) {
+			logger.info(e);
+			throw new Exception();
+		}
 	}
 
 	private void ProvjeriDaLiJePreuzeta() throws Exception {
@@ -163,7 +182,7 @@ public class KuharGUI {
 		frmSpremanjeNarudbi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSpremanjeNarudbi.getContentPane().setLayout(null);
 
-		JLabel lblDobrodoaoIme = new JLabel("Dobrodo\u0161ao, Ime!");
+		JLabel lblDobrodoaoIme = new JLabel("Dobrodo\u0161ao, " + zap.getImePrezime() + "!");
 		lblDobrodoaoIme.setBounds(161, 21, 133, 22);
 		frmSpremanjeNarudbi.getContentPane().add(lblDobrodoaoIme);
 
@@ -185,7 +204,17 @@ public class KuharGUI {
 
 		JMenuItem mntmOdjava = new JMenuItem("Odjava");
 		mnMeni.add(mntmOdjava);
+		mntmOdjava.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					OdjaviSe();
+				} catch (Exception e1) {
+					logger.info(e);
+					e1.printStackTrace();
+				}
 
+			}
+		});
 		glavniPanel = new JPanel();
 		glavniPanel.setBounds(10, 69, 424, 287);
 		frmSpremanjeNarudbi.getContentPane().add(glavniPanel);

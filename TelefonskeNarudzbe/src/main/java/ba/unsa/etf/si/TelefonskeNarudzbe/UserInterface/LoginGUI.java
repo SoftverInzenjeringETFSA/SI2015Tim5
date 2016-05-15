@@ -84,18 +84,26 @@ public class LoginGUI
 				LoginController s = null;
 				try {
 					s = LoginController.getInstance(textField.getText(), textField_1.getText());
-				
-				if(s.getZaposlenik().getRadnomjesto().getId() == 1){
-					//TelefonPocetnaGUI a = new TelefonPocetnaGUI(s.getZaposlenik());
-				}
-				else if(s.getZaposlenik().getRadnomjesto().getId() == 2){
-				//	KuharGUI k = new KuharGUI();
-				//k.otvori(s.getZaposlenik());
-				}
-				else if(s.getZaposlenik().getRadnomjesto().getId() == 3){
-					DostavljacGUI d = new DostavljacGUI();
-				}
-				} catch (Exception e1) {
+
+					if (s.getZaposlenik().getRadnomjesto().getId() == 1) {
+						frmPrijavaNaSistem.setVisible(false);
+						sef Sef = new sef();
+						Sef.logovani = s.getZaposlenik();
+					}else if (s.getZaposlenik().getRadnomjesto().getId() == 2) {
+						frmPrijavaNaSistem.setVisible(false);
+						TelefonPocetnaGUI k = new TelefonPocetnaGUI( s.getZaposlenik());
+						
+					} else if (s.getZaposlenik().getRadnomjesto().getId() == 3) {
+						frmPrijavaNaSistem.setVisible(false);
+						KuharGUI k = new KuharGUI(s.getZaposlenik());
+						
+					} else if (s.getZaposlenik().getRadnomjesto().getId() == 4) {
+						frmPrijavaNaSistem.setVisible(false);
+						DostavljacGUI d = new DostavljacGUI(s.getZaposlenik());
+					
+
+					}
+				}catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

@@ -24,7 +24,7 @@ public class App
 {
     public static void main( String[] args )
     {
-    	sef s = new sef();
-        	//LoginGUI l = new LoginGUI();  
+    //	sef s = new sef();
+        	LoginGUI l = new LoginGUI();  
     }
 }

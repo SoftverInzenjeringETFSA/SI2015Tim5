@@ -13,24 +13,21 @@ import javax.swing.SwingConstants;
 import org.apache.log4j.Logger;
 
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
-import ba.unsa.etf.si.TelefonskeNarudzbe.ZaposlenikNotFound;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.NovaNarudzbaController; // i ovo brisati
 
 public class TelefonPocetnaGUI {
 
 	private JFrame frmSpremanjeNarudbi;
-	private static Zaposlenik ja = new Zaposlenik(); // ovo se treba brisati kad
-														// pullas ivonino
-	private static NovaNarudzbaController kontroler = new NovaNarudzbaController(); // i
-																					// ovo..
+	private static NovaNarudzbaController kontroler = new NovaNarudzbaController(); //i ovo..
 	private NovaNarudzbaGUI nova;
-
+	
+	
 	final static Logger logger = Logger.getLogger(TelefonPocetnaGUI.class);
-
 	/**
 	 * Launch the application.
 	 */
@@ -38,34 +35,50 @@ public class TelefonPocetnaGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ja = kontroler.dajZaposlenika(2);
-					TelefonPocetnaGUI window = new TelefonPocetnaGUI(ja);
+					TelefonPocetnaGUI window = new TelefonPocetnaGUI();
 					window.frmSpremanjeNarudbi.setVisible(true);
 				} catch (Exception e) {
 					logger.info(e);
-					// e.printStackTrace();
+					//e.printStackTrace();
 				}
 			}
 		});
 	}
-
-	/**
-	 * Create the application.
-	 */
-
-	public TelefonPocetnaGUI(Zaposlenik logirani) {
+	public static Zaposlenik ja;
+	public  TelefonPocetnaGUI() {
+		
 		initialize();
+		
 	}
+	public  TelefonPocetnaGUI(Zaposlenik zaposlenik) {
+		ja=zaposlenik;
+		initialize();
+		frmSpremanjeNarudbi.setVisible(true);
+		
+	}
+	private void OdjaviSe() throws Exception {
+		try {
+			kontroler.Odjava();
+			frmSpremanjeNarudbi.setVisible(false);
+			LoginGUI log = new LoginGUI();
+
+		} catch (Exception e) {
+			logger.info(e);
+			throw new Exception();
+		}
+	}
+	/**
+	 * Create the application
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-
+		
 		frmSpremanjeNarudbi = new JFrame();
 		frmSpremanjeNarudbi.setBounds(100, 100, 308, 145);
 		frmSpremanjeNarudbi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
 		JMenuBar menuBar = new JMenuBar();
 		frmSpremanjeNarudbi.setJMenuBar(menuBar);
 
@@ -75,7 +88,17 @@ public class TelefonPocetnaGUI {
 		JMenuItem mntmOdjava = new JMenuItem("Odjava");
 		mnMeni.add(mntmOdjava);
 		frmSpremanjeNarudbi.getContentPane().setLayout(null);
+		mntmOdjava.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					OdjaviSe();
+				} catch (Exception e1) {
+					logger.info(e);
+					e1.printStackTrace();
+				}
 
+			}
+		});
 		JLabel lblDobrodoaoIme = new JLabel("Dobrodo\u0161ao, " + ja.getImePrezime() + "!");
 		lblDobrodoaoIme.setBounds(94, 12, 266, 14);
 		frmSpremanjeNarudbi.getContentPane().add(lblDobrodoaoIme);

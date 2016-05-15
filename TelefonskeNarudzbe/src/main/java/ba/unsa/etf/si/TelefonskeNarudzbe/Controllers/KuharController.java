@@ -201,10 +201,14 @@ public class KuharController {
 
 	}
 
-	// sve narudzbe koje nisu jos preuzete ali su spremne za kuhara, tj narudzbe gdje 
-	// je status =1 , ali takodje prikazuju se i narudzbe koje je preuzeo kuhar koji ih prikazuje
-	// jer samo ih on moze oznaciti spremnim za dostavu , znaci status moze biti 2 u slucaju da je 
-	// spremnom koji je preuzeo isti kao i kuhar koji zeli oznaciti narudzbu spremnom 
+	// sve narudzbe koje nisu jos preuzete ali su spremne za kuhara, tj narudzbe
+	// gdje
+	// je status =1 , ali takodje prikazuju se i narudzbe koje je preuzeo kuhar
+	// koji ih prikazuje
+	// jer samo ih on moze oznaciti spremnim za dostavu , znaci status moze biti
+	// 2 u slucaju da je
+	// spremnom koji je preuzeo isti kao i kuhar koji zeli oznaciti narudzbu
+	// spremnom
 	public List<Narudzba> dajSveNarudzbeIzBaze(int idZap) throws Exception {
 		try {
 			Criteria criteria = session.createCriteria(Narudzba.class, "n");
@@ -216,6 +220,16 @@ public class KuharController {
 			criteria.add(Restrictions.or(restr1, restr2));
 			List<Narudzba> listaNarudzbi = criteria.list();
 			return listaNarudzbi;
+		} catch (Exception e) {
+			logger.info(e);
+			throw new Exception();
+		}
+	}
+
+	public void Odjava() throws Exception {
+		try {
+			session.close();
+
 		} catch (Exception e) {
 			logger.info(e);
 			throw new Exception();

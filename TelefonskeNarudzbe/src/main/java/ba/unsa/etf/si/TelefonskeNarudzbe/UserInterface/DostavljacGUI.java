@@ -49,6 +49,7 @@ public class DostavljacGUI {
 	private JPanel panel;
 	private Zaposlenik zap = dostKontroler.dajZaposlenika();
 	private RacunPDF racun = new RacunPDF();
+
 	/**
 	 * Launch the application.
 	 */
@@ -74,6 +75,13 @@ public class DostavljacGUI {
 
 	}
 
+	public DostavljacGUI(Zaposlenik zapp) {
+		zap = zapp;
+		initialize();
+		frmDostavaNarudbi.setVisible(true);
+
+	}
+
 	private void ProvjeriDaLiJePreuzeta() throws Exception {
 		try {
 			if (selectedIndex != -1) {
@@ -96,7 +104,17 @@ public class DostavljacGUI {
 			JOptionPane.showMessageDialog(null, "Desila se greška!");
 		}
 	}
+	private void OdjaviSe() throws Exception {
+		try {
+			dostKontroler.Odjava();
+			frmDostavaNarudbi.setVisible(false);
+			LoginGUI log = new LoginGUI();
 
+		} catch (Exception e) {
+			logger.info(e);
+			throw new Exception();
+		}
+	}
 	private void PrikaziNarudzbe() {
 		try {
 			// model.removeAllElements();
@@ -107,7 +125,7 @@ public class DostavljacGUI {
 				Narudzba item = i.next();
 				if (item.getStatus() == 4)
 					model.addElement(item.getId() + "p");
-				
+
 				else
 					model.addElement(item.getId());
 				brojac++;
@@ -180,7 +198,7 @@ public class DostavljacGUI {
 		frmDostavaNarudbi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmDostavaNarudbi.getContentPane().setLayout(null);
 
-		JLabel lblDobrodoaoIme = new JLabel("Dobrodo\u0161ao, Ime!");
+		JLabel lblDobrodoaoIme = new JLabel("Dobrodo\u0161ao, " + zap.getImePrezime() + "!");
 		lblDobrodoaoIme.setBounds(161, 21, 133, 22);
 		frmDostavaNarudbi.getContentPane().add(lblDobrodoaoIme);
 
@@ -202,6 +220,17 @@ public class DostavljacGUI {
 
 		JMenuItem mntmOdjava = new JMenuItem("Odjava");
 		mnMeni.add(mntmOdjava);
+		mntmOdjava.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					OdjaviSe();
+				} catch (Exception e1) {
+					logger.info(e);
+					e1.printStackTrace();
+				}
+
+			}
+		});
 		glavniPanel = new JPanel();
 		glavniPanel.setBounds(10, 69, 424, 279);
 		frmDostavaNarudbi.getContentPane().add(glavniPanel);

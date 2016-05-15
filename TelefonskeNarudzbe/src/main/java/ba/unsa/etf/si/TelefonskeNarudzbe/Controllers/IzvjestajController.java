@@ -212,17 +212,34 @@ public class IzvjestajController {
 		String mjesec = parts[1];
 		String godina = parts[2];
 		try {
-			int d = Integer.parseInt(dan);
-			int m = Integer.parseInt(mjesec);
-			int g = Integer.parseInt(godina);
-			if(d < 1 || d > 31) return false;
-			if (m < 1 || m > 12) return false;
-			if(g < 1900) return false;
+			int dd = Integer.parseInt(dan);
+			int mm = Integer.parseInt(mjesec);
+			int yyyy = Integer.parseInt(godina);
+			
+			if(mm == 1 || mm == 3 || mm == 05 || mm == 07 
+					|| mm == 8 || mm == 10 || mm == 12)
+			{
+				if(dd < 1 || dd> 31) return false; 
+			}
+		
+			if(mm == 4 || mm == 6 || mm == 9 || mm == 11)
+			{
+				if(dd < 1 || dd> 30) return false; 
+			}	
+			if(mm == 2)
+			{
+				if(dd < 1 || dd> 29) return false; 
+				if(dd == 29)
+				{
+					if(yyyy % 4 == 0 && yyyy % 100 != 0) return true;
+					if(yyyy % 4 == 0 && yyyy % 400 == 0) return true;
+					else return false;
+				}
+			}
+			return true;
 		} catch (Exception e) {
 			return false;
 		}
-		
-		return true;
 	}
 
 }

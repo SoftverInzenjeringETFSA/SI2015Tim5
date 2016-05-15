@@ -32,6 +32,18 @@ public class NovaNarudzbaController {
 
 	}
 
+	public void Odjava() throws Exception {
+		Session s = null;
+		try {
+			s = HibernateUtil.getSessionFactory().openSession();
+			s.close();
+
+		} catch (Exception e) {
+			// logger.info(e);
+			throw new Exception();
+		}
+	}
+
 	public List<Jelo> dajSvaJela() throws Exception {
 		Session s = null;
 		try {
@@ -130,7 +142,7 @@ public class NovaNarudzbaController {
 
 	public Boolean spremiNovuNarudzbu(Narudzba n) throws Exception {
 		Session s = null;
-		Boolean vrati=false;
+		Boolean vrati = false;
 
 		try {
 			s = HibernateUtil.getSessionFactory().openSession();
@@ -138,13 +150,13 @@ public class NovaNarudzbaController {
 
 			s.save(n);
 			t.commit();
-			vrati=true;
+			vrati = true;
 		}
 
 		catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
-		
+
 		finally {
 			if (s != null)
 				s.close();
@@ -154,15 +166,15 @@ public class NovaNarudzbaController {
 
 	public Boolean spremiNovogKupca(Kupac k) throws Exception {
 		Session s = null;
-		Boolean vrati=false;
-		
+		Boolean vrati = false;
+
 		try {
 			s = HibernateUtil.getSessionFactory().openSession();
 			Transaction t = s.beginTransaction();
 
 			s.save(k);
 			t.commit();
-			vrati=true;
+			vrati = true;
 		}
 
 		catch (Exception e) {
@@ -179,7 +191,7 @@ public class NovaNarudzbaController {
 
 	public Boolean spremiNarudzbaJeloVeza(NarudzbaJeloVeza njv) throws Exception {
 		Session s = null;
-		Boolean vrati=false;
+		Boolean vrati = false;
 
 		try {
 			s = HibernateUtil.getSessionFactory().openSession();
@@ -187,7 +199,7 @@ public class NovaNarudzbaController {
 
 			s.save(njv);
 			t.commit();
-			vrati=true;
+			vrati = true;
 		}
 
 		catch (Exception e) {
