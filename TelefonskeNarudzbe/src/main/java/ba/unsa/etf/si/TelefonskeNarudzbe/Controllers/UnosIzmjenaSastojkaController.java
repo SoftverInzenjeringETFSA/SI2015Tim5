@@ -67,13 +67,12 @@ public class UnosIzmjenaSastojkaController {
 		 List<SastojciJeloVeza> lista=criteria.list();
 			List<SastojciJeloVeza> novalista=new ArrayList<SastojciJeloVeza>();
 			 for (int i=0; i<lista.size(); i++){
-				 if(lista.get(i).getJelo().getId()==jelo.getId())
+				 if(lista.get(i).getJelo().getId()==jelo.getId() && lista.get(i).getKolicina()!=0)
 				 novalista.add(lista.get(i));
 		 }
 				
 		 String sastojci = "";
 				for (SastojciJeloVeza oo : novalista) {
-					
 									sastojci+=oo.getSastojak().getNaziv()+", ";
 				}
 				sesija.close();
