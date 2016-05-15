@@ -13,7 +13,7 @@ import org.jfree.ui.RefineryUtilities;
 
 public class BarChart_AWT extends JFrame
 {
-	private Object[][] podacig;
+	private Object[][] podacig=null;
    public BarChart_AWT( String naslov , String nazivGrafa, Object [][] podaci )
    {
 	 
