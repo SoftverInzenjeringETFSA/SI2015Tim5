@@ -229,8 +229,8 @@ public class DostavljacGUI {
 				try {
 					OdjaviSe();
 				} catch (Exception e1) {
-					logger.info(e);
-					e1.printStackTrace();
+					logger.info(e1);
+					//e1.printStackTrace();
 				}
 
 			}
@@ -306,7 +306,7 @@ public class DostavljacGUI {
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "Desila se greška!");
 					logger.info(e);
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 			}
 		});
@@ -348,11 +348,11 @@ public class DostavljacGUI {
 							} catch (NumberFormatException e) {
 								logger.info(e);
 								JOptionPane.showMessageDialog(null, "Desila se greška!");
-								e.printStackTrace();
+								//e.printStackTrace();
 							} catch (Exception e) {
 								logger.info(e);
 								JOptionPane.showMessageDialog(null, "Desila se greška!");
-								e.printStackTrace();
+								//e.printStackTrace();
 							}
 						else
 							try {
@@ -360,11 +360,11 @@ public class DostavljacGUI {
 							} catch (NumberFormatException e) {
 								logger.info(e);
 								JOptionPane.showMessageDialog(null, "Desila se greška!");
-								e.printStackTrace();
+								//e.printStackTrace();
 							} catch (Exception e) {
 								logger.info(e);
 								JOptionPane.showMessageDialog(null, "Desila se greška!");
-								e.printStackTrace();
+								//e.printStackTrace();
 							}
 					}
 				}

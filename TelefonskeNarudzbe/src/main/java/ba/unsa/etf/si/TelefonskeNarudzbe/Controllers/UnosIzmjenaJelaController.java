@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -19,7 +20,7 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
 import ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface.sef;
 
 public class UnosIzmjenaJelaController {
-	
+	final static Logger logger = Logger.getLogger(UnosIzmjenaJelaController.class);
 	public List<Jelo> vratiSvaJela(){
 		Session sesija = HibernateUtil.getSessionFactory().openSession();
         Criteria criteria = sesija.createCriteria(Jelo.class);
@@ -118,7 +119,7 @@ public static boolean izmjenaJela(String naziv, String opis, Double cijena, List
 				return true;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info(e);//e.printStackTrace();
 			return false;
 		}
 		return true;

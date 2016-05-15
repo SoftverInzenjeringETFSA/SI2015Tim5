@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -20,6 +21,9 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
 import ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface.sef;
 
 public class UnosIzmjenaRadnikaController {
+	
+	final static Logger logger = Logger.getLogger(UnosIzmjenaRadnikaController.class);
+	
 	public static Zaposlenik vratiRadnika(String imePrezime){
 		Session sesija = HibernateUtil.getSessionFactory().openSession();
         Criteria criteria = sesija.createCriteria(Zaposlenik.class).add(Restrictions.like("imePrezime", imePrezime));
@@ -53,7 +57,8 @@ public class UnosIzmjenaRadnikaController {
 				throw new ParseException(datum + " nije validan format za " + format, 0);
 			}
 			return true;
-		} catch (Exception ex) {
+		} catch (Exception e) {
+			logger.info(e);
 			JOptionPane.showMessageDialog(null, "Datum mora biti u formatu dd/MM/yyyy");
 			return false;
 		}
@@ -103,7 +108,7 @@ public class UnosIzmjenaRadnikaController {
 			return true;
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			logger.info(e);//e.printStackTrace();
 			return false;
 		}
 	}

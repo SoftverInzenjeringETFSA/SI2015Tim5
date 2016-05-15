@@ -34,6 +34,7 @@ public class BrisanjeRadnika {
 			
 		} 
 		catch (ConstraintViolationException e) {
+			logger.info(e);
 		    // Ignore the exception here by doing nothing
 		}catch (Exception e) {
 			logger.info(e);

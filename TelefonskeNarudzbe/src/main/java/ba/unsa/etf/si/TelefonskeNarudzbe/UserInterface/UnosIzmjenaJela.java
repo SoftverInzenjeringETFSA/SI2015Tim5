@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import org.jboss.logging.Logger;
 
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaJelaController;
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaPopustaController;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaSastojkaController;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Jelo;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak;
@@ -51,14 +52,18 @@ public class UnosIzmjenaJela extends JFrame {
 	    try { 
 	      Integer.parseInt(s); 
 	    } catch(NumberFormatException e) { 
-	    	System.out.println("INTEDZER");
+	    	//System.out.println("INTEDZER");
+	    	logger.info(e);
 		      
 	        return false; 
 	    } catch(NullPointerException e) {
+	    	logger.info(e);
 	        return false;
 	    }
 	    catch(Exception e){
+	    	logger.info(e);
 	    	return false;
+	    	
 	    }
 	    // only got here if we didn't return false
 	    return true;
@@ -147,6 +152,7 @@ public class UnosIzmjenaJela extends JFrame {
 				}
 				catch(Exception eks)
 				{
+					logger.info(eks);
 					JOptionPane.showMessageDialog(null, "Potrebno je ispravno popuniti sva polja!");
 					return;
 			
@@ -310,6 +316,7 @@ public class UnosIzmjenaJela extends JFrame {
 				}
 				catch(Exception eks)
 				{
+					logger.info(eks);
 					JOptionPane.showMessageDialog(null, "Potrebno je ispravno popuniti sva polja!");
 					return;
 			

@@ -111,7 +111,7 @@ public class LoginGUI
 					}
 				}catch (Exception e1) {
 					JOptionPane.showMessageDialog(null,e1.getMessage());
-					e1.printStackTrace();
+					logger.info(e1);//e1.printStackTrace();
 				}
 				
 			}

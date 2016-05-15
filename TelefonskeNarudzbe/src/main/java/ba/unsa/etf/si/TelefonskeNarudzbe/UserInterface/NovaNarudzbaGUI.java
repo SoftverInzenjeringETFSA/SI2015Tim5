@@ -128,7 +128,7 @@ ja=zap;
 
 		} catch (Exception e) {
 			logger.info(e);
-			throw new Exception();
+			//throw new Exception();
 		}
 	}
 
@@ -171,7 +171,7 @@ ja=zap;
 
 		catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
-			System.out.println(e.getCause().toString());
+			//System.out.println(e.getCause().toString());
 			logger.info(e);
 		}
 
@@ -298,7 +298,8 @@ ja=zap;
 			telefon.setPlaceholderCharacter(' ');
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			logger.info(e);
 		}
 
 		frmInformacijeONarudbi = new JFrame();

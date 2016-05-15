@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -20,6 +21,7 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.SastojciJeloVeza;
 import ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface.sef;
 
 public class UnosIzmjenaSastojkaController {
+	final static Logger logger = Logger.getLogger(UnosIzmjenaSastojkaController.class);
 	public static List<Sastojak> vratiSveSastojke()
 	{
 		  Session sesija = HibernateUtil.getSessionFactory().openSession();
@@ -127,7 +129,8 @@ public class UnosIzmjenaSastojkaController {
 		}
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			logger.info(e);
+		//	e.printStackTrace();
 			return false;
 		}
 		return true;

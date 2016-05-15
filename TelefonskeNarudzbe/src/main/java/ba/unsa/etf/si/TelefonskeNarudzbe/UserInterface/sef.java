@@ -115,7 +115,7 @@ public class sef {
 
 		} catch (Exception e) {
 			logger.info(e);
-			throw new Exception();
+		//	throw new Exception();
 		}
 	}
 
@@ -172,7 +172,7 @@ public class sef {
 			datum.setPlaceholderCharacter(' ');
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.info(e);//e.printStackTrace();
 		}
 		// datum
 		final JLabel lblDatum = new JLabel("Datum:");
@@ -334,7 +334,7 @@ public class sef {
 						} catch (ParseException e1) {
 							// TODO Auto-generated catch block
 							JOptionPane.showMessageDialog(frame, "Pogrešan datum od:");
-							e1.printStackTrace();
+							logger.info(e1);//e1.printStackTrace();
 						}
 					}
 				}
@@ -366,7 +366,7 @@ public class sef {
 						dostavljac_tbl.setVisible(false);
 						scrollPane_dostavljac.setVisible(false);
 						JOptionPane.showMessageDialog(frame, "U bazi ne postoji traženi dostavljač:");
-						e1.printStackTrace();
+						logger.info(e1);//e1.printStackTrace();
 					}
 				}
 				// kraj drugog izvjetaja
@@ -398,7 +398,7 @@ public class sef {
 						jelo_tbl.setVisible(false);
 						scrollPane_jelo.setVisible(false);
 						JOptionPane.showMessageDialog(frame, "U bazi ne postoji traženo jelo");
-						e1.printStackTrace();
+						logger.info(e1);//e1.printStackTrace();
 					}
 				}
 				// krja treceg izvjetaja
@@ -439,7 +439,7 @@ public class sef {
 						izvjestaj5_tbl.setVisible(true);
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						logger.info(e1);//e1.printStackTrace();
 						ocistiFormuOdTabela();
 						JOptionPane.showMessageDialog(frame, "U bazi ne postoji traženo jelo");
 
@@ -749,8 +749,8 @@ public class sef {
 				try {
 					OdjaviSe();
 				} catch (Exception e1) {
-					logger.info(e);
-					e1.printStackTrace();
+					logger.info(e1);
+					//e1.printStackTrace();
 				}
 
 			}

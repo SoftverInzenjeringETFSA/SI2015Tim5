@@ -70,7 +70,7 @@ private static Zaposlenik ja;
 
 		} catch (Exception e) {
 			logger.info(e);
-			throw new Exception();
+			//throw new Exception();
 		}
 	}
 
@@ -100,7 +100,7 @@ private static Zaposlenik ja;
 					OdjaviSe();
 				} catch (Exception e1) {
 					logger.info(e);
-					e1.printStackTrace();
+					//e1.printStackTrace();
 				}
 
 			}

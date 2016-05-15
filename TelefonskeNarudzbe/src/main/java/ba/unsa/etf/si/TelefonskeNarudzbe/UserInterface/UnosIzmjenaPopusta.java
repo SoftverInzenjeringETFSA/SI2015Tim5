@@ -168,6 +168,7 @@ public class UnosIzmjenaPopusta extends JFrame {
 				}
 				catch(Exception ek)
 				{
+					logger.info(ek);
 					JOptionPane.showMessageDialog(null, "Popust mora biti nenegativan broj!");
 					return;
 				}
@@ -284,6 +285,7 @@ public class UnosIzmjenaPopusta extends JFrame {
 				}
 				catch(Exception ek)
 				{
+					logger.info(ek);
 					JOptionPane.showMessageDialog(null, "Popust mora biti nenegativan broj!");
 					return;
 				}

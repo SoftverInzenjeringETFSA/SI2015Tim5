@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -16,12 +17,13 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak;
 import ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface.sef;
 
 public class UnosIzmjenaPopustaController {
+	final static Logger logger = Logger.getLogger(UnosIzmjenaPopustaController.class);
 	public  void Odjava() throws Exception {
 		try {Session s = HibernateUtil.getSessionFactory().openSession();
 			s.close();
 
 		} catch (Exception e) {
-			//logger.info(e);
+			logger.info(e);
 			throw new Exception();
 		}
 	}
@@ -37,6 +39,7 @@ public class UnosIzmjenaPopustaController {
 			sesija.close();
 			return p;
 		} catch (Exception e) {
+			logger.info(e);
 			JOptionPane.showMessageDialog(null, "Doslo je do greske!");
 		}
 		return p;
@@ -81,7 +84,7 @@ public class UnosIzmjenaPopustaController {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info(e);//e.printStackTrace();
 			return false;
 		}
 	}
