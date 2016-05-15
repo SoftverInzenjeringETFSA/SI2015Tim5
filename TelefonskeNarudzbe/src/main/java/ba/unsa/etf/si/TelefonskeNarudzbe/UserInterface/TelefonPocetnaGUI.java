@@ -116,7 +116,7 @@ public class TelefonPocetnaGUI {
 				nova = new NovaNarudzbaGUI(ja);
 			
 			}
-			}
+			
 		});
 		btnNewButton.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnNewButton.setBounds(78, 37, 139, 23);
