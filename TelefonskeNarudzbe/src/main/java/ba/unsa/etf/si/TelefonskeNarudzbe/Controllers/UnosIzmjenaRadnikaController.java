@@ -61,9 +61,10 @@ public class UnosIzmjenaRadnikaController {
 	public boolean izmijeniRadnika(String imePrezime, String datum, String username, String password, int radnoMjesto, String opis ){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction t= session.beginTransaction();
-		
+		int ids =-1;
+		if(!sef.dodajNovi) ids=sef.vratiIzabranogRadnika();
 		try{
-			if (session.createCriteria(Zaposlenik.class).add(Restrictions.eq("imePrezime", imePrezime)).setProjection(Projections.property("imePrezime")).uniqueResult() == null){
+			if (session.createCriteria(Zaposlenik.class).add(Restrictions.eq("id", ids)).setProjection(Projections.property("imePrezime")).uniqueResult() == null){
 				Zaposlenik z= new Zaposlenik();
 				z.setDatumRodenja(datum);
 				z.setUsername(username);
@@ -81,7 +82,7 @@ public class UnosIzmjenaRadnikaController {
 			
 	
 		else {
-			Criteria criteria = session.createCriteria(Zaposlenik.class).add(Restrictions.like("imePrezime", imePrezime).ignoreCase());
+			Criteria criteria = session.createCriteria(Zaposlenik.class).add(Restrictions.eq("id", ids));
 			
 			List<Zaposlenik> lista = criteria.list();
 			Zaposlenik z = lista.get(0);

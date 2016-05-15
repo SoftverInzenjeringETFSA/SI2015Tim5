@@ -469,7 +469,9 @@ public class sef {
 
 		JButton btnDodajNovoJelo = new JButton("Dodaj novo jelo");
 		btnDodajNovoJelo.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent arg0) {
+				dodajNovi=true;
 				UnosIzmjenaJela forma = new UnosIzmjenaJela();
 				forma.setVisible(true);
 			}
@@ -479,7 +481,9 @@ public class sef {
 
 		JButton btnIzmijeniPostojeeJelo = new JButton("Izmijeni postoje\u0107e jelo");
 		btnIzmijeniPostojeeJelo.addActionListener(new ActionListener() {
+		
 			public void actionPerformed(ActionEvent arg0) {
+				dodajNovi=false;
 				int selected = table.getSelectedRow();
 				String naziv = (String) table.getValueAt(selected, 0);
 				Jelo j = UnosIzmjenaJelaController.vratiJelo(naziv);
@@ -600,6 +604,7 @@ public class sef {
 		JButton btnDodajNovogRadnika = new JButton("Dodaj novog radnika");
 		btnDodajNovogRadnika.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				dodajNovi=true;
 				UnosIzmjenaRadnika forma = new UnosIzmjenaRadnika();
 				forma.setVisible(true);
 			}
@@ -610,6 +615,7 @@ public class sef {
 		JButton btnNewButton = new JButton("Izmijeni podatke");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dodajNovi=false;
 				int selected = table_1.getSelectedRow();
 				String imePrezime = (String) table_1.getValueAt(selected, 0);
 				Zaposlenik z = UnosIzmjenaRadnikaController.vratiRadnika(imePrezime);
@@ -623,6 +629,7 @@ public class sef {
 		JButton btnIzmijeniSifru = new JButton("Izmijeni lozinku");
 		btnIzmijeniSifru.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dodajNovi=false;
 				int selected = table_1.getSelectedRow();
 				String imePrezime = (String) table_1.getValueAt(selected, 0);
 				Zaposlenik z = UnosIzmjenaRadnikaController.vratiRadnika(imePrezime);
@@ -672,7 +679,9 @@ public class sef {
 
 		JButton btnDodajPopust = new JButton("Dodaj popust");
 		btnDodajPopust.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent arg0) {
+				dodajNovi=true;
 				UnosIzmjenaPopusta forma = new UnosIzmjenaPopusta();
 				forma.setVisible(true);
 
@@ -684,6 +693,7 @@ public class sef {
 		JButton btnNewButton_1 = new JButton("Izmijeni popust");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dodajNovi=false;
 				int selected = table_5.getSelectedRow();
 				String cijenaOd = String.valueOf(table_5.getValueAt(selected, 0));
 				String cijenaDo = String.valueOf(table_5.getValueAt(selected, 1));
@@ -771,7 +781,7 @@ public class sef {
 			o[4] = z.getPassword();
 			o[5] = z.getDodatneInformacije();
 			tableModel.addRow(o);
-		}
+		}	
 		table_1.setModel(tableModel);
 	}
 
@@ -824,6 +834,31 @@ public class sef {
 		int selected = table_2.getSelectedRow();
 		String naziv = (String) table_2.getValueAt(selected, 0);
 		Sastojak s = UnosIzmjenaSastojkaController.vratiSastojak(naziv);
+		return s.getId();
+		
+	}
+	public static int vratiIzabraniPopust(){
+		int selected = table_5.getSelectedRow();
+		String cijenaOd = (String) table_5.getValueAt(selected, 0);
+		String cijenaDo = (String ) table_5.getValueAt(selected, 1);
+		Popust p = UnosIzmjenaPopustaController.vratiPopust(cijenaOd, cijenaDo);
+		return p.getId();
+		
+	}
+	public static int vratiIzabranoJelo(){
+		int selected = table.getSelectedRow();
+		String naziv = (String) table.getValueAt(selected, 0);
+		Jelo p = UnosIzmjenaJelaController.vratiJelo(naziv);
+		return p.getId();
+		
+	}
+	public static int vratiIzabranogRadnika(){
+		int selected = table_1.getSelectedRow();
+		String naziv = (String) table_1.getValueAt(selected, 0);
+		JOptionPane.showMessageDialog(null, "tu");
+		Zaposlenik s = UnosIzmjenaRadnikaController.vratiRadnika(naziv);
+		JOptionPane.showMessageDialog(null, "t2");
+		
 		return s.getId();
 		
 	}
