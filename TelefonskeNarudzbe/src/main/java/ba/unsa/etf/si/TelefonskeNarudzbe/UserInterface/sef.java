@@ -3,31 +3,44 @@ package ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JMenu;
 import javax.swing.JList;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
+
 
 import org.apache.log4j.Logger;
 
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Narudzba;
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.IzvjestajController;
 public class sef {
 
 	private JFrame frame;
 	private JTable table;
 	private JTable table_1;
 	private JTable table_2;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTable table_3;
+	private JTable table_3 = new JTable();
 	private JTable table_5;
+	private JTable dostavljac_tbl = new JTable();
+	private JScrollPane scrollPane_dostavljac = new JScrollPane();
+	private JTable jelo_tbl = new JTable();
+	private JScrollPane scrollPane_jelo = new JScrollPane();
+	private JScrollPane scrollPane_3 = new JScrollPane();
 	final static Logger logger = Logger.getLogger(sef.class);
 	/**
 	 * Launch the application.
@@ -49,8 +62,10 @@ public class sef {
 	/**
 	 * Create the application.
 	 */
+	public static Zaposlenik logovani;
 	public sef() {
 		initialize();
+		frame.setVisible(true);
 	}
 
 	/**
@@ -73,170 +88,276 @@ public class sef {
 				                       "Statistički izvještaj o vremenu isporuke narudžbi", 
 				                       "Statistički izvjestaj o broju naručenih jela"};
 
-		JPanel IzvjestajiTab = new JPanel();
+		final JPanel IzvjestajiTab = new JPanel();
 		tabbedPane.addTab("Izvje\u0161taji", null, IzvjestajiTab, null);
 		IzvjestajiTab.setLayout(null);
-		JList list = new JList(values);
+		final JList list = new JList(values);
 		
 		list.setBounds(28, 23, 460, 90);
 		IzvjestajiTab.add(list);
 		
 		JButton btnPrikaiIzvjetaj = new JButton("Odaberi izvještaj");
+
+		final JButton btnGenerisiIzvjetaj = new JButton("Generiši izvještaj");
+		btnGenerisiIzvjetaj.setBounds(600, 157, 196, 23);
+		IzvjestajiTab.add(btnGenerisiIzvjetaj);
+		btnGenerisiIzvjetaj.setVisible(false);
+		
+		//btn za onos kriterija
+		final JLabel lblKriterij = new JLabel();
+		lblKriterij.setBounds(28, 161, 100, 14);
+		IzvjestajiTab.add(lblKriterij);
+		lblKriterij.setVisible(false);
+		
+		//unos kriterija
+		final JTextField kriterij = new JTextField();
+		kriterij.setBounds(159, 158, 166, 20);
+		IzvjestajiTab.add(kriterij);
+		kriterij.setColumns(10); 
+		kriterij.setVisible(false);
+		
+		//format datuma
+		MaskFormatter datum = new MaskFormatter();
+		try {
+			datum = new MaskFormatter("##.##.####.");
+			datum.setPlaceholderCharacter(' ');
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//datum
+		final JLabel lblDatum = new JLabel("Datum:");
+		lblDatum.setBounds(28, 124, 46, 14);
+		IzvjestajiTab.add(lblDatum);
+		lblDatum.setVisible(false);
+		//OD
+		final JLabel lblOd = new JLabel("Od:");   
+		lblOd.setBounds(28, 161, 25, 14);
+		IzvjestajiTab.add(lblOd);
+		lblOd.setVisible(false);
+		final JFormattedTextField datumOd = new JFormattedTextField(datum);
+		datumOd.setBounds(63, 158, 150, 20);
+		IzvjestajiTab.add(datumOd);
+		datumOd.setColumns(10);
+		datumOd.setVisible(false);
+		//DO
+		final JLabel lblDo = new JLabel("Do:");
+		lblDo.setBounds(303, 161, 25, 14);
+		IzvjestajiTab.add(lblDo);
+		lblDo.setVisible(false);
+		final JFormattedTextField datumDo = new JFormattedTextField(datum);
+		datumDo.setColumns(10);
+		datumDo.setBounds(338, 158, 150, 20);
+		IzvjestajiTab.add(datumDo);
+		datumDo.setColumns(10);
+		datumDo.setVisible(false);
+		/*
+		//tabela 5
+		String[] kolone_izvjestaj_2 = {"Izabrano jelo", "Broj narudžbi izabranog jela"};
+		Object[][] podaci_izvjestaj_2 = {{"",""}};
+		final JTable table_4 = new JTable(podaci_izvjestaj_2, kolone_izvjestaj_2);
+		table_4.setBounds(109, 340, 340, -61);
+		IzvjestajiTab.add(table_4);
+		final JScrollPane scrollPane_4 = new JScrollPane(table_4);
+		scrollPane_4.setBounds(10, 218, 969, 388);
+		IzvjestajiTab.add(scrollPane_4);
+		scrollPane_4.setVisible(false);
+		
+		//tabela 4
+		String[] kolone_izvjestaj_6 = {"Vremenski rok(minute)", "Broj narudžbi", "Procenat"};
+		Object[][] podaci_izvjestaj_6 = {{"","",""}};
+		final JTable table_6 = new JTable(podaci_izvjestaj_6, kolone_izvjestaj_6);
+		table_6.setBounds(109, 340, 340, -61);
+		IzvjestajiTab.add(table_6);
+		final JScrollPane scrollPane_6 = new JScrollPane(table_6);
+		scrollPane_6.setBounds(10, 218, 969, 388);
+		IzvjestajiTab.add(scrollPane_6);
+	
+		//sve tabele neaktivne na pocetku
+		scrollPane_3.setVisible(false);
+		table_3.setVisible(false);
+		scrollPane_4.setVisible(false);
+		table_4.setVisible(false);
+		scrollPane_6.setVisible(false);
+		table_6.setVisible(false);
+		*/
+		btnPrikaiIzvjetaj.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnGenerisiIzvjetaj.setVisible(false);
+				String odabrano = list.getSelectedValue().toString();
+				lblDatum.setVisible(false);  
+				lblOd.setVisible(false); 
+				datumOd.setVisible(false);
+				lblDo.setVisible(false);
+				datumDo.setVisible(false);
+				if(odabrano.equals("Izvještaj o svim narudžbama u vremenskom periodu"))
+				{
+					btnGenerisiIzvjetaj.setVisible(true);
+					lblDatum.setVisible(true);  
+					lblOd.setVisible(true); 
+					datumOd.setVisible(true);
+					lblDo.setVisible(true);
+					datumDo.setVisible(true);
+					ocistiFormuOdTabela();
+					kriterij.setVisible(false);
+					lblKriterij.setVisible(false);
+				}
+				if(odabrano.equals("Izvještaj o svim odrađenim dostavama po dostavljaču"))
+				{
+					btnGenerisiIzvjetaj.setVisible(true);
+					lblDatum.setVisible(false);  
+					lblOd.setVisible(false); 
+					datumOd.setVisible(false);
+					lblDo.setVisible(false);
+					datumDo.setVisible(false);
+					ocistiFormuOdTabela();
+					lblKriterij.setText("Ime dostavljača: ");
+					lblKriterij.setVisible(true);
+					kriterij.setText("");
+					kriterij.setVisible(true);
+					}
+				if(odabrano.equals("Izvještaj o narudžbama po jelima koja ih čine"))
+				{
+					btnGenerisiIzvjetaj.setVisible(true);
+					ocistiFormuOdTabela();
+					lblKriterij.setText("Naziv jela:");
+					lblKriterij.setVisible(true);
+					kriterij.setText("");
+					kriterij.setVisible(true);
+				}
+				if(odabrano.equals("Statistički izvještaj o vremenu isporuke narudžbi"))
+				{
+					ocistiFormuOdTabela();
+					kriterij.setVisible(false);
+					lblKriterij.setVisible(false);
+				}
+				if(odabrano.equals("Statistički izvjestaj o broju naručenih jela"))
+				{
+					ocistiFormuOdTabela();
+					kriterij.setText("");
+					kriterij.setVisible(true);
+					lblKriterij.setText("Naziv jela:");
+					lblKriterij.setVisible(true);
+				}
+			}
+		});
 		btnPrikaiIzvjetaj.setBounds(600, 46, 196, 23);
 		IzvjestajiTab.add(btnPrikaiIzvjetaj);
 		
-		/*
-		// Izvještaj 1
-		 JLabel lblDatum = new JLabel("Datum:");
-		lblDatum.setBounds(28, 124, 46, 14);
-		IzvjestajiTab.add(lblDatum);
+		//btn za prikaz izvještaja
+		btnGenerisiIzvjetaj.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String odabrano = list.getSelectedValue().toString();
+				if(odabrano.equals("Izvještaj o svim narudžbama u vremenskom periodu"))
+				{
+					ocistiFormuOdTabela();
+					//datum kupljenje sa forme
+					String datumOdString = new String();
+					datumOdString = datumOd.getText();
+					if(IzvjestajController.validirajDatum(datumOdString) == false)
+					{
+						JOptionPane.showMessageDialog(frame, "Pogrešan datum od:");
+					}
+					String datumDoString = new String();
+					datumDoString = datumDo.getText();
+					if(IzvjestajController.validirajDatum(datumDoString) == false)
+					{
+						JOptionPane.showMessageDialog(frame, "Pogrešan datum do:");
+					}
+					if(IzvjestajController.validirajDatum(datumDoString) && IzvjestajController.validirajDatum(datumOdString))
+					{
+						try {
+							String[] kolone_izvjestaj_1 = {"ID", "SPISAK JELA", "DATUM", "OPIS", "ODGOVORNA OSOBA", "ADRESA NARUČIOCA", "BROJ TELEFONA NARUČIOCA", "CIJENA"};
+							Object[][] podaci_izvjestaj_1 = IzvjestajController.dajNaruzbePoDatumu(datumOdString, datumDoString);
+							
+							table_3 = new JTable(podaci_izvjestaj_1, kolone_izvjestaj_1);
+							table_3.setBounds(109, 340, 340, -61);
+							table_3.getColumn("ID").setMaxWidth(70);
+							table_3.getColumn("CIJENA").setMaxWidth(70);
+							IzvjestajiTab.add(table_3);
+							
+							scrollPane_3 = new JScrollPane(table_3);
+							scrollPane_3.setBounds(10, 218, 969, 388);
+							IzvjestajiTab.add(scrollPane_3);
+							table_3.setVisible(true);
+							scrollPane_3.setVisible(true);
+						
+						} catch (ParseException e1) {
+							// TODO Auto-generated catch block
+							JOptionPane.showMessageDialog(frame, "Pogrešan datum od:");
+							e1.printStackTrace();
+						}
+					}
+				}
+					
+				//drugi izvještaj
+					if(odabrano.equals("Izvještaj o svim odrađenim dostavama po dostavljaču"))
+					{
+						ocistiFormuOdTabela();
+						String dostavljac = new String();
+						dostavljac = kriterij.getText();
+						try {
+							Object[][] podaci_izvjestaj_1 = IzvjestajController.dajNaruzbePoDostavljacu(dostavljac);
+							String[] kolone_izvjestaj_1 = {"ID", "SPISAK JELA", "DATUM", "OPIS", "ODGOVORNA OSOBA", "ADRESA NARUČIOCA", "BROJ TELEFONA NARUČIOCA", "CIJENA"};
+							
+							dostavljac_tbl = new JTable(podaci_izvjestaj_1, kolone_izvjestaj_1);
+							dostavljac_tbl.setBounds(109, 340, 340, -61);
+							dostavljac_tbl.getColumn("ID").setMaxWidth(70);
+							dostavljac_tbl.getColumn("CIJENA").setMaxWidth(70);
+							IzvjestajiTab.add(dostavljac_tbl);
+							
+							scrollPane_dostavljac = new JScrollPane(dostavljac_tbl);
+							scrollPane_dostavljac.setBounds(10, 218, 969, 388);
+							IzvjestajiTab.add(scrollPane_dostavljac);
+							scrollPane_dostavljac.setVisible(false);
+							dostavljac_tbl.setVisible(true);
+							scrollPane_dostavljac.setVisible(true);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							dostavljac_tbl.setVisible(false);
+							scrollPane_dostavljac.setVisible(false);
+							JOptionPane.showMessageDialog(frame, "U bazi ne postoji traženi dostavljač:");
+							e1.printStackTrace();
+						}		
+					}
+					//kraj drugog izvjetaja
+					
+					//treci izvještaj
+					if(odabrano.equals("Izvještaj o narudžbama po jelima koja ih čine"))
+					{
+						ocistiFormuOdTabela();
+						String jelo = new String();
+						jelo = kriterij.getText();
+						try {
+							Object[][] podaci_izvjestaj_1 = IzvjestajController.dajNaruzbePoJelu(jelo);
+							String[] kolone_izvjestaj_1 = {"ID", "SPISAK JELA", "DATUM", "OPIS", "ODGOVORNA OSOBA", "ADRESA NARUČIOCA", "BROJ TELEFONA NARUČIOCA", "CIJENA"};
+							
+							jelo_tbl = new JTable(podaci_izvjestaj_1, kolone_izvjestaj_1);
+							jelo_tbl.setBounds(109, 340, 340, -61);
+							jelo_tbl.getColumn("ID").setMaxWidth(70);
+							jelo_tbl.getColumn("CIJENA").setMaxWidth(70);
+							IzvjestajiTab.add(jelo_tbl);
+							
+							scrollPane_jelo = new JScrollPane(jelo_tbl);
+							scrollPane_jelo.setBounds(10, 218, 969, 388);
+							IzvjestajiTab.add(scrollPane_jelo);
+							scrollPane_jelo.setVisible(false);
+							jelo_tbl.setVisible(true);
+							scrollPane_jelo.setVisible(true);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							jelo_tbl.setVisible(false);
+							scrollPane_jelo.setVisible(false);
+							JOptionPane.showMessageDialog(frame, "U bazi ne postoji traženo jelo");
+							e1.printStackTrace();
+						}		
+					}
+					//krja treceg izvjetaja
+			}
+		});
+
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(63, 158, 150, 20);
-		IzvjestajiTab.add(textField_1);
-		textField_1.setColumns(10); 
-		 
-		JLabel lblOd = new JLabel("Od:");
-		lblOd.setBounds(28, 161, 25, 14);
-		IzvjestajiTab.add(lblOd);
-		
-		JLabel label = new JLabel("Do:");
-		label.setBounds(303, 161, 25, 14);
-		IzvjestajiTab.add(label);
-		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(338, 158, 150, 20);
-		IzvjestajiTab.add(textField_2);
-		
-		JButton btnGeneriiIzvjetaj = new JButton("Generiši izvještaj");
-		btnGeneriiIzvjetaj.setBounds(600, 157, 196, 23);
-		IzvjestajiTab.add(btnGeneriiIzvjetaj);
-		
-		
-		String[] kolone_izvjestaj_1 = {"ID", "SPISAK JELA", "DATUM", "OPIS", "ODGOVORNA OSOBA", "ADRESA NARUČIOCA", "BROJ TELEFONA NARUČIOCA", "CIJENA"};
-		Object[][] podaci_izvjestaj_1 = {{"","","","", "", "", "", ""}};
-		
-		
-		table_3 = new JTable(podaci_izvjestaj_1, kolone_izvjestaj_1);
-		table_3.setBounds(109, 340, 340, -61);
-		table_3.getColumn("ID").setMaxWidth(70);
-		table_3.getColumn("CIJENA").setMaxWidth(70);
-		IzvjestajiTab.add(table_3);
-		
-		JScrollPane scrollPane_3 = new JScrollPane(table_3);
-		scrollPane_3.setBounds(10, 218, 969, 388);
-		IzvjestajiTab.add(scrollPane_3);
-	   //
-	     
-	  */
-		/*
-		// Izvještaj 2
-				
-		textField_1 = new JTextField();
-		textField_1.setBounds(159, 158, 166, 20);
-		IzvjestajiTab.add(textField_1);
-		textField_1.setColumns(10); 
-		 
-		JLabel lblOd = new JLabel("Ime dostavljača:");
-		lblOd.setBounds(28, 161, 100, 14);
-		IzvjestajiTab.add(lblOd);
-		
-		JButton btnGeneriiIzvjetaj = new JButton("Generiši izvještaj");
-		btnGeneriiIzvjetaj.setBounds(600, 157, 196, 23);
-		IzvjestajiTab.add(btnGeneriiIzvjetaj);
-		
-		String[] kolone_izvjestaj_1 = {"ID", "SPISAK JELA", "DATUM", "OPIS", "ODGOVORNA OSOBA", "ADRESA NARUČIOCA", "BROJ TELEFONA NARUČIOCA", "CIJENA"};
-		Object[][] podaci_izvjestaj_1 = {{"","","","", "", "", "", ""}};
-		
-		
-		table_3 = new JTable(podaci_izvjestaj_1, kolone_izvjestaj_1);
-		table_3.setBounds(109, 340, 340, -61);
-		table_3.getColumn("ID").setMaxWidth(70);
-		table_3.getColumn("CIJENA").setMaxWidth(70);
-		IzvjestajiTab.add(table_3);
-		
-		JScrollPane scrollPane_3 = new JScrollPane(table_3);
-		scrollPane_3.setBounds(10, 218, 969, 388);
-		IzvjestajiTab.add(scrollPane_3);
-	   //
-	    */
-		/*
-		// Izvještaj 3
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(159, 158, 166, 20);
-		IzvjestajiTab.add(textField_1);
-		textField_1.setColumns(10); 
-			 
-		JLabel lblOd = new JLabel("Naziv jela:");
-		lblOd.setBounds(28, 161, 100, 14);
-		IzvjestajiTab.add(lblOd);
-				
-		JButton btnGeneriiIzvjetaj = new JButton("Generiši izvještaj");
-		btnGeneriiIzvjetaj.setBounds(600, 157, 196, 23);
-		IzvjestajiTab.add(btnGeneriiIzvjetaj);
-				
-				
-		String[] kolone_izvjestaj_1 = {"ID", "SPISAK JELA", "DATUM", "OPIS", "ODGOVORNA OSOBA", "ADRESA NARUČIOCA", "BROJ TELEFONA NARUČIOCA", "CIJENA"};
-		Object[][] podaci_izvjestaj_1 = {{"","","","", "", "", "", ""}};
-				
-				
-		table_3 = new JTable(podaci_izvjestaj_1, kolone_izvjestaj_1);
-		table_3.setBounds(109, 340, 340, -61);
-		table_3.getColumn("ID").setMaxWidth(70);
-		table_3.getColumn("CIJENA").setMaxWidth(70);
-		IzvjestajiTab.add(table_3);
-				
-		JScrollPane scrollPane_3 = new JScrollPane(table_3);
-		scrollPane_3.setBounds(10, 218, 969, 388);
-		IzvjestajiTab.add(scrollPane_3);
-			   //
-		*/
-		/*
-		// Izvještaj 4
-				
-		String[] kolone_izvjestaj_1 = {"Vremenski rok(minute)", "Broj narudžbi", "Procenat"};
-		Object[][] podaci_izvjestaj_1 = {{"","",""}};
-		
-		
-		table_3 = new JTable(podaci_izvjestaj_1, kolone_izvjestaj_1);
-		table_3.setBounds(109, 340, 340, -61);
-		IzvjestajiTab.add(table_3);
-		
-		JScrollPane scrollPane_3 = new JScrollPane(table_3);
-		scrollPane_3.setBounds(10, 146, 969, 460);
-		IzvjestajiTab.add(scrollPane_3);
-	   //
-		*/
-		/*
-		//Izvještaj 5
-		textField_1 = new JTextField();
-		textField_1.setBounds(159, 158, 166, 20);
-		IzvjestajiTab.add(textField_1);
-		textField_1.setColumns(10); 
-			 
-		JLabel lblOd = new JLabel("Naziv jela:");
-		lblOd.setBounds(28, 161, 100, 14);
-		IzvjestajiTab.add(lblOd);
-				
-		JButton btnGeneriiIzvjetaj = new JButton("Generiši izvještaj");
-		btnGeneriiIzvjetaj.setBounds(600, 157, 196, 23);
-		IzvjestajiTab.add(btnGeneriiIzvjetaj);
-		
-		String[] kolone_izvjestaj_1 = {"Izabrano jelo", "Broj narudžbi izabranog jela"};
-		Object[][] podaci_izvjestaj_1 = {{"",""}};
-				
-				
-		table_3 = new JTable(podaci_izvjestaj_1, kolone_izvjestaj_1);
-		table_3.setBounds(109, 340, 340, -61);
-		IzvjestajiTab.add(table_3);
-				
-		JScrollPane scrollPane_3 = new JScrollPane(table_3);
-		scrollPane_3.setBounds(10, 218, 969, 388);
-		IzvjestajiTab.add(scrollPane_3);
-		//
-		*/
+		//EMINA:
 		JPanel JelovnikTab = new JPanel();
 		tabbedPane.addTab("Jelovnik", null, JelovnikTab, null);
 		JelovnikTab.setLayout(null);
@@ -426,5 +547,14 @@ public class sef {
 		
 		JMenuItem mntmLogOut = new JMenuItem("Odjava");
 		mnLogOut.add(mntmLogOut);
+	}
+
+	private void ocistiFormuOdTabela() {
+		table_3.setVisible(false);
+		dostavljac_tbl.setVisible(false);
+		scrollPane_dostavljac.setVisible(false);
+		jelo_tbl.setVisible(false);
+		scrollPane_jelo.setVisible(false);
+		scrollPane_3.setVisible(false);
 	}
 }
