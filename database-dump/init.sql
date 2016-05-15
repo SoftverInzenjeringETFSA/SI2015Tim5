@@ -42,7 +42,7 @@ CREATE TABLE `jelo` (
 
 LOCK TABLES `jelo` WRITE;
 /*!40000 ALTER TABLE `jelo` DISABLE KEYS */;
-INSERT INTO `jelo` VALUES (1,'Cevapi 10',7,NULL,NULL),(2,'Cevapi 5',3.5,NULL,NULL),(3,'Janjetina 200gr',12,NULL,NULL),(4,'Hamburger',3,NULL,NULL),(5,'Pileci sendvic',4.5,NULL,NULL);
+INSERT INTO `jelo` VALUES (1,'doner',7,'opis1',NULL), (2,'supa',3,'opis1',NULL), (3,'palacinci',1.50,'opis1',NULL), (4,'hot dog',2,'opis1',NULL), (5,'pizza',6,'opis1',NULL), (6,'tunjevina',7,'opis1',NULL), (7,'sendvic',2,'opis1',NULL), (8,'hamburger',3.50,'opis1',NULL), (9,'pljeskavice',4,'opis1',NULL), (10,'ustipci',5,'opis1',NULL), (11,'teletina',10,'opis1',NULL), (12,'cevapi',6,'opis1',NULL);
 /*!40000 ALTER TABLE `jelo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,7 +69,7 @@ CREATE TABLE `kupac` (
 
 LOCK TABLES `kupac` WRITE;
 /*!40000 ALTER TABLE `kupac` DISABLE KEYS */;
-INSERT INTO `kupac` VALUES (1,'aiejfoi',548454545,'aiojiof'),(2,'aisejfoi',548444545,'aiosjiof'),(3,'aissejfoi',544444545,'aiddsjiof'),(4,'Hasana Suceske 2',123456,'INFO'),(5,'TestTest 2',11111111,'INFO'),(6,'Trg oslobodjenja 10',666,'INFO'),(7,'Adresa 3',12345678,'INFO'),(8,'Neka adresa 4',76543,'INFOOOOO'),(9,'Adresa Adresica 2',12345678,'INFO'),(10,'Adresa Nekic 2',123456,'INFOINFO ');
+INSERT INTO `kupac` VALUES (1,'adresa1',061111222,'opis kupca 1'), (2,'adresa2',061111223,'opis kupca 2'),(3,'adresa3',061111224,'opis kupca 3'),(4,'adresa4',061111225,'opis kupca 4'),(5,'adresa5',061111226,'opis kupca 5'),(6,'adresa6',061111227,'opis kupca 6'),(7,'adresa7',061111228,'opis kupca 7'),(8,'adresa8',061111229,'opis kupca 8'),(9,'adresa9',061111230,'opis kupca 9'),(0,'adresa10',061111231,'opis kupca 10');
 /*!40000 ALTER TABLE `kupac` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,7 +113,7 @@ CREATE TABLE `narudzba` (
 
 LOCK TABLES `narudzba` WRITE;
 /*!40000 ALTER TABLE `narudzba` DISABLE KEYS */;
-INSERT INTO `narudzba` VALUES (1,3,1,2,1,NULL,5,'2016-08-08 00:00:00',NULL,NULL,NULL,0,'dd'),(2,3,1,2,1,NULL,5,'2016-08-08 00:00:00',NULL,NULL,NULL,0,'dd'),(3,3,1,2,1,NULL,5,'2016-08-08 00:00:00',NULL,NULL,NULL,0,'dd'),(4,3,1,2,1,NULL,5,'2016-08-08 00:00:00',NULL,NULL,NULL,0,'dd'),(5,35,4,1,2,NULL,5,'2016-05-14 02:24:15',NULL,NULL,NULL,0,'Test opis prve narudzbe'),(6,16,5,1,2,NULL,5,'2016-05-14 02:35:29',NULL,NULL,NULL,0,'Opis TESTTTTT	'),(7,58.5,6,1,2,NULL,NULL,'2016-05-14 02:40:32',NULL,NULL,NULL,0,'Sve sa svim'),(8,32.4,7,1,2,NULL,NULL,'2016-05-14 02:42:11',NULL,NULL,NULL,0,'OPIS'),(9,9.975,8,1,2,NULL,NULL,'2016-05-14 02:44:15',NULL,NULL,NULL,0,'OPISISISISIIS'),(10,31.5,9,1,2,NULL,NULL,'2016-05-14 02:52:11',NULL,NULL,NULL,0,'ZADNJI TEST'),(11,15.675,10,1,2,NULL,NULL,'2016-05-14 02:55:29',NULL,NULL,NULL,0,'OPISISISISIS');
+INSERT INTO `narudzba` VALUES (1,3,1,2,1,NULL,5,'2016-08-08 00:00:00',NULL,NULL,NULL,'2016-08-08 00:07:00','dd'),(2,3,1,2,1,NULL,5,'2016-08-08 00:00:00',NULL,NULL,'2016-08-08 00:15:00',0,'dd'),(3,3,1,2,1,NULL,5,'2016-08-08 00:00:00',NULL,NULL,'2016-08-08 00:27:00',0,'dd'),(4,3,1,2,1,NULL,5,'2016-08-08 00:41:00',NULL,NULL,NULL,0,'dd'),(5,35,4,1,2,NULL,5,'2016-05-14 02:24:15',NULL,NULL,'2016-05-14 02:59:15',0,'Test opis prve narudzbe'),(6,16,5,1,2,NULL,5,'2016-05-14 02:35:29',NULL,NULL,NULL,0,'Opis TESTTTTT	'),(7,58.5,6,1,2,NULL,NULL,'2016-05-14 02:40:32',NULL,NULL,NULL,0,'Sve sa svim'),(8,32.4,7,1,2,NULL,NULL,'2016-05-14 02:42:11',NULL,NULL,NULL,0,'OPIS'),(9,9.975,8,1,2,NULL,NULL,'2016-05-14 02:44:15',NULL,NULL,NULL,0,'OPISISISISIIS'),(10,31.5,9,1,2,NULL,NULL,'2016-05-14 02:52:11',NULL,NULL,NULL,0,'ZADNJI TEST'),(11,15.675,10,1,2,NULL,NULL,'2016-05-14 02:55:29',NULL,NULL,NULL,0,'OPISISISISIS');
 /*!40000 ALTER TABLE `narudzba` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -224,6 +224,7 @@ CREATE TABLE `sastojak` (
 
 LOCK TABLES `sastojak` WRITE;
 /*!40000 ALTER TABLE `sastojak` DISABLE KEYS */;
+INSERT INTO `sastojak` VALUES (1,'meso', 'telece', 'g'),(2,'krastavac', NULL, 'kriska'),(3,'kupus', NULL, 'list'),(4,'somun', NULL, 'kom'),(5,'paprika', NULL, 'kom'),(6,'luk', NULL, 'g'),(7,'paradajz', NULL, 'kriska'),(8,'majoneza', NULL, 'g'),(9,'kecap', NULL, 'g'),(10,'cilli', NULL, 'g'),(11,'biber', NULL, 'g');
 /*!40000 ALTER TABLE `sastojak` ENABLE KEYS */;
 UNLOCK TABLES;
 
