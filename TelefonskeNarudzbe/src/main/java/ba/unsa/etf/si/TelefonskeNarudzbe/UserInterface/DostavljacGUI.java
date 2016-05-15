@@ -185,7 +185,8 @@ public class DostavljacGUI {
 
 			Kupac kupac = dostKontroler.dajKupca(izabranaNarudzba.getKupac().getId());
 			adresaText.setText(kupac.getAdresa());
-			brojTelefonaText.setText(Integer.toString(kupac.getBrojTelefona()));
+			String formatted = String.format("%09d", kupac.getBrojTelefona());
+			brojTelefonaText.setText((formatted));
 			infoText.setText(kupac.getInfo());
 			cijenaText.setText(Double.toString(izabranaNarudzba.getCijena()));
 		} catch (Exception e) {

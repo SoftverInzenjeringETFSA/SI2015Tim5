@@ -212,6 +212,13 @@ public class sef {
 			public void actionPerformed(ActionEvent e) {
 				dugmeGraficki.setVisible(false);
 				btnGenerisiIzvjetaj.setVisible(false);
+				odabirIzvjestaja = new String();
+				if(list.isSelectionEmpty())
+				{
+					JOptionPane.showMessageDialog(frame, "Morate odabrati tip izvjestaja!");
+					return;
+				}
+				odabirIzvjestaja = list.getSelectedValue().toString();
 				odabirIzvjestaja = list.getSelectedValue().toString();
 				lblDatum.setVisible(false);
 				lblOd.setVisible(false);

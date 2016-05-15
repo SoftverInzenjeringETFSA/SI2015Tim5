@@ -53,9 +53,10 @@ public class IzvjestajController {
 	    }
 	    int[] manjeOd = new int[7];
 	    int poc = 0, kraj = 10, j = 0;
-	    for(int m : vremena)
+	    for(int k = 0; k < 7; k++)
 	    {
 	    	manjeOd[j] = zbirNarudzbiPoMinutama(vremena, poc, kraj);
+	    	if(j != 0) manjeOd[j] = manjeOd[j] + manjeOd[j-1];
 	    	poc = poc + 10; kraj = kraj + 10;
 	    	if(kraj == 70) kraj = 9999;
 	    	j++;
@@ -72,14 +73,14 @@ public class IzvjestajController {
 	    DecimalFormat df = new DecimalFormat("####0.00");
 	    	
 	    Object[][] vremenaRaspored = {
-	    		{"Manje od 10 minuta", String.valueOf(manjeOd[0]), String.valueOf(df.format(postoci[0]))},
-	    		{"(10,20] minuta", String.valueOf(manjeOd[1]), String.valueOf(df.format(postoci[1]))},
-	    		{"(20,30] minuta", String.valueOf(manjeOd[2]), String.valueOf(df.format(postoci[2]))},
-	    		{"(30,40] minuta", String.valueOf(manjeOd[3]), String.valueOf(df.format(postoci[3]))},
-	    		{"(40,50] minuta", String.valueOf(manjeOd[4]), String.valueOf(df.format(postoci[4]))},
-	    		{"(50,60] minuta", String.valueOf(manjeOd[5]), String.valueOf(df.format(postoci[5]))},
-	    		{"više od 60 minuta", String.valueOf(manjeOd[6]), String.valueOf(df.format(postoci[6]))}	
-	    };
+	    		{"Manje od 10 minuta", String.valueOf(manjeOd[0]), String.valueOf(df.format(postoci[0])) + "%"},
+	    		{"Manje od 20 minuta", String.valueOf(manjeOd[1]), String.valueOf(df.format(postoci[1]))+ "%"},
+	    		{"Manje od 30 minuta", String.valueOf(manjeOd[2]), String.valueOf(df.format(postoci[2]))+ "%"},
+	    		{"Manje od 40 minuta", String.valueOf(manjeOd[3]), String.valueOf(df.format(postoci[3]))+ "%"},
+	    		{"Manje od 50 minuta", String.valueOf(manjeOd[4]), String.valueOf(df.format(postoci[4]))+ "%"},
+	    		{"Manje od 60 minuta", String.valueOf(manjeOd[5]), String.valueOf(df.format(postoci[5]))+ "%"},
+	    		{"Preko 60 minuta", String.valueOf(narudzbe.size()), "100%"},
+	    		};
 	    return vremenaRaspored;
 	}
 	

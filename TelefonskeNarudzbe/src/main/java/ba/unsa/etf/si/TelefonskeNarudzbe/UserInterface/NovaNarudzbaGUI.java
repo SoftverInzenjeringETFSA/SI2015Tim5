@@ -46,6 +46,8 @@ import javax.swing.JOptionPane;
 
 import java.util.Date;
 import java.util.Set;
+import java.util.regex.Pattern;
+
 import javax.swing.JTextArea;
 
 public class NovaNarudzbaGUI {
@@ -227,7 +229,11 @@ public class NovaNarudzbaGUI {
 			Narudzba nova = new Narudzba();
 			k.setAdresa(txtAdresa.getText());
 			k.setInfo(txtInformacije.getText());
-			k.setBrojTelefona(Integer.parseInt(txtBrTelefona.getText()));
+			String broj = txtBrTelefona.getText();
+			int brojUIntu;
+			String[] parts = broj.split(Pattern.quote("-"));
+			brojUIntu = Integer.parseInt(parts[0])*1000000+Integer.parseInt(parts[1])*1000+Integer.parseInt(parts[2]);
+			k.setBrojTelefona(brojUIntu);
 
 			nova.setZaposlenikByZaposlenikOsobaIdPrimalac(ja);
 			nova.setCijena(Double.parseDouble(txtUkupno.getText()));
@@ -261,7 +267,7 @@ public class NovaNarudzbaGUI {
 		
 		telefon = new MaskFormatter();
 		try {
-			telefon = new MaskFormatter("###/###-###.");
+			telefon = new MaskFormatter("###-###-###");
 			telefon.setPlaceholderCharacter(' ');
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -355,7 +361,7 @@ public class NovaNarudzbaGUI {
 		panel_1.add(lblNewLabel_1);
 
 		txtBrTelefona = new JFormattedTextField(telefon);
-		txtBrTelefona.setColumns(10);
+		txtBrTelefona.setColumns(12);
 		txtBrTelefona.setBounds(109, 52, 304, 20);
 		panel_1.add(txtBrTelefona);
 
