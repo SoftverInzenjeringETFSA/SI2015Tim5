@@ -89,10 +89,12 @@ public class UnosIzmjenaSastojkaController {
 	{
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction t= session.beginTransaction();
+		int ids =-1;
+		if(!sef.dodajNovi) ids=sef.vratiIzabraniSastojak();
 		
 		try{
-			if (session.createCriteria(Sastojak.class).add(Restrictions.eq("naziv", naziv)).setProjection(Projections.property("naziv")).uniqueResult() == null){
-				System.out.println("Tu sam 1");
+			if (session.createCriteria(Sastojak.class).add(Restrictions.eq("id", ids)).uniqueResult() == null){
+			System.out.println("Tu sam 1");
 				Sastojak s = new Sastojak();
 				s.setNaziv(naziv);
 				s.setOpis(opis);
@@ -108,9 +110,7 @@ public class UnosIzmjenaSastojkaController {
 	
 		else {
 			System.out.println("Tu sam 2");
-			
-			Criteria criteria = session.createCriteria(Sastojak.class).add(Restrictions.like("naziv", naziv).ignoreCase());
-			
+			Criteria criteria = session.createCriteria(Sastojak.class).add(Restrictions.like("id", ids));
 			List<Sastojak> lista = criteria.list();
 			Sastojak s = lista.get(0);
 			s.setNaziv(naziv);
@@ -121,6 +121,7 @@ public class UnosIzmjenaSastojkaController {
 			session.update(s);		
 			t.commit();
 			session.close();
+			sef.refreshTabeleSastojci();
 			System.out.println("Sastojak je izmijenjen");
 			return true;
 		}

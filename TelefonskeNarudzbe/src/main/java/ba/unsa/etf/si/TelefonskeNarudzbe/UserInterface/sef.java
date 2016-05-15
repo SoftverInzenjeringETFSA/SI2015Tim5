@@ -47,7 +47,7 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaSastojkaControll
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.KuharController;
 
 public class sef {
-
+	public static boolean dodajNovi=false;
 	private JFrame frame;
 	private static JTable table;
 	private static JTable table_1;
@@ -528,6 +528,7 @@ public class sef {
 		JButton btnDodajSastojak = new JButton("Dodaj sastojak");
 		btnDodajSastojak.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dodajNovi=true;
 				UnosIzmjenaSastojka forma = new UnosIzmjenaSastojka();
 				forma.setVisible(true);
 			}
@@ -538,6 +539,7 @@ public class sef {
 		JButton button_1 = new JButton("Izmijeni sastojak");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dodajNovi=false;
 				int selected = table_2.getSelectedRow();
 				String naziv = (String) table_2.getValueAt(selected, 0);
 				Sastojak s = UnosIzmjenaSastojkaController.vratiSastojak(naziv);
@@ -818,7 +820,13 @@ public class sef {
 		izvjestaj5_tbl.setVisible(false);
 		scrollPane_izvjestaj5.setVisible(false);
 	}
-
+	public static int vratiIzabraniSastojak(){
+		int selected = table_2.getSelectedRow();
+		String naziv = (String) table_2.getValueAt(selected, 0);
+		Sastojak s = UnosIzmjenaSastojkaController.vratiSastojak(naziv);
+		return s.getId();
+		
+	}
 	private void reloadRadnici() {
 
 		UnosIzmjenaRadnikaController c = new UnosIzmjenaRadnikaController();
