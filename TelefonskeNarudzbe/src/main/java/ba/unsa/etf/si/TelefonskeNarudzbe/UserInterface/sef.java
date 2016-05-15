@@ -92,7 +92,11 @@ public class sef {
 		initialize();
 		frame.setVisible(true);
 	}
-
+	public sef(Zaposlenik z) {
+		logovani=z;
+		initialize();
+		frame.setVisible(true);
+	}
 	private void Graficki() {
 		Object[][] podaci = IzvjestajController.dajVremenaIsporuke();
 		final BarChart_AWT chart = new BarChart_AWT("Statistički izvještaj o vremenima isporuke", "", podaci);
