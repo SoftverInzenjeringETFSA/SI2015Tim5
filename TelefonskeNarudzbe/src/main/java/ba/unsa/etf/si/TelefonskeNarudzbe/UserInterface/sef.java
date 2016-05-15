@@ -86,7 +86,7 @@ public class sef {
 	/**
 	 * Create the application.
 	 */
-	public static Zaposlenik logovani;
+	private Zaposlenik logovani;
 
 	public sef() {
 		initialize();
