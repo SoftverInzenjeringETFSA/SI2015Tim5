@@ -15,11 +15,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.text.MaskFormatter;
 
 import org.apache.log4j.Logger;
 
@@ -32,6 +34,7 @@ import javax.swing.JTextField;
 import java.awt.event.*;
 import java.util.Iterator;
 import java.awt.event.ActionEvent;
+import java.text.ParseException;
 import java.time.LocalDateTime;
 
 import javax.swing.SwingConstants;
@@ -46,10 +49,9 @@ import java.util.Set;
 import javax.swing.JTextArea;
 
 public class NovaNarudzbaGUI {
-
 	private JFrame frmInformacijeONarudbi;
 	private JTextField txtAdresa;
-	private JTextField txtBrTelefona;
+	private JFormattedTextField txtBrTelefona;
 	private JTextField txtInformacije;
 	private JTextField txtCijena;
 	private JTextField txtPopust;
@@ -68,7 +70,7 @@ public class NovaNarudzbaGUI {
 	private static Zaposlenik ja;
 
 	private List<NarudzbaJeloVeza> njvLista;
-
+	private MaskFormatter telefon;
 	final static Logger logger = Logger.getLogger(NovaNarudzbaGUI.class);
 
 	// otvara novi prozor
@@ -157,7 +159,7 @@ public class NovaNarudzbaGUI {
 		txtKolicina.setText("");
 
 		txtAdresa.setText("");
-		txtBrTelefona.setText("");
+		txtBrTelefona.setText("   /   -   ");
 		txtInformacije.setText("");
 		txtCijena.setText("");
 		txtPopust.setText("");
@@ -256,6 +258,15 @@ public class NovaNarudzbaGUI {
 
 	private void initialize() {
 		prikaziJela();
+		
+		telefon = new MaskFormatter();
+		try {
+			telefon = new MaskFormatter("###/###-###.");
+			telefon.setPlaceholderCharacter(' ');
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		frmInformacijeONarudbi = new JFrame();
 		frmInformacijeONarudbi.setTitle("Informacije o narud\u017Ebi");
@@ -343,7 +354,7 @@ public class NovaNarudzbaGUI {
 		lblNewLabel_1.setBounds(30, 55, 89, 14);
 		panel_1.add(lblNewLabel_1);
 
-		txtBrTelefona = new JTextField();
+		txtBrTelefona = new JFormattedTextField(telefon);
 		txtBrTelefona.setColumns(10);
 		txtBrTelefona.setBounds(109, 52, 304, 20);
 		panel_1.add(txtBrTelefona);
