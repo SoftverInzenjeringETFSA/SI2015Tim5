@@ -22,7 +22,7 @@ public class BarChart_AWT extends JFrame
       JFreeChart barChart = ChartFactory.createBarChart(
          nazivGrafa,           
          "Vrijeme",            
-         "Posotak",            
+         "Postotak",            
          createDataset(),          
          PlotOrientation.VERTICAL,           
          true, true, false);
@@ -39,7 +39,8 @@ public class BarChart_AWT extends JFrame
       String x="0";
       Double y=(double) 0;
       for(Object[] o: podacig){
-      dataset.addValue( Double.parseDouble( (String) o[2] ) , "Postotak narudzbi" , (String)o[0] );
+    	 x=o[2].toString().substring(0,o[2].toString().length()-1);
+      dataset.addValue( Double.parseDouble( x ) , "Postotak narudzbi" , (String)o[0] );
      
       }           
 
