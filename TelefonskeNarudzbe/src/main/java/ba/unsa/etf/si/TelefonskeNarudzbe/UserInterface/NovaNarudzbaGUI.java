@@ -2,6 +2,7 @@ package ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface;
 
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.*;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.*;
+import ba.unsa.etf.si.TelefonskeNarudzbe.*;
 import Util.HibernateUtil;
 
 import java.awt.EventQueue;
@@ -65,21 +66,20 @@ public class NovaNarudzbaGUI {
 	private JButton btnObraunaj;
 	private JButton btnNewButton;
 	private static Zaposlenik ja;
-	
+
 	private List<NarudzbaJeloVeza> njvLista;
-		
+
 	final static Logger logger = Logger.getLogger(NovaNarudzbaGUI.class);
-	
-	//otvara novi prozor
-	public void otvori(final Zaposlenik proslijedjeni)
-	{
+
+	// otvara novi prozor
+	public void otvori(final Zaposlenik proslijedjeni) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					NovaNarudzbaGUI window = new NovaNarudzbaGUI();
 					window.frmInformacijeONarudbi.setVisible(true);
-					ja=new Zaposlenik();
-					ja=proslijedjeni;
+					ja = new Zaposlenik();
+					ja = proslijedjeni;
 				} catch (Exception e) {
 					logger.info(e);
 					// e.printStackTrace();
@@ -87,91 +87,127 @@ public class NovaNarudzbaGUI {
 			}
 		});
 	}
-	
-	
+
 	public NovaNarudzbaGUI() {
-			
+
 		lmodel = new DefaultListModel();
 		cbmodel = new DefaultComboBoxModel();
 		kontroler = new NovaNarudzbaController();
 		narucenaJela = new ArrayList<Jelo>();
 		btnObraunaj = new JButton("Obra\u010Dunaj ");
 		btnNewButton = new JButton("Spremi ");
-		njvLista=new ArrayList<NarudzbaJeloVeza>();
-		
+		njvLista = new ArrayList<NarudzbaJeloVeza>();
+
 		initialize();
 
 	}
 
 	// funkcija za prikaz svih jela u comboboxu iz baze
 	private void prikaziJela() {
-		List<Jelo> jela = kontroler.dajSvaJela();
+		
+		try {
+			List<Jelo> jela = kontroler.dajSvaJela();
 
-		for (Jelo i : jela) {
-			cbmodel.addElement(i.getNaziv());
+			for (Jelo i : jela) {
+				cbmodel.addElement(i.getNaziv());
+			}
+		}
+		
+		catch(Exception e)
+		{
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			logger.info(e);
 		}
 	}
 
 	// funkcija za dinamicko dodavanje u listu narucenih jela
 	private void dodajUListu(String naziv) {
-		Jelo j = kontroler.dajJelo(naziv);
-		NarudzbaJeloVeza vezaNJ=new NarudzbaJeloVeza();
-		
 		try {
-			Integer kolicinaJela= Integer.parseInt(txtKolicina.getText());
-			
+			Jelo j = kontroler.dajJelo(naziv);
+			NarudzbaJeloVeza vezaNJ = new NarudzbaJeloVeza();
+			Integer kolicinaJela = Integer.parseInt(txtKolicina.getText());
+
 			for (int i = 0; i < kolicinaJela; i++) {
 				lmodel.addElement(j.getNaziv());
 				narucenaJela.add(j);
 			}
-			
-			NarudzbaJeloVeza njv=new NarudzbaJeloVeza();
+
+			NarudzbaJeloVeza njv = new NarudzbaJeloVeza();
 			njv.setJelo(j);
 			njv.setKolicina(kolicinaJela);
-			
+
 			njvLista.add(njv);
 		}
 
 		catch (Exception e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Niste unijeli korektno kolicinu jela!");
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			System.out.println(e.getCause().toString());
+			logger.info(e);
 		}
+
 	}
-	
-	
-	private void refreshajDodavanje()
-	{
+
+	private void refreshajDodavanje() {
 		comboBox.setSelectedIndex(-1);
 		txtKolicina.setText("");
 	}
-	
-	
+
+	private void refreshajProzor() {
+		comboBox.setSelectedIndex(-1);
+		txtKolicina.setText("");
+
+		txtAdresa.setText("");
+		txtBrTelefona.setText("");
+		txtInformacije.setText("");
+		txtCijena.setText("");
+		txtPopust.setText("");
+		txtUkupno.setText("");
+		txtKolicina.setText("");
+		txtDodatneInformacije.setText("");
+
+		lmodel.clear();
+		narucenaJela.clear();
+		njvLista.clear();
+
+		btnNewButton.setEnabled(false);
+
+	}
+
 	// racuna cijenu sa popustom povucenim iz baze i upisuje u textbox
 	private void obracunajCijenu() {
 		double cijenaBezPopusta = 0;
 		double popust;
 		double ukupnaCijena = 0;
-
-		for (Jelo j : narucenaJela) {
-			cijenaBezPopusta += j.getCijena();
-		}
-
-		Popust p = kontroler.dajPopust(cijenaBezPopusta);
-
-		if (p != null)
-			popust = p.getIznos();
-
-		else
-			popust = 0;
 		
-		ukupnaCijena = cijenaBezPopusta - cijenaBezPopusta * popust / 100;
+		try {
+			for (Jelo j : narucenaJela) {
+				cijenaBezPopusta += j.getCijena();
+			}
 
-		txtCijena.setText(Double.toString(cijenaBezPopusta));
-		txtPopust.setText(Double.toString(popust) + "%");
-		txtUkupno.setText(Double.toString(ukupnaCijena));
+			Popust p = kontroler.dajPopust(cijenaBezPopusta);
+
+			if (p != null)
+				popust = p.getIznos();
+
+			else
+				popust = 0;
+
+			ukupnaCijena = cijenaBezPopusta - cijenaBezPopusta * popust / 100;
+
+			txtCijena.setText(Double.toString(cijenaBezPopusta));
+			txtPopust.setText(Double.toString(popust) + "%");
+			txtUkupno.setText(Double.toString(ukupnaCijena));
+		}
+		
+		catch(Exception e)
+		{
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			logger.info(e);
+		}
+		
 	}
-	
-	//provjerava da li je uneseno sve sto je potrebno za narudzbu
+
+	// provjerava da li je uneseno sve sto je potrebno za narudzbu
 	private Boolean provjeriJelSveUpisano() {
 		if (txtCijena.getText().equals("") || txtPopust.getText().equals("") || txtUkupno.getText().equals("")
 				|| txtAdresa.getText().equals("") || txtBrTelefona.getText().equals("") || narucenaJela.isEmpty()) {
@@ -180,53 +216,47 @@ public class NovaNarudzbaGUI {
 
 		return true;
 	}
-	
-	//sprema narudzbu u bazu sa svim vezama
+
+	// sprema narudzbu u bazu sa svim vezama
 	private Boolean pospremiUBazu() {
-		Kupac k = new Kupac();
-		Narudzba nova=new Narudzba();
-		
-		try{
+
+		try {
+			Kupac k = new Kupac();
+			Narudzba nova = new Narudzba();
 			k.setAdresa(txtAdresa.getText());
 			k.setInfo(txtInformacije.getText());
 			k.setBrojTelefona(Integer.parseInt(txtBrTelefona.getText()));
-			
+
 			nova.setZaposlenikByZaposlenikOsobaIdPrimalac(ja);
 			nova.setCijena(Double.parseDouble(txtUkupno.getText()));
 			nova.setStatus(1);
 			nova.setVrijemePrijema(new Date(System.currentTimeMillis()));
 			nova.setOpis(txtDodatneInformacije.getText());
-				
+
 			kontroler.spremiNovogKupca(k);
 			nova.setKupac(k);
-			k.getNarudzbas().add(nova);
 			kontroler.spremiNovuNarudzbu(nova);
 			
-				
-			for(NarudzbaJeloVeza i:njvLista)
-			{	
+			for (NarudzbaJeloVeza i : njvLista) {
 				i.setNarudzba(nova);
-				//nova.getNarudzbajelovezas().add(i);
-				//i.getJelo().getNarudzbajelovezas().add(i);
 				kontroler.spremiNarudzbaJeloVeza(i);
 			}
-			
+
 			return true;
-			
+
 		}
-		
-		catch(Exception e)
-		{
+
+		catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
+			logger.info(e);
 			return false;
 		}
-		
+
 	}
-	
-	
+
 	private void initialize() {
 		prikaziJela();
-		
+
 		frmInformacijeONarudbi = new JFrame();
 		frmInformacijeONarudbi.setTitle("Informacije o narud\u017Ebi");
 		frmInformacijeONarudbi.setBounds(100, 100, 461, 478);
@@ -243,6 +273,7 @@ public class NovaNarudzbaGUI {
 		panel.add(lblPretragaJela);
 
 		comboBox = new JComboBox(cbmodel);
+		comboBox.setSelectedIndex(-1);
 		comboBox.setEditable(false);
 		comboBox.setBounds(52, 3, 145, 20);
 		panel.add(comboBox);
@@ -386,11 +417,13 @@ public class NovaNarudzbaGUI {
 		btnNewButton.setEnabled(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(pospremiUBazu()) {
+				if (pospremiUBazu()) {
 					JOptionPane.showMessageDialog(null, "Nova narudzba je unesena.");
+					refreshajProzor();
 				}
-				
-				else JOptionPane.showMessageDialog(null, "Doslo je do greske.");
+
+				else
+					JOptionPane.showMessageDialog(null, "Doslo je do greske.");
 			}
 		});
 		btnNewButton.setVerticalAlignment(SwingConstants.BOTTOM);
