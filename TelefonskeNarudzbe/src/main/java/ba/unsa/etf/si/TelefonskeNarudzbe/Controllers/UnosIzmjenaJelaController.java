@@ -15,9 +15,18 @@ import Util.HibernateUtil;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Jelo;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.SastojciJeloVeza;
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
 
 public class UnosIzmjenaJelaController {
-	public static boolean izmjenaJela(String naziv, String opis, Double cijena, List<Sastojak> listaSastojaka,
+	
+	public List<Jelo> vratiSvaJela(){
+		Session sesija = HibernateUtil.getSessionFactory().openSession();
+        Criteria criteria = sesija.createCriteria(Jelo.class);
+		List<Jelo> r = criteria.list();
+		sesija.close();
+		return r;
+	}
+public static boolean izmjenaJela(String naziv, String opis, Double cijena, List<Sastojak> listaSastojaka,
 			List<Double> listaKolicina) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction t = session.beginTransaction();

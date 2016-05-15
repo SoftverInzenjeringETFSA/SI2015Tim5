@@ -15,6 +15,13 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Popust;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak;
 
 public class UnosIzmjenaPopustaController {
+	public List<Popust> vratiSvePopuste(){
+		Session sesija = HibernateUtil.getSessionFactory().openSession();
+        Criteria criteria = sesija.createCriteria(Popust.class);
+		List<Popust> lista = criteria.list();
+		sesija.close();
+		return lista;
+	}
 	public boolean izmjenaPopusta(double cijenaOd, double cijenaDo, Double popust)
 	{
 		try{

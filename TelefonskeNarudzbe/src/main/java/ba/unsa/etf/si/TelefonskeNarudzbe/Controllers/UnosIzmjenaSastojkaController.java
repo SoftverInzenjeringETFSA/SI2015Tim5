@@ -1,5 +1,6 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.Controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -13,6 +14,7 @@ import Util.HibernateUtil;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Jelo;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Kupac;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak;
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.SastojciJeloVeza;
 
 public class UnosIzmjenaSastojkaController {
 	public static List<Sastojak> vratiSveSastojke()
@@ -22,6 +24,16 @@ public class UnosIzmjenaSastojkaController {
 			List<Sastojak> lista = criteria.list();
 			sesija.close();
 			return lista;
+	}
+	public List<String> vratiSastojkeJela(Jelo jelo)
+	{
+		List<SastojciJeloVeza> vezasj = new ArrayList<SastojciJeloVeza>(jelo.getSastojciJeloVezas());
+		List<String> sastojci = null;
+				for (SastojciJeloVeza oo : vezasj) {
+									sastojci.add(oo.getSastojak().getNaziv()+", ");
+				}
+		
+		return sastojci;
 	}
 	public static Sastojak vratiSastojak(String naziv)
 	{
