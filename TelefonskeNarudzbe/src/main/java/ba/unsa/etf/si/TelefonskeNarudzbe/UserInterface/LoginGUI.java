@@ -23,7 +23,7 @@ public class LoginGUI
 	private JFrame frmPrijavaNaSistem;
 	private JTextField textField;
 	private JTextField textField_1;
-	final static Logger logger = Logger.getLogger(LoginGUI.class);
+	final static Logger logger = Logger.getLogger(LoginGUI.class);LoginController s = null;
 	/**
 	 * Launch the application.
 	 */
@@ -46,6 +46,7 @@ public class LoginGUI
 	 */
 	public LoginGUI() {
 		initialize();
+		
 	}
 
 	/**
@@ -81,24 +82,28 @@ public class LoginGUI
 		btnPrijava.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				LoginController s = null;
+				
 				try {
 					s = LoginController.getInstance(textField.getText(), textField_1.getText());
 
 					if (s.getZaposlenik().getRadnomjesto().getId() == 1) {
 						frmPrijavaNaSistem.setVisible(false);
+						dispose();
 						sef Sef = new sef();
 						Sef.logovani = s.getZaposlenik();
 					}else if (s.getZaposlenik().getRadnomjesto().getId() == 2) {
 						frmPrijavaNaSistem.setVisible(false);
+						dispose();
 						TelefonPocetnaGUI k = new TelefonPocetnaGUI( s.getZaposlenik());
 						
 					} else if (s.getZaposlenik().getRadnomjesto().getId() == 3) {
 						frmPrijavaNaSistem.setVisible(false);
+						dispose();
 						KuharGUI k = new KuharGUI(s.getZaposlenik());
 						
 					} else if (s.getZaposlenik().getRadnomjesto().getId() == 4) {
 						frmPrijavaNaSistem.setVisible(false);
+						dispose();
 						DostavljacGUI d = new DostavljacGUI(s.getZaposlenik());
 					
 
@@ -107,6 +112,11 @@ public class LoginGUI
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
+			}
+
+			private void dispose() {
+				// TODO Auto-generated method stub
 				
 			}
 		});

@@ -37,9 +37,10 @@ public final class LoginController {
 	}
 	
 	public static LoginController getInstance(String username, String password) throws Exception {
-		if(instance == null){
+		zaposlenik = null;
+		instance=null;
 			instance = new LoginController(username, password);
-		}
+		
 		return instance;
 	}
 	
@@ -59,7 +60,7 @@ public final class LoginController {
 	public void ubijSesiju(){
 		//trasaction.commit();
 		sesija.close();
-		//korisnik = null;
+	zaposlenik = null;
 		instance = null;
 	}
 	

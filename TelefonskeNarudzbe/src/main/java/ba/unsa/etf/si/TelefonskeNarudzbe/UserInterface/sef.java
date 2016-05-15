@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
 import org.apache.log4j.Logger;
+import org.jfree.ui.RefineryUtilities;
 
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Jelo;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Narudzba;
@@ -33,6 +34,7 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.RadnoMjesto;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.SastojciJeloVeza;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.BarChart_AWT;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.BrisanjeJela;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.BrisanjePopusta;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.BrisanjeRadnika;
@@ -43,6 +45,7 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaPopustaControlle
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaRadnikaController;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaSastojkaController;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.KuharController;
+
 public class sef {
 
 	private JFrame frame;
@@ -62,7 +65,7 @@ public class sef {
 	private JScrollPane scrollPane_3 = new JScrollPane();
 	final static Logger logger = Logger.getLogger(sef.class);
 	private static String odabirIzvjestaja = new String();
-
+	private JButton dugmeGraficki ;
 	/**
 	 * Launch the application.
 	 */
@@ -89,9 +92,19 @@ public class sef {
 		initialize();
 		frame.setVisible(true);
 	}
+
+	private void Graficki() {
+		Object[][] podaci = IzvjestajController.dajVremenaIsporuke();
+		final BarChart_AWT chart = new BarChart_AWT("Statistički izvještaj o vremenima isporuke", "", podaci);
+		chart.pack();
+		RefineryUtilities.centerFrameOnScreen(chart);
+		chart.setVisible(true);
+
+	}
+
 	private void OdjaviSe() throws Exception {
 		try {
-			UnosIzmjenaPopustaController up=new UnosIzmjenaPopustaController();
+			UnosIzmjenaPopustaController up = new UnosIzmjenaPopustaController();
 			up.Odjava();
 			frame.setVisible(false);
 			LoginGUI log = new LoginGUI();
@@ -101,6 +114,7 @@ public class sef {
 			throw new Exception();
 		}
 	}
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -196,6 +210,7 @@ public class sef {
 
 		btnPrikaiIzvjetaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dugmeGraficki.setVisible(false);
 				btnGenerisiIzvjetaj.setVisible(false);
 				odabirIzvjestaja = list.getSelectedValue().toString();
 				lblDatum.setVisible(false);
@@ -240,6 +255,7 @@ public class sef {
 					ocistiFormuOdTabela();
 					kriterij.setVisible(false);
 					lblKriterij.setVisible(false);
+					dugmeGraficki.setVisible(true);
 				}
 				if (odabirIzvjestaja.equals("Statistički izvjestaj o broju naručenih jela")) {
 					btnGenerisiIzvjetaj.setVisible(true);
@@ -253,7 +269,16 @@ public class sef {
 		});
 		btnPrikaiIzvjetaj.setBounds(600, 46, 196, 23);
 		IzvjestajiTab.add(btnPrikaiIzvjetaj);
-
+		
+	 dugmeGraficki = new JButton("Prikaži izvještaj");
+		dugmeGraficki.setBounds(599, 191, 197, 23);
+		IzvjestajiTab.add(dugmeGraficki);
+		dugmeGraficki.setVisible(false);
+		dugmeGraficki.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Graficki();
+			}
+		});
 		// btn za prikaz izvještaja
 		btnGenerisiIzvjetaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
