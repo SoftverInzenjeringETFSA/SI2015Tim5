@@ -64,7 +64,7 @@ public class UnosIzmjenaRadnikaController {
 		int ids =-1;
 		if(!sef.dodajNovi) ids=sef.vratiIzabranogRadnika();
 		try{
-			if (session.createCriteria(Zaposlenik.class).add(Restrictions.eq("id", ids)).setProjection(Projections.property("imePrezime")).uniqueResult() == null){
+			if (session.createCriteria(Zaposlenik.class).add(Restrictions.eq("id", ids)).setProjection(Projections.property("id")).uniqueResult() == null){
 				Zaposlenik z= new Zaposlenik();
 				z.setDatumRodenja(datum);
 				z.setUsername(username);

@@ -596,7 +596,7 @@ public class sef {
 			tableModel.addRow(o);
 		}
 
-		final JTable table_1 = new JTable(tableModel);
+		table_1 = new JTable(tableModel);
 
 		tabbedPane.addTab("Korisni\u010Dki ra\u010Duni", null, KorisniciTab, null);
 		KorisniciTab.setLayout(null);
@@ -623,7 +623,7 @@ public class sef {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dodajNovi=false;
-				int selected = table_1.getSelectedRow();
+				int selected =table_1.getSelectedRow();
 				String imePrezime = (String) table_1.getValueAt(selected, 0);
 				Zaposlenik z = UnosIzmjenaRadnikaController.vratiRadnika(imePrezime);
 				UnosIzmjenaRadnika forma = new UnosIzmjenaRadnika(z);
@@ -775,7 +775,6 @@ public class sef {
 				"Dodatne informacije" };
 		JPanel KorisniciTab = new JPanel();
 		DefaultTableModel tableModel = new DefaultTableModel(kolone_radnici, 0);
-
 		for (Zaposlenik z : listaZaposlenika) {
 			if (z.getRadnomjesto().getId() > 4)
 				continue;
@@ -862,10 +861,8 @@ public class sef {
 	public static int vratiIzabranogRadnika(){
 		int selected = table_1.getSelectedRow();
 		String naziv = (String) table_1.getValueAt(selected, 0);
-		JOptionPane.showMessageDialog(null, "tu");
 		Zaposlenik s = UnosIzmjenaRadnikaController.vratiRadnika(naziv);
-		JOptionPane.showMessageDialog(null, "t2");
-		
+	
 		return s.getId();
 		
 	}
