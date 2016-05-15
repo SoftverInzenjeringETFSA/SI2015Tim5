@@ -90,8 +90,8 @@ public class LoginGUI
 					if (s.getZaposlenik().getRadnomjesto().getId() == 1) {
 						frmPrijavaNaSistem.setVisible(false);
 						dispose();
-						sef Sef = new sef();
-						Sef.logovani = s.getZaposlenik();
+						sef Sef = new sef(s.getZaposlenik());
+					 s.getZaposlenik();
 					}else if (s.getZaposlenik().getRadnomjesto().getId() == 2) {
 						frmPrijavaNaSistem.setVisible(false);
 						dispose();
