@@ -28,7 +28,7 @@ public class BrisanjeSastojka {
 			session.close();
 			JOptionPane.showMessageDialog(null, "Sastojak uspjesno izbrisan!");
 		} catch (Exception e) {
-			logger.error(e);
+			logger.info(e);
 			return false;
 		}
 		return true;		

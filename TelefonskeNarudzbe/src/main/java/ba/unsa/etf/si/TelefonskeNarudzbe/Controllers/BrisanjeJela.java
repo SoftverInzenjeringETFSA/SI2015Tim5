@@ -28,7 +28,7 @@ public class BrisanjeJela {
 			t.commit();
 			JOptionPane.showMessageDialog(null, "Jelo uspjesno obrisano!");
 		} catch (Exception e) {
-			logger.error(e);
+			logger.info(e);
 			return false;
 		}
 		return true;		

@@ -11,8 +11,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-
-
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -26,7 +25,7 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
 
 public class IzvjestajController {
 	private static Session s = null;
-
+	final static Logger logger = Logger.getLogger(IzvjestajController.class);
 	
 	public IzvjestajController()
 	{
@@ -239,6 +238,7 @@ public class IzvjestajController {
 			}
 			return true;
 		} catch (Exception e) {
+			logger.info(e);
 			return false;
 		}
 	}

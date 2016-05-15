@@ -28,7 +28,7 @@ public class BrisanjePopusta {
 
 			JOptionPane.showMessageDialog(null, "Popust uspjesno izbrisan!");
 		} catch (Exception e) {
-			logger.error(e);
+			logger.info(e);
 			return false;
 		}
 		return true;		

@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -27,7 +28,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 
 public class NovaNarudzbaController {
-
+	final static Logger logger = Logger.getLogger(NovaNarudzbaController.class);
 	public NovaNarudzbaController() {
 
 	}
@@ -39,12 +40,12 @@ public class NovaNarudzbaController {
 			s.close();
 
 		} catch (Exception e) {
-			// logger.info(e);
+			 logger.info(e);
 			throw new Exception();
 		}
 	}
 
-	public List<Jelo> dajSvaJela() throws Exception {
+	public List<Jelo> dajSvaJela() {
 		Session s = null;
 		try {
 			s = HibernateUtil.getSessionFactory().openSession();
@@ -57,16 +58,18 @@ public class NovaNarudzbaController {
 		}
 
 		catch (Exception e) {
-			throw new Exception(e.getMessage());
+			//throw new Exception(e.getMessage());
+			logger.info(e);
 		}
 
 		finally {
 			if (s != null)
 				s.close();
 		}
+		return null;
 	}
 
-	public Jelo dajJelo(String nazivJela) throws Exception {
+	public Jelo dajJelo(String nazivJela) {
 		Session s = null;
 
 		try {
@@ -81,17 +84,19 @@ public class NovaNarudzbaController {
 		}
 
 		catch (Exception e) {
-			throw new Exception(e.getMessage());
+			//throw new Exception(e.getMessage());
+			logger.info(e);
 		}
 
 		finally {
 			if (s != null)
 				s.close();
 		}
+		return null;
 
 	}
 
-	public Zaposlenik dajZaposlenika(Integer i) throws Exception {
+	public Zaposlenik dajZaposlenika(Integer i) {
 		Session s = null;
 
 		try {
@@ -107,17 +112,19 @@ public class NovaNarudzbaController {
 		}
 
 		catch (Exception e) {
-			throw new Exception(e.getMessage());
+			//throw new Exception(e.getMessage());
+			logger.info(e);
 		}
 
 		finally {
 			if (s != null)
 				s.close();
 		}
+		return null;
 
 	}
 
-	public Popust dajPopust(Double cijena) throws Exception {
+	public Popust dajPopust(Double cijena){
 		Session s = null;
 
 		try {
@@ -131,16 +138,18 @@ public class NovaNarudzbaController {
 		}
 
 		catch (Exception e) {
-			throw new Exception(e.getMessage());
+			//throw new Exception(e.getMessage());
+			logger.info(e);
 		}
 
 		finally {
 			if (s != null)
 				s.close();
 		}
+		return null;
 	}
 
-	public Boolean spremiNovuNarudzbu(Narudzba n) throws Exception {
+	public Boolean spremiNovuNarudzbu(Narudzba n){
 		Session s = null;
 		Boolean vrati = false;
 
@@ -154,17 +163,18 @@ public class NovaNarudzbaController {
 		}
 
 		catch (Exception e) {
-			throw new Exception(e.getMessage());
+			logger.info(e);
+			//throw new Exception(e.getMessage());
 		}
 
 		finally {
 			if (s != null)
 				s.close();
-			return vrati;
 		}
+		return vrati;
 	}
 
-	public Boolean spremiNovogKupca(Kupac k) throws Exception {
+	public Boolean spremiNovogKupca(Kupac k) {
 		Session s = null;
 		Boolean vrati = false;
 
@@ -178,18 +188,19 @@ public class NovaNarudzbaController {
 		}
 
 		catch (Exception e) {
-			throw new Exception(e.getMessage());
+			//throw new Exception(e.getMessage());
+			logger.info(e);
 		}
 
 		finally {
 			if (s != null)
 				s.close();
-			return vrati;
 		}
+		return vrati;
 
 	}
 
-	public Boolean spremiNarudzbaJeloVeza(NarudzbaJeloVeza njv) throws Exception {
+	public Boolean spremiNarudzbaJeloVeza(NarudzbaJeloVeza njv){
 		Session s = null;
 		Boolean vrati = false;
 
@@ -203,14 +214,15 @@ public class NovaNarudzbaController {
 		}
 
 		catch (Exception e) {
-			throw new Exception(e.getMessage());
+			logger.info(e);
+			//throw new Exception(e.getMessage());
 		}
 
 		finally {
 			if (s != null)
 				s.close();
-			return vrati;
 		}
+		return vrati;
 	}
 
 }
