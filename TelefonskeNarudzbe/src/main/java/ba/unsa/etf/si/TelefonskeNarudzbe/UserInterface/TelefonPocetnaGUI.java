@@ -99,7 +99,7 @@ private static Zaposlenik ja;
 				try {
 					OdjaviSe();
 				} catch (Exception e1) {
-					logger.info(e);
+					logger.info(e1);
 					//e1.printStackTrace();
 				}
 
