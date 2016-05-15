@@ -13,17 +13,17 @@ import org.jfree.ui.RefineryUtilities;
 
 public class BarChart_AWT extends JFrame
 {
-	private Object[][] podacig = {{0,0 ,0 },{0,0 ,0 } ,{0,0 ,0 } };
+ 
    public BarChart_AWT( String naslov , String nazivGrafa, Object [][] podaci )
    {
 	 
       super( naslov );
-      podacig=podaci;
+      Object [][] podacig=podaci;
       JFreeChart barChart = ChartFactory.createBarChart(
          nazivGrafa,           
          "Vrijeme",            
          "Postotak",            
-         createDataset(),          
+         createDataset(podacig),          
          PlotOrientation.VERTICAL,           
          true, true, false);
          
@@ -31,7 +31,7 @@ public class BarChart_AWT extends JFrame
       chartPanel.setPreferredSize(new java.awt.Dimension( 560 , 367 ) );        
       setContentPane( chartPanel ); 
    }
-   private CategoryDataset createDataset( )
+   private CategoryDataset createDataset(Object[][] podacig )
    {
         
       final DefaultCategoryDataset dataset =  new DefaultCategoryDataset( );  
