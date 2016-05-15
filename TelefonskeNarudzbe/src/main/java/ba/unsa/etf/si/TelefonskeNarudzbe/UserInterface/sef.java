@@ -47,11 +47,11 @@ public class sef {
 
 
 	private JFrame frame;
-	private JTable table;
-	private JTable table_1;
-	private JTable table_2;
-	private JTable table_3 = new JTable();
-	private JTable table_5;
+	private static JTable table;
+	private static JTable table_1;
+	private static JTable table_2;
+	private static JTable table_3 = new JTable();
+	private static JTable table_5;
 	private JTable dostavljac_tbl = new JTable();
 	private JScrollPane scrollPane_dostavljac = new JScrollPane();
 	private JTable jelo_tbl = new JTable();
@@ -660,6 +660,7 @@ public class sef {
 			public void actionPerformed(ActionEvent arg0) {
 				UnosIzmjenaPopusta forma = new UnosIzmjenaPopusta();
 				forma.setVisible(true);
+				
 			}
 		});
 		btnDodajPopust.setBounds(161, 537, 139, 30);
@@ -673,9 +674,10 @@ public class sef {
 				String cijenaDo = String.valueOf(table_5.getValueAt(selected,1));
 				Popust p = UnosIzmjenaPopustaController.vratiPopust(cijenaOd, cijenaDo);
 				UnosIzmjenaPopusta forma = new UnosIzmjenaPopusta(p);
+				((DefaultTableModel) table_5.getModel()).fireTableChanged(null);
+				table_5.repaint();
 				forma.setVisible(true);
-			}
-		});
+			}});
 		btnNewButton_1.setBounds(399, 537, 139, 30);
 		PopustiTab.add(btnNewButton_1);
 		
@@ -706,7 +708,71 @@ public class sef {
 		JMenuItem mntmLogOut = new JMenuItem("Odjava");
 		mnLogOut.add(mntmLogOut);
 	}
+	public static void refreshTabelePopust(){
+		  List<Popust> listaPopusta = UnosIzmjenaPopustaController.vratiSvePopuste();
+			String[] kolone_popust = {"Cijena od (KM)","Cijena do (KM)", "Popust (%)"};
+			final DefaultTableModel tableModel4 = new DefaultTableModel(kolone_popust, 0);
+			for (Popust k : listaPopusta) {
+				Object[] o = new Object[3];
+				  o[0] = k.getOd();
+				  o[1] = k.getDoo();
+				  o[2] = k.getIznos();
+				  tableModel4.addRow(o);
+				}
+		table_5.setModel(tableModel4);
+		
+	}
+	public static void refreshTabeleZaposlenici(){
+		UnosIzmjenaRadnikaController c=new UnosIzmjenaRadnikaController();
+		List<Zaposlenik> listaZaposlenika = c.vratiSveRadnike();
+		String[] kolone_radnici =  {"Ime i prezime", "Datum rođenja", "Radno mjesto", "Korisničko ime", "Lozinka", "Dodatne informacije"};
+		JPanel KorisniciTab = new JPanel();
+		DefaultTableModel tableModel = new DefaultTableModel(kolone_radnici, 0);
+		
+		for (Zaposlenik z : listaZaposlenika) {
+			if(z.getRadnomjesto().getId()>4) continue;
+			Object[] o = new Object[6];
+			  o[0] = z.getImePrezime();
+			  o[1] = z.getDatumRodenja();
+			  RadnoMjesto rm=c.vratiRadnoMjesto(z.getRadnomjesto().getId());		  
+			  o[2] = rm.getNaziv();
+			  o[3] = z.getUsername();
+			  o[4] = z.getPassword();
+			  o[5] = z.getDodatneInformacije();
+			  tableModel.addRow(o);
+			}
+		table_1.setModel(tableModel);
+	}
+	public static void refreshTabeleJelo(){
+		UnosIzmjenaJelaController jc = new UnosIzmjenaJelaController();
+		List<Jelo> listaJela = jc.vratiSvaJela();
+		String[] kolone =  {"Naziv jela", "Cijena(KM)", "Sastojci"};
+		DefaultTableModel tableModel2 = new DefaultTableModel(kolone, 0);
+		for (Jelo j : listaJela) {
+			if(j.getIzbrisano()!=null && j.getIzbrisano()==true) continue;
+			Object[] o = new Object[3];
+			  o[0] = j.getNaziv();
+			  o[1] = j.getCijena();
+			  o[2] = UnosIzmjenaSastojkaController.vratiSastojkeJela(j);
+			  tableModel2.addRow(o);
+			}
+		table.setModel(tableModel2);
+	}
+	public static void refreshTabeleSastojci(){
 
+		List<Sastojak> listaSastojaka = UnosIzmjenaSastojkaController.vratiSveSastojke();
+		String[] kolone_sastojci = {"Naziv", "Mjerna jedinica sastojka", "Opis"};
+		final DefaultTableModel tableModel3 = new DefaultTableModel(kolone_sastojci, 0);
+		for (Sastojak s : listaSastojaka) {
+			Object[] o = new Object[3];
+			  o[0] = s.getNaziv();
+			  o[1] = s.getMjernaJedinica();
+			  o[2] = s.getOpis();
+			  tableModel3.addRow(o);
+			}
+		table_2.setModel(tableModel3);
+		
+	}
 	private void ocistiFormuOdTabela() {
 		table_3.setVisible(false);
 		dostavljac_tbl.setVisible(false);

@@ -17,6 +17,7 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Jelo;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Kupac;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.SastojciJeloVeza;
+import ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface.sef;
 
 public class UnosIzmjenaSastojkaController {
 	public static List<Sastojak> vratiSveSastojke()
@@ -100,7 +101,7 @@ public class UnosIzmjenaSastojkaController {
 				session.beginTransaction();
 				session.save(s);
 				session.getTransaction().commit();
-				
+				sef.refreshTabeleSastojci();
 			}
 			
 			

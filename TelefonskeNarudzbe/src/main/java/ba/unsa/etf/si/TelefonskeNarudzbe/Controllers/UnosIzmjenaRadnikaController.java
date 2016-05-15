@@ -17,6 +17,7 @@ import Util.HibernateUtil;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.RadnoMjesto;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
+import ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface.sef;
 
 public class UnosIzmjenaRadnikaController {
 	public static Zaposlenik vratiRadnika(String imePrezime){
@@ -74,6 +75,7 @@ public class UnosIzmjenaRadnikaController {
 				session.beginTransaction();
 				session.saveOrUpdate(z);
 				session.getTransaction().commit();	
+				sef.refreshTabeleZaposlenici();
 			}
 			
 			
@@ -94,6 +96,7 @@ public class UnosIzmjenaRadnikaController {
 			session.update(z);		
 			t.commit();
 			session.close();
+			sef.refreshTabeleZaposlenici();
 		return true;
 		}
 			return true;

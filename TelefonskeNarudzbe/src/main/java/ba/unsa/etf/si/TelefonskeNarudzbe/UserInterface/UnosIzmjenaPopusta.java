@@ -271,8 +271,6 @@ public class UnosIzmjenaPopusta extends JFrame {
 							cijenaDo=49;
 							}
 							else if (ind==5){
-							JOptionPane.showMessageDialog(null, "Indeks je:"+ ind);
-							
 							cijenaOd=50;
 							cijenaDo=10000;
 							}

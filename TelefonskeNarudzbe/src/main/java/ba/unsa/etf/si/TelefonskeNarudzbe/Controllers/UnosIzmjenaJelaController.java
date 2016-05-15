@@ -16,6 +16,7 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Jelo;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.SastojciJeloVeza;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
+import ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface.sef;
 
 public class UnosIzmjenaJelaController {
 	
@@ -64,6 +65,7 @@ public static boolean izmjenaJela(String naziv, String opis, Double cijena, List
 					sjv.setKolicina(listaKolicina.get(i));
 					session2.save(sjv);
 					session2.getTransaction().commit();
+					sef.refreshTabeleJelo();
 				}
 			}
 
@@ -105,6 +107,7 @@ public static boolean izmjenaJela(String naziv, String opis, Double cijena, List
 						session2.beginTransaction();
 						session2.save(sjv);
 						session2.getTransaction().commit();
+						sef.refreshTabeleJelo();
 					}
 					
 				}

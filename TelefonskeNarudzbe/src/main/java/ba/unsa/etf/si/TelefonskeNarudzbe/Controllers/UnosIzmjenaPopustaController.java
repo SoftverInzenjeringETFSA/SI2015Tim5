@@ -13,6 +13,7 @@ import org.hibernate.criterion.Restrictions;
 import Util.HibernateUtil;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Popust;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak;
+import ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface.sef;
 
 public class UnosIzmjenaPopustaController {
 	public static Popust vratiPopust(String cijenaOd, String cijenaDo) {
@@ -32,7 +33,7 @@ public class UnosIzmjenaPopustaController {
 		return p;
 	}
 
-	public List<Popust> vratiSvePopuste() {
+	public static List<Popust> vratiSvePopuste() {
 		Session sesija = HibernateUtil.getSessionFactory().openSession();
 		Criteria criteria = sesija.createCriteria(Popust.class);
 		List<Popust> lista = criteria.list();
@@ -65,7 +66,9 @@ public class UnosIzmjenaPopustaController {
 				p.setIznos(popust);
 				session.update(p);
 				t.commit();
+				sef.refreshTabelePopust();
 				return true;
+				
 			}
 
 		} catch (Exception e) {
