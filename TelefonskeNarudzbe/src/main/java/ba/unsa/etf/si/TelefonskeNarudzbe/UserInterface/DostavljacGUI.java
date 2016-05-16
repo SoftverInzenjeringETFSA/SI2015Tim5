@@ -118,7 +118,7 @@ public class DostavljacGUI {
 	}
 	private void PrikaziNarudzbe() {
 		try {
-			// model.removeAllElements();
+			 model.removeAllElements();
 			glavniPanel.setVisible(true);
 			List<Narudzba> listaNarudzbi = dostKontroler.dajSveNarudzbeIzBaze(zap.getId());
 			int brojac = 0;
