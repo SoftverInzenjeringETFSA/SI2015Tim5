@@ -52,7 +52,10 @@ public class UnosIzmjenaPopusta extends JFrame {
 			}
 		});
 	}
-
+	public void dajOkvir(){
+		this.setVisible(false);
+		this.dispose();
+	}
 	/**
 	 * Create the frame.
 	 */

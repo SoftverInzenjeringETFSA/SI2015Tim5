@@ -71,6 +71,10 @@ public class UnosIzmjenaJela extends JFrame {
 	    // only got here if we didn't return false
 	    return true;
 	}
+	public void dajOkvir(){
+		this.setVisible(false);
+		this.dispose();
+	}
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

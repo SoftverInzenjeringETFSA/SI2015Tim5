@@ -90,7 +90,10 @@ public class NovaNarudzbaGUI {
 			}
 		});
 	}
-
+	public JFrame dajOkvir(){
+		return frmInformacijeONarudbi;
+	}
+	
 	public NovaNarudzbaGUI() {
 
 		lmodel = new DefaultListModel();

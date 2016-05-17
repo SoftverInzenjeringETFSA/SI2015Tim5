@@ -98,6 +98,7 @@ private static Zaposlenik ja;
 			public void actionPerformed(ActionEvent e) {
 				try {
 					OdjaviSe();
+					if(nova!=null){ nova.dajOkvir().setVisible(false); nova.dajOkvir().dispose();}
 				} catch (Exception e1) {
 					logger.info(e1);
 					//e1.printStackTrace();

@@ -68,6 +68,16 @@ public class sef {
 	private String odabirIzvjestaja = new String();
 	private static sef window;
 	private JButton dugmeGraficki ;
+	private UnosIzmjenaJela forma;
+	private UnosIzmjenaJela forma3;
+	private UnosIzmjenaRadnika forma1;
+	private UnosIzmjenaRadnika forma2;
+	private UnosIzmjenaRadnika forma22;
+	private UnosIzmjenaPopusta forma4;
+	private UnosIzmjenaPopusta forma5;
+	private UnosIzmjenaSastojka forma6;
+
+	private UnosIzmjenaSastojka forma7;
 	/**
 	 * Launch the application.
 	 */
@@ -111,6 +121,15 @@ public class sef {
 	private final void OdjaviSe() throws Exception {
 		try {
 			UnosIzmjenaPopustaController up = new UnosIzmjenaPopustaController();
+			if(forma!=null){ forma.dajOkvir(); }
+			if(forma1!=null){ forma1.dajOkvir();}
+			if(forma2!=null){ forma2.dajOkvir(); }
+			if(forma3!=null){ forma3.dajOkvir(); }
+			if(forma4!=null){ forma4.dajOkvir(); }
+			if(forma5!=null){ forma5.dajOkvir(); }
+			if(forma6!=null){ forma6.dajOkvir();}
+			if(forma7!=null){ forma7.dajOkvir(); }
+			if(forma22!=null){ forma22.dajOkvir(); }
 			up.Odjava();
 			frame.setVisible(false);
 			LoginGUI log = new LoginGUI();
@@ -490,8 +509,8 @@ public class sef {
 			
 			public final void actionPerformed(ActionEvent arg0) {
 				dodajNovi=true;
-				UnosIzmjenaJela forma = new UnosIzmjenaJela();
-				forma.setVisible(true);
+				 forma3 = new UnosIzmjenaJela();
+				forma3.setVisible(true);
 			}
 		});
 		btnDodajNovoJelo.setBounds(97, 575, 161, 29);
@@ -505,7 +524,7 @@ public class sef {
 				int selected = table.getSelectedRow();
 				String naziv = (String) table.getValueAt(selected, 0);
 				Jelo j = UnosIzmjenaJelaController.vratiJelo(naziv);
-				UnosIzmjenaJela forma = new UnosIzmjenaJela(j);
+				 forma = new UnosIzmjenaJela(j);
 				forma.setVisible(true);
 			}
 		});
@@ -552,8 +571,8 @@ public class sef {
 		btnDodajSastojak.addActionListener(new ActionListener() {
 			public final void actionPerformed(ActionEvent e) {
 				dodajNovi=true;
-				UnosIzmjenaSastojka forma = new UnosIzmjenaSastojka();
-				forma.setVisible(true);
+				 forma6 = new UnosIzmjenaSastojka();
+				forma6.setVisible(true);
 			}
 		});
 		btnDodajSastojak.setBounds(106, 574, 162, 30);
@@ -566,8 +585,8 @@ public class sef {
 				int selected = table_2.getSelectedRow();
 				String naziv = (String) table_2.getValueAt(selected, 0);
 				Sastojak s = UnosIzmjenaSastojkaController.vratiSastojak(naziv);
-				UnosIzmjenaSastojka forma = new UnosIzmjenaSastojka(s);
-				forma.setVisible(true);
+				 forma7 = new UnosIzmjenaSastojka(s);
+				forma7.setVisible(true);
 			}
 		});
 		button_1.setBounds(387, 574, 141, 30);
@@ -621,8 +640,8 @@ public class sef {
 		btnDodajNovogRadnika.addActionListener(new ActionListener() {
 			public final void actionPerformed(ActionEvent arg0) {
 				dodajNovi=true;
-				UnosIzmjenaRadnika forma = new UnosIzmjenaRadnika();
-				forma.setVisible(true);
+				 forma1 = new UnosIzmjenaRadnika();
+				forma1.setVisible(true);
 			}
 		});
 		btnDodajNovogRadnika.setBounds(66, 574, 165, 30);
@@ -635,8 +654,8 @@ public class sef {
 				int selected =table_1.getSelectedRow();
 				String username = (String) table_1.getValueAt(selected, 3);
 				Zaposlenik z = UnosIzmjenaRadnikaController.vratiRadnika(username);   
-				UnosIzmjenaRadnika forma = new UnosIzmjenaRadnika(z);
-				forma.setVisible(true);
+				 forma2 = new UnosIzmjenaRadnika(z);
+				forma2.setVisible(true);
 			}
 		});
 		btnNewButton.setBounds(300, 574, 165, 30);
@@ -649,8 +668,8 @@ public class sef {
 				int selected = table_1.getSelectedRow();
 				String username = (String) table_1.getValueAt(selected, 3);
 				Zaposlenik z = UnosIzmjenaRadnikaController.vratiRadnika(username);
-				UnosIzmjenaRadnika forma = new UnosIzmjenaRadnika(z);
-				forma.setVisible(true);
+			 forma22 = new UnosIzmjenaRadnika(z);
+				forma22.setVisible(true);
 			}
 		});
 		btnIzmijeniSifru.setBounds(519, 574, 166, 30);
@@ -698,8 +717,8 @@ public class sef {
 			
 			public final void actionPerformed(ActionEvent arg0) {
 				dodajNovi=true;
-				UnosIzmjenaPopusta forma = new UnosIzmjenaPopusta();
-				forma.setVisible(true);
+				 forma4 = new UnosIzmjenaPopusta();
+				forma4.setVisible(true);
 			}
 		});
 		btnDodajPopust.setBounds(161, 537, 139, 30);
@@ -713,10 +732,10 @@ public class sef {
 				String cijenaOd = String.valueOf(table_5.getValueAt(selected, 0));
 				String cijenaDo = String.valueOf(table_5.getValueAt(selected, 1));
 				Popust p = UnosIzmjenaPopustaController.vratiPopust(cijenaOd, cijenaDo);
-				UnosIzmjenaPopusta forma = new UnosIzmjenaPopusta(p);
+			forma5 = new UnosIzmjenaPopusta(p);
 				((DefaultTableModel) table_5.getModel()).fireTableChanged(null);
 				table_5.repaint();
-				forma.setVisible(true);
+				forma5.setVisible(true);
 			}
 		});
 		btnNewButton_1.setBounds(399, 537, 139, 30);
