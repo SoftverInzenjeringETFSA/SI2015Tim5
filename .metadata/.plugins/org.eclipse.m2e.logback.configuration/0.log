@@ -2794,3 +2794,17 @@ org.eclipse.core.runtime.CoreException: Launch configuration KuharGUI references
 2016-05-15 16:02:17,332 [Worker-9] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
 2016-05-15 16:02:17,339 [Worker-9] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2016-05-15 16:02:17,343 [Worker-9] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Admira\Desktop\SISI\TelefonskeNarudzbe\src\test\resources
+2016-05-17 14:59:06,392 [Worker-4] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: ba.unsa.etf.si:TelefonskeNarudzbe:0.0.1-SNAPSHOT @ C:\Users\Admira\Desktop\MasterSI\TelefonskeNarudzbe\pom.xml.
+2016-05-17 14:59:10,044 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-05-17 14:59:10,057 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2016-05-17 14:59:10,085 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-05-17 14:59:10,086 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Admira\Desktop\MasterSI\TelefonskeNarudzbe\src\test\resources
+2016-05-17 14:59:17,362 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-05-17 14:59:17,370 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2016-05-17 14:59:17,379 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-05-17 14:59:17,379 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Admira\Desktop\MasterSI\TelefonskeNarudzbe\src\test\resources
+2016-05-17 14:59:18,103 [Worker-6] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache file is not out-of-date. No remote download required.
+2016-05-17 15:00:55,562 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-05-17 15:00:55,564 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2016-05-17 15:00:55,567 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-05-17 15:00:55,568 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Admira\Desktop\MasterSI\TelefonskeNarudzbe\src\test\resources
