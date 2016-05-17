@@ -106,7 +106,7 @@ private static Zaposlenik ja;
 			}
 		});
 		JLabel lblDobrodoaoIme = new JLabel("Dobrodo\u0161ao, " + ja.getImePrezime() + "!");
-		lblDobrodoaoIme.setBounds(50, 12, 310, 14);
+		lblDobrodoaoIme.setBounds(94, 12, 266, 14);
 		frmSpremanjeNarudbi.getContentPane().add(lblDobrodoaoIme);
 
 		JButton btnNewButton = new JButton("Nova narud\u017Eba");

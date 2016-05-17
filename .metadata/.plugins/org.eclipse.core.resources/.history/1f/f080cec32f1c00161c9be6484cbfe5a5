@@ -184,7 +184,7 @@ public class KuharGUI {
 		frmSpremanjeNarudbi.getContentPane().setLayout(null);
 
 		JLabel lblDobrodoaoIme = new JLabel("Dobrodo\u0161ao, " + zap.getImePrezime() + "!");
-		lblDobrodoaoIme.setBounds(134, 21, 283, 22);
+		lblDobrodoaoIme.setBounds(161, 21, 133, 22);
 		frmSpremanjeNarudbi.getContentPane().add(lblDobrodoaoIme);
 
 		JButton btnPrikaiNarudbe = new JButton("Prika\u017Ei narud\u017Ebe");

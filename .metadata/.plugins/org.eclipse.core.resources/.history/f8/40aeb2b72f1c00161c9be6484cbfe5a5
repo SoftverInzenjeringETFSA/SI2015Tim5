@@ -203,7 +203,7 @@ public class DostavljacGUI {
 		frmDostavaNarudbi.getContentPane().setLayout(null);
 
 		JLabel lblDobrodoaoIme = new JLabel("Dobrodo\u0161ao, " + zap.getImePrezime() + "!");
-		lblDobrodoaoIme.setBounds(130, 21, 299, 22);
+		lblDobrodoaoIme.setBounds(161, 21, 133, 22);
 		frmDostavaNarudbi.getContentPane().add(lblDobrodoaoIme);
 
 		JButton btnPrikaiNarudbe = new JButton("Prika\u017Ei narud\u017Ebe");
