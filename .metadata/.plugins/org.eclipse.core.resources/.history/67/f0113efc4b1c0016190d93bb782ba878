@@ -288,10 +288,6 @@ public class UnosIzmjenaJela extends JFrame {
 				String naziv = textField.getText();
 				try{
 				Double cijena = Double.parseDouble(textField_1.getText());
-				if (cijena<=0) {
-					JOptionPane.showMessageDialog(null, "Cijena mora biti nenegativan broj!");
-					return;
-				}
 				String opis = textArea.getText();
 				ArrayList<String> sastojakNaziv = new ArrayList<String>();
 				ArrayList<Double> sastojakKolicina = new ArrayList<Double>();
