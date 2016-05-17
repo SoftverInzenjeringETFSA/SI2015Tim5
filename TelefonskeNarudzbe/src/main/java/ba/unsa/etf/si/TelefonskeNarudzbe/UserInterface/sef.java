@@ -579,19 +579,16 @@ public class sef {
 				BrisanjeSastojka br = new BrisanjeSastojka();
 				br.BrisiSastojak(naziv);
 				((DefaultTableModel) table_2.getModel()).removeRow(selected);
-
 			}
 		});
 		button_2.setBounds(710, 574, 141, 30);
 		SastojciTab.add(button_2);
-
 		UnosIzmjenaRadnikaController c = new UnosIzmjenaRadnikaController();
 		List<Zaposlenik> listaZaposlenika = c.vratiSveRadnike();
 		String[] kolone_radnici = { "Ime i prezime", "Datum rođenja", "Radno mjesto", "Korisničko ime", "Lozinka",
 				"Dodatne informacije" };
 		JPanel KorisniciTab = new JPanel();
 		DefaultTableModel tableModel = new DefaultTableModel(kolone_radnici, 0);
-
 		for (Zaposlenik z : listaZaposlenika) {
 			if (z.getRadnomjesto().getId() > 4)
 				continue;
@@ -634,8 +631,8 @@ public class sef {
 			public final void actionPerformed(ActionEvent e) {
 				dodajNovi=false;
 				int selected =table_1.getSelectedRow();
-				String imePrezime = (String) table_1.getValueAt(selected, 0);
-				Zaposlenik z = UnosIzmjenaRadnikaController.vratiRadnika(imePrezime);
+				String username = (String) table_1.getValueAt(selected, 3);
+				Zaposlenik z = UnosIzmjenaRadnikaController.vratiRadnika(username);   
 				UnosIzmjenaRadnika forma = new UnosIzmjenaRadnika(z);
 				forma.setVisible(true);
 			}
@@ -648,8 +645,8 @@ public class sef {
 			public final void actionPerformed(ActionEvent e) {
 				dodajNovi=false;
 				int selected = table_1.getSelectedRow();
-				String imePrezime = (String) table_1.getValueAt(selected, 0);
-				Zaposlenik z = UnosIzmjenaRadnikaController.vratiRadnika(imePrezime);
+				String username = (String) table_1.getValueAt(selected, 3);
+				Zaposlenik z = UnosIzmjenaRadnikaController.vratiRadnika(username);
 				UnosIzmjenaRadnika forma = new UnosIzmjenaRadnika(z);
 				forma.setVisible(true);
 			}
@@ -681,6 +678,7 @@ public class sef {
 		String[] kolone_popust = { "Cijena od (KM)", "Cijena do (KM)", "Popust (%)" };
 		final DefaultTableModel tableModel4 = new DefaultTableModel(kolone_popust, 0);
 		for (Popust p : listaPopusta) {
+			if(p.getIznos()==0) continue;
 			Object[] o = new Object[3];
 			o[0] = p.getOd();
 			o[1] = p.getDoo();
@@ -689,7 +687,6 @@ public class sef {
 		}
 
 		table_5 = new JTable(tableModel4);
-
 		JScrollPane scrollPane_5 = new JScrollPane(table_5);
 		scrollPane_5.setBounds(10, 11, 969, 475);
 		PopustiTab.add(scrollPane_5);
@@ -701,7 +698,6 @@ public class sef {
 				dodajNovi=true;
 				UnosIzmjenaPopusta forma = new UnosIzmjenaPopusta();
 				forma.setVisible(true);
-
 			}
 		});
 		btnDodajPopust.setBounds(161, 537, 139, 30);
@@ -768,6 +764,7 @@ public class sef {
 		String[] kolone_popust = { "Cijena od (KM)", "Cijena do (KM)", "Popust (%)" };
 		final DefaultTableModel tableModel4 = new DefaultTableModel(kolone_popust, 0);
 		for (Popust k : listaPopusta) {
+			if(k.getIznos()==0) continue;
 			Object[] o = new Object[3];
 			o[0] = k.getOd();
 			o[1] = k.getDoo();
@@ -870,8 +867,8 @@ public class sef {
 	}
 	public final static int vratiIzabranogRadnika(){
 		int selected = table_1.getSelectedRow();
-		String naziv = (String) table_1.getValueAt(selected, 0);
-		Zaposlenik s = UnosIzmjenaRadnikaController.vratiRadnika(naziv);
+		String username = (String) table_1.getValueAt(selected, 3);
+		Zaposlenik s = UnosIzmjenaRadnikaController.vratiRadnika(username);
 	
 		return s.getId();
 		

@@ -159,7 +159,7 @@ CREATE TABLE `popust` (
   `iznos` double NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,7 +168,7 @@ CREATE TABLE `popust` (
 
 LOCK TABLES `popust` WRITE;
 /*!40000 ALTER TABLE `popust` DISABLE KEYS */;
-INSERT INTO `popust` VALUES (1,10,30,5),(2,30,50,10);
+INSERT INTO `popust` VALUES (1,0,9,5),(2,10,50,10),(3,20,29,12.2),(4,30,39,21),(5,40,49,0),(6,50,10000,11);
 /*!40000 ALTER TABLE `popust` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,7 +185,7 @@ CREATE TABLE `radnomjesto` (
   `opis` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,7 +194,7 @@ CREATE TABLE `radnomjesto` (
 
 LOCK TABLES `radnomjesto` WRITE;
 /*!40000 ALTER TABLE `radnomjesto` DISABLE KEYS */;
-INSERT INTO `radnomjesto` VALUES (1,'sef','ad'),(2,'primalac','ad'),(3,'kuhar','ad'),(4,'dostavljac','ad');
+INSERT INTO `radnomjesto` VALUES (1,'sef','radi'),(2,'primalac','radi'),(3,'kuhar','radi'),(4,'dostavljac','radi'),(5,'ex-sef','otpusten'),(6,'ex-primalac','otpusten'),(7,'ex-kuhar','otpusten'),(8,'ex-dostavljac','otpusten');
 /*!40000 ALTER TABLE `radnomjesto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -253,7 +253,6 @@ CREATE TABLE `sastojci_jelo_veza` (
 
 LOCK TABLES `sastojci_jelo_veza` WRITE;
 /*!40000 ALTER TABLE `sastojci_jelo_veza` DISABLE KEYS */;
-INSERT INTO `sastojci_jelo_veza` VALUES (1,13,1,1),(2,13,2,0),(3,13,3,0),(4,13,4,0),(5,13,5,0),(6,13,6,0),(7,13,7,0),(8,13,8,0),(9,13,9,0),(10,13,10,0),(11,13,11,0);
 /*!40000 ALTER TABLE `sastojci_jelo_veza` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -309,7 +308,7 @@ CREATE TABLE `zaposlenik` (
 
 LOCK TABLES `zaposlenik` WRITE;
 /*!40000 ALTER TABLE `zaposlenik` DISABLE KEYS */;
-INSERT INTO `zaposlenik` VALUES (1,'aissejfoi','ads','2014-5-5',1,NULL,NULL),(2,'dzanafer','pw','1994-12-25',1,'Dzana Feratovic',NULL),(3,'ivona','ivona','1994-12-16',2,'Ivona Ivkovic',NULL),(4,'admira','admira','1994-12-16',3,'Ivona Ivkovic',NULL),(5,'emina','emina','1994-12-16',4,'Emina Huskic',NULL);
+INSERT INTO `zaposlenik` VALUES (1,'aissejfoi','ads','2014-5-5',1,NULL,NULL),(2,'dzanafer','pw','1994-12-25',1,'Dzana Feratovic','ccc'),(3,'ivona','emina','15/12/2009',2,'Ivona Ivkovic',''),(4,'admira','admira','12/12/1997',3,'Ivona Ivkovic','puuu'),(5,'emina','emina','1994-12-16',8,'Emina Huskic',NULL);
 /*!40000 ALTER TABLE `zaposlenik` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -322,4 +321,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-17 10:39:20
+-- Dump completed on 2016-05-17 11:29:51

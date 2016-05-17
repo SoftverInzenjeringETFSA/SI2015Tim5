@@ -26,7 +26,7 @@ public class BrisanjeRadnika {
 			List<Zaposlenik> lista = criteria.list();
 			Zaposlenik z = lista.get(0);	
 			UnosIzmjenaRadnikaController c = new UnosIzmjenaRadnikaController();
-			z.setRadnomjesto(c.vratiRadnoMjesto(z.getRadnomjesto().getId()+3));
+			z.setRadnomjesto(c.vratiRadnoMjesto(z.getRadnomjesto().getId()+4));
 			session.update(z);
 			t.commit();
 			session.close();

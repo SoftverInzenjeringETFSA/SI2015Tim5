@@ -24,12 +24,12 @@ public class UnosIzmjenaRadnikaController {
 	
 	final static Logger logger = Logger.getLogger(UnosIzmjenaRadnikaController.class);
 	
-	public static Zaposlenik vratiRadnika(String imePrezime){
+	public static Zaposlenik vratiRadnika(String username){
 		Session sesija = HibernateUtil.getSessionFactory().openSession();
-        Criteria criteria = sesija.createCriteria(Zaposlenik.class).add(Restrictions.like("imePrezime", imePrezime));
-		List<Zaposlenik> r = criteria.list();
-		Zaposlenik z = r.get(0);
-		sesija.close();
+        Criteria criteria = sesija.createCriteria(Zaposlenik.class).add(Restrictions.like("username", username).ignoreCase());
+        List<Zaposlenik> r = criteria.list();
+        Zaposlenik z = r.get(0);
+        sesija.close();        
 		return z;
 	}
 	public List<Zaposlenik> vratiSveRadnike(){
@@ -77,7 +77,7 @@ public class UnosIzmjenaRadnikaController {
 				RadnoMjesto rm = vratiRadnoMjesto(radnoMjesto);
 				z.setRadnomjesto(rm);
 				z.setImePrezime(imePrezime);
-			//	z.setDodatneInformacije(opis);
+				z.setDodatneInformacije(opis);
 				session.beginTransaction();
 				session.saveOrUpdate(z);
 				session.getTransaction().commit();	
@@ -88,7 +88,6 @@ public class UnosIzmjenaRadnikaController {
 	
 		else {
 			Criteria criteria = session.createCriteria(Zaposlenik.class).add(Restrictions.eq("id", ids));
-			
 			List<Zaposlenik> lista = criteria.list();
 			Zaposlenik z = lista.get(0);
 			z.setDatumRodenja(datum);
@@ -97,8 +96,7 @@ public class UnosIzmjenaRadnikaController {
 			RadnoMjesto rm = vratiRadnoMjesto(radnoMjesto);
 			z.setRadnomjesto(rm);
 			z.setImePrezime(imePrezime);
-		//	z.setDodatneInformacije(opis);
-	
+			z.setDodatneInformacije(opis);
 			session.update(z);		
 			t.commit();
 			session.close();
