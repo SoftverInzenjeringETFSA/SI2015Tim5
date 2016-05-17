@@ -36,7 +36,6 @@ import javax.swing.JPasswordField;
 
 import java.util.Scanner;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
-import java.awt.Color;
 
 public class UnosIzmjenaRadnika extends JFrame {
 	static Scanner sc = new Scanner(System.in);
@@ -120,7 +119,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 		textField_1.setColumns(10);
 
 		JLabel lblifra = new JLabel("Lozinka:");
-		lblifra.setBounds(93, 192, 39, 14);
+		lblifra.setBounds(93, 185, 39, 14);
 
 		passwordField = new JPasswordField();
 		passwordField.setBounds(182, 189, 265, 20);
@@ -173,7 +172,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 				UnosIzmjenaRadnikaController r = new UnosIzmjenaRadnikaController();
 				if (!r.parsirajDatum(datum))
 				{
-				//	JOptionPane.showMessageDialog(null, "Datum mora biti u formatu dd/MM/yyyy");
+					JOptionPane.showMessageDialog(null, "Datum mora biti u formatu dd/MM/yyyy");
 					return;
 				}
 				if (r.izmijeniRadnika(imePrezime, datum, username, password, radnoMjesto, opis)) {
@@ -187,8 +186,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("Datum mora biti u formatu dd/MM/yyyy");
-		lblNewLabel_1.setBounds(182, 96, 265, 14);
-		lblNewLabel_1.setForeground(Color.RED);
+		lblNewLabel_1.setBounds(89, 96, 358, 14);
 		contentPane.add(lblNewLabel_1);
 		contentPane.add(btnNewButton);
 		contentPane.add(lblNewLabel);
@@ -246,10 +244,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 
 		passwordField_1 = new JPasswordField();
 		passwordField_1.setText(z.getPassword());
-		JLabel lblNewLabel_1 = new JLabel("Datum mora biti u formatu dd/MM/yyyy");
-		lblNewLabel_1.setBounds(189, 89, 265, 14);
-		lblNewLabel_1.setForeground(Color.RED);
-		contentPane.add(lblNewLabel_1);
+
 		final JTextArea textArea = new JTextArea();
 		JButton btnNewButton = new JButton("Zavr\u0161i ure\u0111ivanje");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -289,7 +284,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 											// Dostavljac:4
 				UnosIzmjenaRadnikaController r = new UnosIzmjenaRadnikaController();
 				if (!r.parsirajDatum(datum)) {
-					//JOptionPane.showMessageDialog(null, "Datum mora biti u formatu dd/MM/yyyy");
+					JOptionPane.showMessageDialog(null, "Datum mora biti u formatu dd/MM/yyyy");
 					return;
 				}
 				if (r.izmijeniRadnika(imePrezime, datum, username, password, radnoMjesto, opis)) {

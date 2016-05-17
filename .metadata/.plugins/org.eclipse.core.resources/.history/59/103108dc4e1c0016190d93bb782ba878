@@ -50,11 +50,11 @@ public class UnosIzmjenaRadnikaController {
 	public boolean parsirajDatum(String datum) {
 		String format = "dd/MM/yyyy";
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
-	//	sdf.setLenient(false);
+		sdf.setLenient(false);
 		try {
 			Date date = sdf.parse(datum);
 			if (!sdf.format(date).equals(datum)) {
-			throw new ParseException(datum + " nije validan format za " + format, 0);
+				throw new ParseException(datum + " nije validan format za " + format, 0);
 			}
 			return true;
 		} catch (Exception e) {

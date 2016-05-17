@@ -173,7 +173,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 				UnosIzmjenaRadnikaController r = new UnosIzmjenaRadnikaController();
 				if (!r.parsirajDatum(datum))
 				{
-				//	JOptionPane.showMessageDialog(null, "Datum mora biti u formatu dd/MM/yyyy");
+					JOptionPane.showMessageDialog(null, "Datum mora biti u formatu dd/MM/yyyy");
 					return;
 				}
 				if (r.izmijeniRadnika(imePrezime, datum, username, password, radnoMjesto, opis)) {
@@ -289,7 +289,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 											// Dostavljac:4
 				UnosIzmjenaRadnikaController r = new UnosIzmjenaRadnikaController();
 				if (!r.parsirajDatum(datum)) {
-					//JOptionPane.showMessageDialog(null, "Datum mora biti u formatu dd/MM/yyyy");
+					JOptionPane.showMessageDialog(null, "Datum mora biti u formatu dd/MM/yyyy");
 					return;
 				}
 				if (r.izmijeniRadnika(imePrezime, datum, username, password, radnoMjesto, opis)) {
