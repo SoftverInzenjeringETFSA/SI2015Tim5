@@ -335,6 +335,11 @@ public class sef {
 							// TODO Auto-generated catch block
 							JOptionPane.showMessageDialog(frame, "Pogrešan datum od:");
 							logger.info(e1);//e1.printStackTrace();
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							JOptionPane.showMessageDialog(frame, "Ne postoje narudzbe u tom periodu!");
+							
+							e1.printStackTrace();
 						}
 					}
 				}

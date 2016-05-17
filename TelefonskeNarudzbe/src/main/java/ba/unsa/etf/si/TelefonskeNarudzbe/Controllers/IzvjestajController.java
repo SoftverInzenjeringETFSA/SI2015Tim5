@@ -114,7 +114,7 @@ public class IzvjestajController {
 	}
 	
 	//daje podatke na osnovu intervala
-	public static Object[][] dajNaruzbePoDatumu(String datumOdString, String datumDoString) throws ParseException {
+	public static Object[][] dajNaruzbePoDatumu(String datumOdString, String datumDoString) throws Exception {
 		DateFormat format = new SimpleDateFormat("dd.MM.yyyy.", Locale.ENGLISH);
 		Date datumOdStringBAZA = format.parse(datumOdString);
 		Date datumDoStringBAZA = format.parse(datumDoString);
@@ -122,6 +122,7 @@ public class IzvjestajController {
 		Criteria crit = s.createCriteria(Narudzba.class);
 	    crit.add( Restrictions.between("vrijemePrijema", datumOdStringBAZA, datumDoStringBAZA) );
 	    List<Narudzba> narudzbe = crit.list();
+	    if(narudzbe.size() == 0) throw new Exception();
 		return dajZaTabelu(narudzbe);
 	}
 	
