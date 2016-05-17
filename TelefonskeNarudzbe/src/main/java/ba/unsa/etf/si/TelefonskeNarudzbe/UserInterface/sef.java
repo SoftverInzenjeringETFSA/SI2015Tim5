@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JMenu;
 import javax.swing.JList;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
@@ -48,7 +49,7 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.KuharController;
 
 public class sef {
 	public static boolean dodajNovi=false;
-	private JFrame frame;
+	private static JFrame frame;
 	private static JTable table;
 	private static JTable table_1;
 	private static JTable table_2;
@@ -65,6 +66,7 @@ public class sef {
 	private JScrollPane scrollPane_3 = new JScrollPane();
 	final static Logger logger = Logger.getLogger(sef.class);
 	private String odabirIzvjestaja = new String();
+	private static sef window;
 	private JButton dugmeGraficki ;
 	/**
 	 * Launch the application.
@@ -73,7 +75,7 @@ public class sef {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					sef window = new sef();
+					 window = new sef();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					logger.info(e);
@@ -799,19 +801,22 @@ public class sef {
 	}
 
 	public final static void refreshTabeleJelo() {
+
 		UnosIzmjenaJelaController jc = new UnosIzmjenaJelaController();
 		List<Jelo> listaJela = jc.vratiSvaJela();
 		String[] kolone = { "Naziv jela", "Cijena(KM)", "Sastojci" };
 		DefaultTableModel tableModel2 = new DefaultTableModel(kolone, 0);
-		for (Jelo j : listaJela) {
-			if (j.getIzbrisano() != null && j.getIzbrisano() == true)
-				continue;
+		for (int i=0; i<listaJela.size(); i++) {	
+			Jelo j=listaJela.get(i);
+		if (j.getIzbrisano() == true)
+				continue;	
 			Object[] o = new Object[3];
 			o[0] = j.getNaziv();
 			o[1] = j.getCijena();
 			o[2] = UnosIzmjenaSastojkaController.vratiSastojkeJela(j);
 			tableModel2.addRow(o);
 		}
+		
 		table.setModel(tableModel2);
 	}
 

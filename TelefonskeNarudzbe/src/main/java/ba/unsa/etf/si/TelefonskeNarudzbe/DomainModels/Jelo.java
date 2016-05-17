@@ -47,12 +47,14 @@ public class Jelo implements java.io.Serializable {
 	}
 
 	public Jelo(String naziv, double cijena) {
+		this.izbrisano=false;
 		this.naziv = naziv;
 		this.cijena = cijena;
 	}
 
 	public Jelo(String naziv, double cijena, Set<SastojciJeloVeza> sastojciJeloVezas,
 			Set<NarudzbaJeloVeza> narudzbajelovezas) {
+		this.izbrisano=false;
 		this.naziv = naziv;
 		this.cijena = cijena;
 		this.sastojciJeloVezas = sastojciJeloVezas;

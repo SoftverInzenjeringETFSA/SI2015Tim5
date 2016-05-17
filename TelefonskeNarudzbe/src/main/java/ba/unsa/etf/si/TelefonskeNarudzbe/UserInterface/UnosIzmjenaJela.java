@@ -1,6 +1,8 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface;
 
 import java.awt.EventQueue;
+import java.awt.Window;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -13,6 +15,7 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaPopustaControlle
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaSastojkaController;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Jelo;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak;
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.SastojciJeloVeza;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -232,13 +235,14 @@ public class UnosIzmjenaJela extends JFrame {
 		UnosIzmjenaSastojkaController sc = new UnosIzmjenaSastojkaController();
 		List<Sastojak> sastojci = sc.vratiSveSastojke();
 		DefaultTableModel model = new DefaultTableModel();
-
-		// Create a couple of columns
+		
+				// Create a couple of columns
 		model.addColumn("Naziv sastojka");
 		model.addColumn("Kolicina");
 
 		// Append a row
 		for (int i = 0; i < sastojci.size(); i++) {
+			if(sastojci.get(i).isIzbrisan()) continue;
 			model.addRow(new Object[] { ((Sastojak) sastojci.get(i)).getNaziv(), 0 });
 	}
 		table_1 = new JTable(model);
@@ -282,12 +286,12 @@ public class UnosIzmjenaJela extends JFrame {
 				ArrayList<Sastojak> sastojci = new ArrayList<Sastojak>();
 				for (int count = 0; count < table_1.getRowCount(); count++) {
 
-					if (table_1.getValueAt(count, 0) != null && table_1.getValueAt(count, 1) != null && isInteger(table_1.getValueAt(count, 1).toString()) && Integer.parseInt(table_1.getValueAt(count, 1).toString())>=0) {
+					if (Double.parseDouble(table_1.getValueAt(count, 1).toString())>=0) {
 						sastojakNaziv.add(table_1.getValueAt(count, 0).toString());
 						UnosIzmjenaSastojkaController c = new UnosIzmjenaSastojkaController();
 						sastojci.add(c.vratiSastojak(table_1.getValueAt(count, 0).toString()));
-						System.out.println("hehe");
 						sastojakKolicina.add(Double.parseDouble(table_1.getValueAt(count, 1).toString()));
+						
 					}
 					else
 					{
@@ -306,13 +310,14 @@ public class UnosIzmjenaJela extends JFrame {
 					JOptionPane.showMessageDialog(null, "Popunite polje opis!");
 					return;
 				} else {
+				
 					UnosIzmjenaJelaController c = new UnosIzmjenaJelaController();
 					c.izmjenaJela(naziv, opis, cijena, sastojci, sastojakKolicina);
+					sef.refreshTabeleJelo();
 					JOptionPane.showMessageDialog(null, "Jelo je dodano/izmijenjeno");
 					setVisible(false); dispose();
 				}
-
-			
+					
 				}
 				catch(Exception eks)
 				{
@@ -383,18 +388,40 @@ public class UnosIzmjenaJela extends JFrame {
 						.addComponent(btnZavriUreivanje).addGap(44)));
 
 	
-		UnosIzmjenaSastojkaController sc = new UnosIzmjenaSastojkaController();
-		List<Sastojak> sastojci = sc.vratiSveSastojke();
 		DefaultTableModel model = new DefaultTableModel();
-
-		// Create a couple of columns
+		Jelo jelo=UnosIzmjenaJelaController.vratiJelo(textField.getText().toString());
+		List<SastojciJeloVeza> sjv= UnosIzmjenaSastojkaController.vratiKolicineSastojakaJela(jelo);
+		
+				// Create a couple of columns
 		model.addColumn("Naziv sastojka");
 		model.addColumn("Kolicina");
 
 		// Append a row
-		for (int i = 0; i < sastojci.size(); i++) {
+		/*for (int i = 0; i < sastojci.size(); i++) {
+			if(sastojci.get(i).isIzbrisan()) continue;
 			model.addRow(new Object[] { ((Sastojak) sastojci.get(i)).getNaziv(), 0 });
-	}
+	}*/
+		for (int i=0; i<sjv.size(); i++){
+			if(sjv.get(i).getJelo().getNaziv().equals(j.getNaziv())){
+				model.addRow(new Object[] {sjv.get(i).getSastojak().getNaziv(), sjv.get(i).getKolicina() });
+				
+			}
+		}
+		List<Sastojak> sastojci = UnosIzmjenaSastojkaController.vratiSveSastojke();
+		for (Sastojak s: sastojci){
+			if(s.isIzbrisan()) continue;
+			boolean postoji=false;
+			for (SastojciJeloVeza sas: sjv){
+			if(s.getNaziv().equals(sas.getSastojak().getNaziv()) && sas.getJelo().getNaziv().equals(j.getNaziv())){
+				postoji=true;
+			}
+			}
+			
+			if (postoji) continue;
+			model.addRow(new Object[] {s.getNaziv(), 0.0 });
+			
+			
+		}
 		table_1 = new JTable(model);
 		scrollPane.setViewportView(table_1);
 		contentPane.setLayout(gl_contentPane);

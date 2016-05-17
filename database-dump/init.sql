@@ -31,7 +31,7 @@ CREATE TABLE `jelo` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `naziv_UNIQUE` (`naziv`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `jelo` (
 
 LOCK TABLES `jelo` WRITE;
 /*!40000 ALTER TABLE `jelo` DISABLE KEYS */;
-INSERT INTO `jelo` VALUES (1,'doner',7,'opis1',NULL),(2,'supa',3,'opis1',NULL),(3,'palacinci',1.5,'opis1',NULL),(4,'hot dog',3,'opis1',NULL),(5,'pizza',6,'opis1',NULL),(6,'tunjevina',7,'opis1',NULL),(7,'sendvic',2,'opis1',NULL),(8,'hamburger',3.5,'opis1','1'),(9,'pljeskavice',4,'opis1',NULL),(10,'ustipci',5,'opis1',NULL),(11,'teletina',10,'opis1',NULL),(12,'cevapi',6,'opis1',NULL),(13,'proba',12.3,'e',NULL);
+INSERT INTO `jelo` VALUES (1,'doner',7,'opis1','0'),(2,'supa',3,'opis1','0'),(3,'palacinci',1.5,'opis1','0'),(4,'hot dog',3,'opis1','0'),(5,'pizza',6,'opis1','0'),(6,'tunjevina',7,'opis1','0'),(7,'sendvic',2,'opis1','0'),(8,'hamburger',3.5,'opis1','1'),(9,'pljeskavice',4,'opis1','0'),(10,'ustipci',5,'opis1','0'),(11,'teletina',10,'opis1','1'),(12,'cevapi',6,'opis1','0'),(13,'proba',12.3,'e','0'),(14,'NOVO',12.4,'NOVO','1'),(15,'vela',12.3,'bla','1'),(16,'em',12.1,'vmv','1'),(17,'novohiljadu',1.234,'pop','1'),(18,'KAFA',1.1,'E','1'),(19,'kafa2',12.345,'ffms','1'),(20,'novojelo',11,'jelo','1'),(21,'novojelo2',2,'f','1'),(22,'radioactive',12.3,'f','1'),(23,'blfomfoamo',2324,'fks','1'),(24,'novakafa',12.3,'meme','1'),(25,'NOVOPROBNOJELO',1.22,'e','1'),(26,'probno2545',12.22,'eme','0'),(27,'eminica23fmfm',11.2,'e','0'),(28,'stooo',12.1112,'meme','0'),(29,'ZASTO ME MRZIS',22,'22','0'),(30,'ne ne ne',23,'23','0'),(31,'231324',12,'e','1'),(32,'blafdf',121,'f','1'),(33,'EMINA3455',2,'e','0'),(34,'zadnje2',12,'EF','0'),(35,'gmsklmg',234,'ememe','0'),(36,'Metropolis',100.23,'r','0'),(37,'pupu',12,'kkk','0'),(38,'Nedzo2',12.344,'e','0');
 /*!40000 ALTER TABLE `jelo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -58,7 +58,7 @@ CREATE TABLE `kupac` (
   `info` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `OsobaId_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -214,7 +214,7 @@ CREATE TABLE `sastojak` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `naziv_UNIQUE` (`naziv`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,7 +223,7 @@ CREATE TABLE `sastojak` (
 
 LOCK TABLES `sastojak` WRITE;
 /*!40000 ALTER TABLE `sastojak` DISABLE KEYS */;
-INSERT INTO `sastojak` VALUES (1,'meso','telece','g',0),(2,'krastavac',NULL,'kriska',0),(3,'kupus',NULL,'list',0),(4,'somun',NULL,'kom',0),(5,'paprika',NULL,'kom',0),(6,'luk','opis1','gproba',0),(7,'paradajz',NULL,'kriska',0),(8,'majoneza','g2','opis',0),(9,'kecap',NULL,'g',0),(10,'cilli',NULL,'g',0),(11,'biber',NULL,'g',1),(12,'novi','novisastojak','gram',0);
+INSERT INTO `sastojak` VALUES (1,'meso','telece','g',0),(2,'krastavac',NULL,'kriska',0),(3,'kupus',NULL,'list',0),(4,'somun',NULL,'kom',0),(5,'paprika',NULL,'kom',0),(6,'luk','opis1','gproba',0),(7,'paradajz',NULL,'kriska',1),(8,'majoneza2','g2','opis',0),(9,'kecap',NULL,'g',0),(10,'cilli',NULL,'g',0),(11,'biber',NULL,'g',1),(12,'novi','PROMJENA','gram',0),(13,'bla','bla','bla',0);
 /*!40000 ALTER TABLE `sastojak` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -238,13 +238,13 @@ CREATE TABLE `sastojci_jelo_veza` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `JeloId` int(3) NOT NULL,
   `SastojakId` int(10) NOT NULL,
-  `kolicina` int(2) NOT NULL,
+  `kolicina` double DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_Sastojci_Jelo_Veza_Jelo_index` (`JeloId`),
   KEY `fk_Sastojci_Jelo_Veza_Sastojak_index` (`SastojakId`),
   CONSTRAINT `fk_Sastojci_Jelo_Veza_Jelo` FOREIGN KEY (`JeloId`) REFERENCES `jelo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Sastojci_Jelo_Veza_Sastojak` FOREIGN KEY (`SastojakId`) REFERENCES `sastojak` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=378 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,6 +253,7 @@ CREATE TABLE `sastojci_jelo_veza` (
 
 LOCK TABLES `sastojci_jelo_veza` WRITE;
 /*!40000 ALTER TABLE `sastojci_jelo_veza` DISABLE KEYS */;
+INSERT INTO `sastojci_jelo_veza` VALUES (1,1,5,0),(2,1,6,0),(347,2,1,0),(349,27,7,0),(350,27,7,0),(351,2,7,0),(352,2,11,0),(353,1,7,0),(354,1,11,0),(355,5,7,0),(356,29,7,0),(357,33,1,0),(358,4,1,0),(359,4,2,0),(360,4,3,0),(363,10,1,1),(364,13,1,5555555),(365,13,2,2.3),(366,35,1,6.7),(367,35,6,3.4),(368,35,8,3.33),(369,35,4,2.4),(370,29,1,1.23),(371,29,5,4.223),(372,6,2,0),(373,6,8,2.3),(374,6,10,3.22),(375,6,12,2.2),(376,6,13,1.1),(377,3,1,32.2);
 /*!40000 ALTER TABLE `sastojci_jelo_veza` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -321,4 +322,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-17 11:29:51
+-- Dump completed on 2016-05-17 17:02:36

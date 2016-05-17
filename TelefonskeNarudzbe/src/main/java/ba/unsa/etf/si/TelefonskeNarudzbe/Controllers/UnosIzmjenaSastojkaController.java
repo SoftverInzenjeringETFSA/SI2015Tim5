@@ -60,6 +60,17 @@ public class UnosIzmjenaSastojkaController {
 				sesija.close();
 		return novalista;
 	}
+	public static List<SastojciJeloVeza> vratiKolicineSastojakaJela (Jelo jelo){
+		Session sesija = HibernateUtil.getSessionFactory().openSession();
+		 Criteria criteria = sesija.createCriteria(SastojciJeloVeza.class);
+		 List<SastojciJeloVeza> lista=criteria.list();
+			List<SastojciJeloVeza> novalista=new ArrayList<SastojciJeloVeza>();
+			 for (int i=0; i<lista.size(); i++){
+				 if(lista.get(i).getJelo().getId()==jelo.getId() && lista.get(i).getKolicina()!=0)
+				 novalista.add(lista.get(i));
+		 }
+			 return novalista;
+	}
 	public static String vratiSastojkeJela(Jelo jelo)
 	{
 		 Session sesija = HibernateUtil.getSessionFactory().openSession();
