@@ -795,7 +795,7 @@ public class sef {
 				table_5.repaint();
 				forma5.setVisible(true);
 			} catch (Exception ee) {
-				JOptionPane.showMessageDialog(null, "Morate odabrati popust!");
+				JOptionPane.showMessageDialog(null, "Morate odabrati radnika!");
 
 			}
 				
@@ -807,7 +807,6 @@ public class sef {
 		JButton btnIzbriiPopust = new JButton("Izbriši popust");
 		btnIzbriiPopust.addActionListener(new ActionListener() {
 			public final void actionPerformed(ActionEvent e) {
-				try {
 				int selected = table_5.getSelectedRow();
 				Double cijenaOd = Double.parseDouble(table_5.getValueAt(selected, 0).toString());
 				Double cijenaDo = Double.parseDouble(table_5.getValueAt(selected, 1).toString());
@@ -817,7 +816,7 @@ public class sef {
 				((DefaultTableModel) table_5.getModel()).removeRow(selected);
 
 				table_5.repaint();} catch (Exception ee) {
-					JOptionPane.showMessageDialog(null, "Morate odabrati popust!");
+					JOptionPane.showMessageDialog(null, "Morate odabrati radnika!");
 
 				}
 			}
