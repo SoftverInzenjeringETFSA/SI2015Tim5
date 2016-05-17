@@ -3603,3 +3603,11 @@ org.eclipse.core.runtime.CoreException: Launch configuration NovaNarudzbaGUI ref
 2016-05-17 21:42:45,787 [Worker-137] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
 2016-05-17 21:42:45,793 [Worker-137] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2016-05-17 21:42:45,798 [Worker-137] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Admira\Desktop\ETFMASTER\TelefonskeNarudzbe\src\test\resources
+2016-05-17 21:49:59,677 [Worker-128] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-05-17 21:49:59,680 [Worker-128] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2016-05-17 21:49:59,689 [Worker-128] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-05-17 21:49:59,695 [Worker-128] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Admira\Desktop\ETFMASTER\TelefonskeNarudzbe\src\test\resources
+2016-05-17 21:53:34,317 [Worker-57] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-05-17 21:53:34,323 [Worker-57] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2016-05-17 21:53:34,330 [Worker-57] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-05-17 21:53:34,335 [Worker-57] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Admira\Desktop\ETFMASTER\TelefonskeNarudzbe\src\test\resources
