@@ -517,8 +517,6 @@ public class sef {
 			tableModel2.addRow(o);
 		}
 		table = new JTable(tableModel2);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
 		table.setBounds(10, 11, 671, 275);
 		table.getColumn("Cijena(KM)").setMaxWidth(70);
 

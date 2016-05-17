@@ -517,8 +517,6 @@ public class sef {
 			tableModel2.addRow(o);
 		}
 		table = new JTable(tableModel2);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
 		table.setBounds(10, 11, 671, 275);
 		table.getColumn("Cijena(KM)").setMaxWidth(70);
 
@@ -672,7 +670,7 @@ public class sef {
 		}
 
 		table_1 = new JTable(tableModel);
-		table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table_3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		tabbedPane.addTab("Korisni\u010Dki ra\u010Duni", null, KorisniciTab, null);
 		KorisniciTab.setLayout(null);
@@ -772,8 +770,6 @@ public class sef {
 		}
 
 		table_5 = new JTable(tableModel4);
-		table_5.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
 		JScrollPane scrollPane_5 = new JScrollPane(table_5);
 		scrollPane_5.setBounds(10, 11, 969, 475);
 		PopustiTab.add(scrollPane_5);

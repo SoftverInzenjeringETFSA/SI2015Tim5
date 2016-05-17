@@ -21,7 +21,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JMenu;
 import javax.swing.JList;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
@@ -362,7 +361,6 @@ public class sef {
 									datumDoString);
 
 							table_3 = new JTable(podaci_izvjestaj_1, kolone_izvjestaj_1);
-							table_3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 							table_3.setBounds(109, 340, 340, -61);
 							table_3.getColumn("ID").setMaxWidth(70);
 							table_3.getColumn("CIJENA").setMaxWidth(70);
@@ -517,8 +515,6 @@ public class sef {
 			tableModel2.addRow(o);
 		}
 		table = new JTable(tableModel2);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
 		table.setBounds(10, 11, 671, 275);
 		table.getColumn("Cijena(KM)").setMaxWidth(70);
 
@@ -599,8 +595,6 @@ public class sef {
 		SastojciTab.add(table_2);
 
 		JScrollPane scrollPane_2 = new JScrollPane(table_2);
-		table_2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
 		scrollPane_2.setBounds(10, 11, 969, 552);
 		SastojciTab.add(scrollPane_2);
 
@@ -672,8 +666,7 @@ public class sef {
 		}
 
 		table_1 = new JTable(tableModel);
-		table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
+
 		tabbedPane.addTab("Korisni\u010Dki ra\u010Duni", null, KorisniciTab, null);
 		KorisniciTab.setLayout(null);
 		table_1.setBounds(1, 26, 450, 48);
@@ -772,8 +765,6 @@ public class sef {
 		}
 
 		table_5 = new JTable(tableModel4);
-		table_5.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
 		JScrollPane scrollPane_5 = new JScrollPane(table_5);
 		scrollPane_5.setBounds(10, 11, 969, 475);
 		PopustiTab.add(scrollPane_5);
