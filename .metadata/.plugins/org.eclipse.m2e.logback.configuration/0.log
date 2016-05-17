@@ -3591,3 +3591,15 @@ org.eclipse.core.runtime.CoreException: Launch configuration NovaNarudzbaGUI ref
 2016-05-17 21:33:03,941 [Worker-125] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
 2016-05-17 21:33:03,948 [Worker-125] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2016-05-17 21:33:03,956 [Worker-125] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Admira\Desktop\ETFMASTER\TelefonskeNarudzbe\src\test\resources
+2016-05-17 21:42:08,849 [Worker-136] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-05-17 21:42:08,852 [Worker-136] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2016-05-17 21:42:08,859 [Worker-136] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-05-17 21:42:08,864 [Worker-136] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Admira\Desktop\ETFMASTER\TelefonskeNarudzbe\src\test\resources
+2016-05-17 21:42:39,062 [Worker-136] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-05-17 21:42:39,069 [Worker-136] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2016-05-17 21:42:39,075 [Worker-136] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-05-17 21:42:39,080 [Worker-136] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Admira\Desktop\ETFMASTER\TelefonskeNarudzbe\src\test\resources
+2016-05-17 21:42:45,778 [Worker-137] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-05-17 21:42:45,787 [Worker-137] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2016-05-17 21:42:45,793 [Worker-137] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-05-17 21:42:45,798 [Worker-137] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Admira\Desktop\ETFMASTER\TelefonskeNarudzbe\src\test\resources

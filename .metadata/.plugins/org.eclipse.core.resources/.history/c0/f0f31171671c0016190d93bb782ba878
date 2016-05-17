@@ -93,9 +93,7 @@ public class UnosIzmjenaRadnikaController {
 			
 	
 		else {
-			Zaposlenik zap=(Zaposlenik) session.createCriteria(Zaposlenik.class).add(Restrictions.eq("id", ids)).uniqueResult();
-			if(!username.equals(zap.getUsername()))
-					if( session.createCriteria(Zaposlenik.class).add(Restrictions.like("username", username).ignoreCase()).list().size()!=0){
+			if( session.createCriteria(Zaposlenik.class).add(Restrictions.like("username", username).ignoreCase()).list().size()!=0){
 				JOptionPane.showMessageDialog(null, "Već postoji korisnik sa tim korisničkim imenom.");
 				session.close();
 
