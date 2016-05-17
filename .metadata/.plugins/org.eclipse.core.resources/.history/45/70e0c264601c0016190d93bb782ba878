@@ -16,7 +16,6 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.LoginController;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JPasswordField;
 
 
 public class LoginGUI
@@ -24,8 +23,8 @@ public class LoginGUI
 
 	private JFrame frmPrijavaNaSistem;
 	private JTextField textField;
+	private JTextField textField_1;
 	final static Logger logger = Logger.getLogger(LoginGUI.class);LoginController s = null;
-private JPasswordField pass;
 	/**
 	 * Launch the application.
 	 */
@@ -75,12 +74,18 @@ private JPasswordField pass;
 		frmPrijavaNaSistem.getContentPane().add(textField);
 		textField.setColumns(10);
 		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(119, 43, 160, 20);
+		frmPrijavaNaSistem.getContentPane().add(textField_1);
+		
 		JButton btnPrijava = new JButton("Prijava");
 		btnPrijava.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				
 				try {
-					s = LoginController.getInstance(textField.getText(), String.valueOf(pass.getPassword()));
+					s = LoginController.getInstance(textField.getText(), textField_1.getText());
 
 					if (s.getZaposlenik().getRadnomjesto().getId() == 1) {
 						frmPrijavaNaSistem.setVisible(false);
@@ -118,10 +123,6 @@ private JPasswordField pass;
 		});
 		btnPrijava.setBounds(190, 74, 89, 23);
 		frmPrijavaNaSistem.getContentPane().add(btnPrijava);
-		
-		pass = new JPasswordField();
-		pass.setBounds(119, 43, 160, 20);
-		frmPrijavaNaSistem.getContentPane().add(pass);
 		
 		frmPrijavaNaSistem.setVisible(true);
 	}

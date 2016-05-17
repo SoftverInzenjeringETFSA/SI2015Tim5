@@ -251,7 +251,8 @@ if(provjeriJelSveUpisano2()==false) {JOptionPane.showMessageDialog(null, "Popuni
 
 		return true;
 	}private Boolean provjeriJelSveUpisano2() {
-		
+		JOptionPane.showMessageDialog(null,  txtBrTelefona.getText().equals("   "));
+		System.out.println( "a"+txtBrTelefona.getText()+"a");
 		if (
 			txtAdresa.getText().equals("") || txtBrTelefona.getText().equals("   -   -   ") || narucenaJela.isEmpty()) {
 			return false;

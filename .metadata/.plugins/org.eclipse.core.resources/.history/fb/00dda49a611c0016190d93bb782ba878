@@ -243,17 +243,15 @@ if(provjeriJelSveUpisano2()==false) {JOptionPane.showMessageDialog(null, "Popuni
 
 	// provjerava da li je uneseno sve sto je potrebno za narudzbu
 	private Boolean provjeriJelSveUpisano() {
-		
 		if (txtCijena.getText().equals("") || txtPopust.getText().equals("") || txtUkupno.getText().equals("")
-				|| txtAdresa.getText().equals("") || txtBrTelefona.getText().toString().equals("") || narucenaJela.isEmpty()) {
+				|| txtAdresa.getText().equals("") || txtBrTelefona.getText().equals("") || narucenaJela.isEmpty()) {
 			return false;
 		}
 
 		return true;
 	}private Boolean provjeriJelSveUpisano2() {
-		
 		if (
-			txtAdresa.getText().equals("") || txtBrTelefona.getText().equals("   -   -   ") || narucenaJela.isEmpty()) {
+			txtAdresa.getText().equals("") || txtBrTelefona.getText().isEmpty() || narucenaJela.isEmpty()) {
 			return false;
 		}
 
