@@ -74,7 +74,6 @@ public class NovaNarudzbaGUI {
 	private List<NarudzbaJeloVeza> njvLista;
 	private MaskFormatter telefon;
 	final static Logger logger = Logger.getLogger(NovaNarudzbaGUI.class);
-	private static final boolean ProvjeriDaLiJeSveUpisano = false;
 
 	// otvara novi prozor
 
@@ -160,7 +159,7 @@ public class NovaNarudzbaGUI {
 			Jelo j = kontroler.dajJelo(naziv);
 			NarudzbaJeloVeza vezaNJ = new NarudzbaJeloVeza();
 			Integer kolicinaJela = Integer.parseInt(txtKolicina.getText());
-if(kolicinaJela<=0) throw new Exception("Količina mora biti pozitivna!");
+
 			for (int i = 0; i < kolicinaJela; i++) {
 				lmodel.addElement(j.getNaziv());
 				narucenaJela.add(j);
@@ -174,9 +173,8 @@ if(kolicinaJela<=0) throw new Exception("Količina mora biti pozitivna!");
 		}
 
 		catch (Exception e) {
-			if(e.getMessage().equals("Količina mora biti pozitivna!")) JOptionPane.showMessageDialog(null, "Količina mora biti pozitivna!");
-			else	{	JOptionPane.showMessageDialog(null, "Molimo odaberite jelo i unesite ispravno količinu");
-			System.out.println(e.getCause().toString());}
+			JOptionPane.showMessageDialog(null, "Molimo odaberite jelo i unesite ispravno količinu");
+			System.out.println(e.getCause().toString());
 			logger.info(e);
 		}
 
@@ -213,7 +211,7 @@ if(kolicinaJela<=0) throw new Exception("Količina mora biti pozitivna!");
 		double cijenaBezPopusta = 0;
 		double popust;
 		double ukupnaCijena = 0;
-if(provjeriJelSveUpisano2()==false) {JOptionPane.showMessageDialog(null, "Popunite sva polja"); return ;}
+
 		try {
 			for (Jelo j : narucenaJela) {
 				cijenaBezPopusta += j.getCijena();
@@ -245,13 +243,6 @@ if(provjeriJelSveUpisano2()==false) {JOptionPane.showMessageDialog(null, "Popuni
 	private Boolean provjeriJelSveUpisano() {
 		if (txtCijena.getText().equals("") || txtPopust.getText().equals("") || txtUkupno.getText().equals("")
 				|| txtAdresa.getText().equals("") || txtBrTelefona.getText().equals("") || narucenaJela.isEmpty()) {
-			return false;
-		}
-
-		return true;
-	}private Boolean provjeriJelSveUpisano2() {
-		if (
-			txtAdresa.getText().equals("") || txtBrTelefona.getText().equals("") || narucenaJela.isEmpty()) {
 			return false;
 		}
 

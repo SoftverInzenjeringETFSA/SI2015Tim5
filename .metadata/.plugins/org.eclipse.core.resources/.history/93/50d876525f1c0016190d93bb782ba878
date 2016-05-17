@@ -213,7 +213,7 @@ if(kolicinaJela<=0) throw new Exception("Količina mora biti pozitivna!");
 		double cijenaBezPopusta = 0;
 		double popust;
 		double ukupnaCijena = 0;
-if(provjeriJelSveUpisano2()==false) {JOptionPane.showMessageDialog(null, "Popunite sva polja"); return ;}
+if(provjeriJelSveUpisano()==false) {JOptionPane.showMessageDialog(null, "Popunite sva polja"); return ;}
 		try {
 			for (Jelo j : narucenaJela) {
 				cijenaBezPopusta += j.getCijena();
@@ -245,13 +245,6 @@ if(provjeriJelSveUpisano2()==false) {JOptionPane.showMessageDialog(null, "Popuni
 	private Boolean provjeriJelSveUpisano() {
 		if (txtCijena.getText().equals("") || txtPopust.getText().equals("") || txtUkupno.getText().equals("")
 				|| txtAdresa.getText().equals("") || txtBrTelefona.getText().equals("") || narucenaJela.isEmpty()) {
-			return false;
-		}
-
-		return true;
-	}private Boolean provjeriJelSveUpisano2() {
-		if (
-			txtAdresa.getText().equals("") || txtBrTelefona.getText().equals("") || narucenaJela.isEmpty()) {
 			return false;
 		}
 
