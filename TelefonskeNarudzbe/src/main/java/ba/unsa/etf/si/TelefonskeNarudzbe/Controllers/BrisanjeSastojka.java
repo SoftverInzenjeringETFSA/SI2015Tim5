@@ -23,7 +23,8 @@ public class BrisanjeSastojka {
 			Criteria criteria = session.createCriteria(Sastojak.class).add(Restrictions.like("naziv", naziv).ignoreCase());
 			List<Sastojak> lista = criteria.list();
 			Sastojak s = lista.get(0);
-			session.delete(s);
+			s.setIzbrisan(true);
+			session.update(s);
 			t.commit();
 			session.close();
 			JOptionPane.showMessageDialog(null, "Sastojak uspjesno izbrisan!");

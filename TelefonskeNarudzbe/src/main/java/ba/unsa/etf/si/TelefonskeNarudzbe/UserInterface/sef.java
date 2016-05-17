@@ -531,6 +531,7 @@ public class sef {
 		String[] kolone_sastojci = { "Naziv", "Mjerna jedinica sastojka", "Opis" };
 		final DefaultTableModel tableModel3 = new DefaultTableModel(kolone_sastojci, 0);
 		for (Sastojak s : listaSastojaka) {
+			if(s.isIzbrisan()) continue;
 			Object[] o = new Object[3];
 			o[0] = s.getNaziv();
 			o[1] = s.getMjernaJedinica();

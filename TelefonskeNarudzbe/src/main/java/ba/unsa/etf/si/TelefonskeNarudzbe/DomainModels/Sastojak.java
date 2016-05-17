@@ -27,20 +27,30 @@ public class Sastojak implements java.io.Serializable {
 	private String opis;
 	private String mjernaJedinica;
 	private Set<SastojciJeloVeza> sastojciJeloVezas = new HashSet<SastojciJeloVeza>(0);
-
+	private boolean izbrisan;
 	public Sastojak() {
 	}
 
 	public Sastojak(String naziv, String mjernaJedinica) {
+		this.izbrisan=false;
 		this.naziv = naziv;
 		this.mjernaJedinica = mjernaJedinica;
 	}
 
 	public Sastojak(String naziv, String opis, String mjernaJedinica, Set<SastojciJeloVeza> sastojciJeloVezas) {
+		this.izbrisan=false;
 		this.naziv = naziv;
 		this.opis = opis;
 		this.mjernaJedinica = mjernaJedinica;
 		this.sastojciJeloVezas = sastojciJeloVezas;
+	}
+	@Column(name = "izbrisan", unique = false)
+	public boolean isIzbrisan() {
+		return izbrisan;
+	}
+
+	public void setIzbrisan(boolean izbrisan) {
+		this.izbrisan = izbrisan;
 	}
 
 	@Id

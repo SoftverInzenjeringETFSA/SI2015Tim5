@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `si2015tim5` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `si2015tim5`;
--- MySQL dump 10.13  Distrib 5.7.9, for Win32 (AMD64)
+-- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: si2015tim5
 -- ------------------------------------------------------
--- Server version	5.7.11
+-- Server version	5.7.12-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -33,7 +31,7 @@ CREATE TABLE `jelo` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `naziv_UNIQUE` (`naziv`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +40,7 @@ CREATE TABLE `jelo` (
 
 LOCK TABLES `jelo` WRITE;
 /*!40000 ALTER TABLE `jelo` DISABLE KEYS */;
-INSERT INTO `jelo` VALUES (1,'doner',7,'opis1',NULL), (2,'supa',3,'opis1',NULL), (3,'palacinci',1.50,'opis1',NULL), (4,'hot dog',2,'opis1',NULL), (5,'pizza',6,'opis1',NULL), (6,'tunjevina',7,'opis1',NULL), (7,'sendvic',2,'opis1',NULL), (8,'hamburger',3.50,'opis1',NULL), (9,'pljeskavice',4,'opis1',NULL), (10,'ustipci',5,'opis1',NULL), (11,'teletina',10,'opis1',NULL), (12,'cevapi',6,'opis1',NULL);
+INSERT INTO `jelo` VALUES (1,'doner',7,'opis1',NULL),(2,'supa',3,'opis1',NULL),(3,'palacinci',1.5,'opis1',NULL),(4,'hot dog',3,'opis1',NULL),(5,'pizza',6,'opis1',NULL),(6,'tunjevina',7,'opis1',NULL),(7,'sendvic',2,'opis1',NULL),(8,'hamburger',3.5,'opis1','1'),(9,'pljeskavice',4,'opis1',NULL),(10,'ustipci',5,'opis1',NULL),(11,'teletina',10,'opis1',NULL),(12,'cevapi',6,'opis1',NULL),(13,'proba',12.3,'e',NULL);
 /*!40000 ALTER TABLE `jelo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,7 +67,7 @@ CREATE TABLE `kupac` (
 
 LOCK TABLES `kupac` WRITE;
 /*!40000 ALTER TABLE `kupac` DISABLE KEYS */;
-INSERT INTO `kupac` VALUES (1,'adresa1',061111222,'opis kupca 1'), (2,'adresa2',061111223,'opis kupca 2'),(3,'adresa3',061111224,'opis kupca 3'),(4,'adresa4',061111225,'opis kupca 4'),(5,'adresa5',061111226,'opis kupca 5'),(6,'adresa6',061111227,'opis kupca 6'),(7,'adresa7',061111228,'opis kupca 7'),(8,'adresa8',061111229,'opis kupca 8'),(9,'adresa9',061111230,'opis kupca 9'),(0,'adresa10',061111231,'opis kupca 10');
+INSERT INTO `kupac` VALUES (0,'adresa10',61111231,'opis kupca 10'),(1,'adresa1',61111222,'opis kupca 1'),(2,'adresa2',61111223,'opis kupca 2'),(3,'adresa3',61111224,'opis kupca 3'),(4,'adresa4',61111225,'opis kupca 4'),(5,'adresa5',61111226,'opis kupca 5'),(6,'adresa6',61111227,'opis kupca 6'),(7,'adresa7',61111228,'opis kupca 7'),(8,'adresa8',61111229,'opis kupca 8'),(9,'adresa9',61111230,'opis kupca 9');
 /*!40000 ALTER TABLE `kupac` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,7 +111,7 @@ CREATE TABLE `narudzba` (
 
 LOCK TABLES `narudzba` WRITE;
 /*!40000 ALTER TABLE `narudzba` DISABLE KEYS */;
-INSERT INTO `narudzba` VALUES (1,3,1,2,1,NULL,5,'2016-08-08 00:00:00',NULL,NULL,NULL,'2016-08-08 00:07:00','dd'),(2,3,1,2,1,NULL,5,'2016-08-08 00:00:00',NULL,NULL,'2016-08-08 00:15:00',0,'dd'),(3,3,1,2,1,NULL,5,'2016-08-08 00:00:00',NULL,NULL,'2016-08-08 00:27:00',0,'dd'),(4,3,1,2,1,NULL,5,'2016-08-08 00:41:00',NULL,NULL,NULL,0,'dd'),(5,35,4,1,2,NULL,5,'2016-05-14 02:24:15',NULL,NULL,'2016-05-14 02:59:15',0,'Test opis prve narudzbe'),(6,16,5,1,2,NULL,5,'2016-05-14 02:35:29',NULL,NULL,NULL,0,'Opis TESTTTTT	'),(7,58.5,6,1,2,NULL,NULL,'2016-05-14 02:40:32',NULL,NULL,NULL,0,'Sve sa svim'),(8,32.4,7,1,2,NULL,NULL,'2016-05-14 02:42:11',NULL,NULL,NULL,0,'OPIS'),(9,9.975,8,1,2,NULL,NULL,'2016-05-14 02:44:15',NULL,NULL,NULL,0,'OPISISISISIIS'),(10,31.5,9,1,2,NULL,NULL,'2016-05-14 02:52:11',NULL,NULL,NULL,0,'ZADNJI TEST'),(11,15.675,10,1,2,NULL,NULL,'2016-05-14 02:55:29',NULL,NULL,NULL,0,'OPISISISISIS');
+INSERT INTO `narudzba` VALUES (1,3,1,2,1,NULL,5,'2016-08-08 00:00:00',NULL,NULL,NULL,2016,'dd'),(2,3,1,2,1,NULL,5,'2016-08-08 00:00:00',NULL,NULL,'2016-08-08 00:15:00',0,'dd'),(3,3,1,2,1,NULL,5,'2016-08-08 00:00:00',NULL,NULL,'2016-08-08 00:27:00',0,'dd'),(4,3,1,2,1,NULL,5,'2016-08-08 00:41:00',NULL,NULL,NULL,0,'dd'),(5,35,4,1,2,NULL,5,'2016-05-14 02:24:15',NULL,NULL,'2016-05-14 02:59:15',0,'Test opis prve narudzbe'),(6,16,5,1,2,NULL,5,'2016-05-14 02:35:29',NULL,NULL,NULL,0,'Opis TESTTTTT	'),(7,58.5,6,1,2,NULL,NULL,'2016-05-14 02:40:32',NULL,NULL,NULL,0,'Sve sa svim'),(8,32.4,7,1,2,NULL,NULL,'2016-05-14 02:42:11',NULL,NULL,NULL,0,'OPIS'),(9,9.975,8,1,2,NULL,NULL,'2016-05-14 02:44:15',NULL,NULL,NULL,0,'OPISISISISIIS'),(10,31.5,9,1,2,NULL,NULL,'2016-05-14 02:52:11',NULL,NULL,NULL,0,'ZADNJI TEST'),(11,15.675,10,1,2,NULL,NULL,'2016-05-14 02:55:29',NULL,NULL,NULL,0,'OPISISISISIS');
 /*!40000 ALTER TABLE `narudzba` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,10 +210,11 @@ CREATE TABLE `sastojak` (
   `naziv` varchar(50) NOT NULL,
   `opis` varchar(500) DEFAULT NULL,
   `mjernaJedinica` varchar(10) NOT NULL,
+  `izbrisan` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `naziv_UNIQUE` (`naziv`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -224,7 +223,7 @@ CREATE TABLE `sastojak` (
 
 LOCK TABLES `sastojak` WRITE;
 /*!40000 ALTER TABLE `sastojak` DISABLE KEYS */;
-INSERT INTO `sastojak` VALUES (1,'meso', 'telece', 'g'),(2,'krastavac', NULL, 'kriska'),(3,'kupus', NULL, 'list'),(4,'somun', NULL, 'kom'),(5,'paprika', NULL, 'kom'),(6,'luk', NULL, 'g'),(7,'paradajz', NULL, 'kriska'),(8,'majoneza', NULL, 'g'),(9,'kecap', NULL, 'g'),(10,'cilli', NULL, 'g'),(11,'biber', NULL, 'g');
+INSERT INTO `sastojak` VALUES (1,'meso','telece','g',0),(2,'krastavac',NULL,'kriska',0),(3,'kupus',NULL,'list',0),(4,'somun',NULL,'kom',0),(5,'paprika',NULL,'kom',0),(6,'luk','opis1','gproba',0),(7,'paradajz',NULL,'kriska',0),(8,'majoneza','g2','opis',0),(9,'kecap',NULL,'g',0),(10,'cilli',NULL,'g',0),(11,'biber',NULL,'g',1),(12,'novi','novisastojak','gram',0);
 /*!40000 ALTER TABLE `sastojak` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -245,7 +244,7 @@ CREATE TABLE `sastojci_jelo_veza` (
   KEY `fk_Sastojci_Jelo_Veza_Sastojak_index` (`SastojakId`),
   CONSTRAINT `fk_Sastojci_Jelo_Veza_Jelo` FOREIGN KEY (`JeloId`) REFERENCES `jelo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Sastojci_Jelo_Veza_Sastojak` FOREIGN KEY (`SastojakId`) REFERENCES `sastojak` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -254,6 +253,7 @@ CREATE TABLE `sastojci_jelo_veza` (
 
 LOCK TABLES `sastojci_jelo_veza` WRITE;
 /*!40000 ALTER TABLE `sastojci_jelo_veza` DISABLE KEYS */;
+INSERT INTO `sastojci_jelo_veza` VALUES (1,13,1,1),(2,13,2,0),(3,13,3,0),(4,13,4,0),(5,13,5,0),(6,13,6,0),(7,13,7,0),(8,13,8,0),(9,13,9,0),(10,13,10,0),(11,13,11,0);
 /*!40000 ALTER TABLE `sastojci_jelo_veza` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -322,4 +322,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-15 14:50:53
+-- Dump completed on 2016-05-17 10:39:20
