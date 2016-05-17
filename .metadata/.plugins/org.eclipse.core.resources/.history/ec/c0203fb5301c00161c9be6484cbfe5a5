@@ -1,5 +1,4 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface;
-
 import ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface.TelefonPocetnaGUI;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.*;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.*;
@@ -70,13 +69,14 @@ public class NovaNarudzbaGUI {
 	private JButton btnObraunaj;
 	private JButton btnNewButton;
 	private static Zaposlenik ja;
-	private TelefonPocetnaGUI tel = new TelefonPocetnaGUI();
+private TelefonPocetnaGUI tel=new TelefonPocetnaGUI();
 	private List<NarudzbaJeloVeza> njvLista;
 	private MaskFormatter telefon;
 	final static Logger logger = Logger.getLogger(NovaNarudzbaGUI.class);
 
-	// otvara novi prozor
 
+	// otvara novi prozor
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -90,7 +90,6 @@ public class NovaNarudzbaGUI {
 			}
 		});
 	}
-
 	public NovaNarudzbaGUI() {
 
 		lmodel = new DefaultListModel();
@@ -104,9 +103,10 @@ public class NovaNarudzbaGUI {
 		initialize();
 
 	}
-
+	
+	
 	public NovaNarudzbaGUI(Zaposlenik zap) {
-		ja = zap;
+ja=zap;
 		lmodel = new DefaultListModel();
 		cbmodel = new DefaultComboBoxModel();
 		kontroler = new NovaNarudzbaController();
@@ -119,23 +119,22 @@ public class NovaNarudzbaGUI {
 		frmInformacijeONarudbi.setVisible(true);
 
 	}
-
 	private void OdjaviSe() throws Exception {
 		try {
-
+			
 			frmInformacijeONarudbi.setVisible(false);
 			LoginGUI log = new LoginGUI();
-			// tel.Ugasi();
+			//tel.Ugasi();
 
 		} catch (Exception e) {
 			logger.info(e);
-			throw new Exception();
+			//throw new Exception();
 		}
 	}
 
 	// funkcija za prikaz svih jela u comboboxu iz baze
 	private void prikaziJela() {
-
+		
 		try {
 			List<Jelo> jela = kontroler.dajSvaJela();
 
@@ -143,8 +142,9 @@ public class NovaNarudzbaGUI {
 				cbmodel.addElement(i.getNaziv());
 			}
 		}
-
-		catch (Exception e) {
+		
+		catch(Exception e)
+		{
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			logger.info(e);
 		}
@@ -170,8 +170,8 @@ public class NovaNarudzbaGUI {
 		}
 
 		catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Molimo odaberite jelo i unesite ispravno količinu");
-			System.out.println(e.getCause().toString());
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			//System.out.println(e.getCause().toString());
 			logger.info(e);
 		}
 
@@ -208,7 +208,7 @@ public class NovaNarudzbaGUI {
 		double cijenaBezPopusta = 0;
 		double popust;
 		double ukupnaCijena = 0;
-
+		
 		try {
 			for (Jelo j : narucenaJela) {
 				cijenaBezPopusta += j.getCijena();
@@ -228,12 +228,13 @@ public class NovaNarudzbaGUI {
 			txtPopust.setText(Double.toString(popust) + "%");
 			txtUkupno.setText(Double.toString(ukupnaCijena));
 		}
-
-		catch (Exception e) {
+		
+		catch(Exception e)
+		{
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			logger.info(e);
 		}
-
+		
 	}
 
 	// provjerava da li je uneseno sve sto je potrebno za narudzbu
@@ -257,8 +258,7 @@ public class NovaNarudzbaGUI {
 			String broj = txtBrTelefona.getText();
 			int brojUIntu;
 			String[] parts = broj.split(Pattern.quote("-"));
-			brojUIntu = Integer.parseInt(parts[0]) * 1000000 + Integer.parseInt(parts[1]) * 1000
-					+ Integer.parseInt(parts[2]);
+			brojUIntu = Integer.parseInt(parts[0])*1000000+Integer.parseInt(parts[1])*1000+Integer.parseInt(parts[2]);
 			k.setBrojTelefona(brojUIntu);
 
 			nova.setZaposlenikByZaposlenikOsobaIdPrimalac(ja);
@@ -270,7 +270,7 @@ public class NovaNarudzbaGUI {
 			kontroler.spremiNovogKupca(k);
 			nova.setKupac(k);
 			kontroler.spremiNovuNarudzbu(nova);
-
+			
 			for (NarudzbaJeloVeza i : njvLista) {
 				i.setNarudzba(nova);
 				kontroler.spremiNarudzbaJeloVeza(i);
@@ -289,16 +289,17 @@ public class NovaNarudzbaGUI {
 	}
 
 	private void initialize() {
-
+		
 		prikaziJela();
-
+		
 		telefon = new MaskFormatter();
 		try {
 			telefon = new MaskFormatter("###-###-###");
 			telefon.setPlaceholderCharacter(' ');
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			logger.info(e);
 		}
 
 		frmInformacijeONarudbi = new JFrame();
@@ -311,10 +312,7 @@ public class NovaNarudzbaGUI {
 		panel.setBounds(10, 34, 423, 30);
 		frmInformacijeONarudbi.getContentPane().add(panel);
 		panel.setLayout(null);
-		JList list = new JList(lmodel);
-		list.setBorder(new LineBorder(new Color(0, 0, 0)));
-		list.setBounds(10, 100, 204, 89);
-		frmInformacijeONarudbi.getContentPane().add(list);
+
 		JLabel lblPretragaJela = new JLabel("Jelo:");
 		lblPretragaJela.setBounds(10, 0, 32, 27);
 		panel.add(lblPretragaJela);
@@ -345,7 +343,7 @@ public class NovaNarudzbaGUI {
 		panel.add(txtKolicina);
 		txtKolicina.setColumns(10);
 
-		JScrollPane listScrollPane = new JScrollPane(list);
+		JScrollPane listScrollPane = new JScrollPane();
 		listScrollPane.setBounds(10, 100, 204, 89);
 		frmInformacijeONarudbi.getContentPane().add(listScrollPane);
 

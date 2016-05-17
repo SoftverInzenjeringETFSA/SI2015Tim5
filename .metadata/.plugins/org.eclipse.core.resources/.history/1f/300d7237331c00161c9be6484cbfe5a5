@@ -345,7 +345,7 @@ public class NovaNarudzbaGUI {
 		panel.add(txtKolicina);
 		txtKolicina.setColumns(10);
 
-		JScrollPane listScrollPane = new JScrollPane(list);
+		JScrollPane listScrollPane = new JScrollPane();
 		listScrollPane.setBounds(10, 100, 204, 89);
 		frmInformacijeONarudbi.getContentPane().add(listScrollPane);
 
