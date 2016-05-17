@@ -70,12 +70,6 @@ public class UnosIzmjenaRadnikaController {
 		if(!sef.dodajNovi) ids=sef.vratiIzabranogRadnika();
 		try{
 			if (session.createCriteria(Zaposlenik.class).add(Restrictions.eq("id", ids)).setProjection(Projections.property("id")).uniqueResult() == null){
-				if( session.createCriteria(Zaposlenik.class).add(Restrictions.like("username", username).ignoreCase()).list().size()!=0){
-					JOptionPane.showMessageDialog(null, "Već postoji korisnik sa tim korisničkim imenom.");
-					session.close();
-
-					return false;}
-				
 				Zaposlenik z= new Zaposlenik();
 				z.setDatumRodenja(datum);
 				z.setUsername(username);
@@ -93,11 +87,6 @@ public class UnosIzmjenaRadnikaController {
 			
 	
 		else {
-			if( session.createCriteria(Zaposlenik.class).add(Restrictions.like("username", username).ignoreCase()).list().size()!=0){
-				JOptionPane.showMessageDialog(null, "Već postoji korisnik sa tim korisničkim imenom.");
-				session.close();
-
-				return false;}
 			Criteria criteria = session.createCriteria(Zaposlenik.class).add(Restrictions.eq("id", ids));
 			List<Zaposlenik> lista = criteria.list();
 			Zaposlenik z = lista.get(0);
