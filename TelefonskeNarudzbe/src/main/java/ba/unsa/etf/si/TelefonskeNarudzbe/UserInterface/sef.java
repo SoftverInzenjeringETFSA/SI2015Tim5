@@ -394,6 +394,10 @@ public class sef {
 					ocistiFormuOdTabela();
 					String dostavljac = new String();
 					dostavljac = kriterij.getText();
+					if(!ValidacijaController.jeLiDuzeOd3Slova(dostavljac)){
+						JOptionPane.showMessageDialog(null, "Ime dostavljaca mora biti duze od 3 slova");
+						return;
+					}
 					try {
 						Object[][] podaci_izvjestaj_1 = IzvjestajController.dajNaruzbePoDostavljacu(dostavljac);
 						String[] kolone_izvjestaj_1 = { "ID", "SPISAK JELA", "DATUM", "OPIS", "ODGOVORNA OSOBA",
