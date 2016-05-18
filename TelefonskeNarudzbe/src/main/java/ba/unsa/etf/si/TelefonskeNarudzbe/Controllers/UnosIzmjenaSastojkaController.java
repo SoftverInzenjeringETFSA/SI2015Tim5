@@ -18,6 +18,7 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Jelo;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Kupac;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.SastojciJeloVeza;
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
 import ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface.sef;
 
 public class UnosIzmjenaSastojkaController {
@@ -102,16 +103,45 @@ public class UnosIzmjenaSastojkaController {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction t= session.beginTransaction();
 		int ids =-1;
+		int ide=-1;
 		if(!sef.dodajNovi) ids=sef.vratiIzabraniSastojak();
+		boolean izbrisan=false;
+		if( session.createCriteria(Sastojak.class).add(Restrictions.like("naziv", naziv).ignoreCase()).list().size()!=0){
+			Sastojak postojeci= (Sastojak) session.createCriteria(Sastojak.class).add(Restrictions.like("naziv", naziv).ignoreCase()).list().get(0);
+			if(!postojeci.isIzbrisan())
+			{
+				JOptionPane.showMessageDialog(null, "Već postoji sastojak sa tim nazivom.");
+				session.close();
+				return false;
+			}
+			ide=postojeci.getId();
+			izbrisan=true;
+			}
 		
 		try{
 			if (session.createCriteria(Sastojak.class).add(Restrictions.eq("id", ids)).uniqueResult() == null){
-			System.out.println("Tu sam 1");
+				if(izbrisan){
+					Criteria criteria = session.createCriteria(Sastojak.class).add(Restrictions.like("id", ide));
+					List<Sastojak> lista = criteria.list();
+					Sastojak s = lista.get(0);
+					s.setIzbrisan(false);
+					s.setNaziv(naziv);
+					s.setOpis(opis);
+					s.setMjernaJedinica(mjernaJedinica);
+
+					session.update(s);		
+					t.commit();
+					session.close();
+					sef.refreshTabeleSastojci();
+					System.out.println("Sastojak je izmijenjen");
+					return true;
+				}
+				System.out.println("Tu sam 1");
 				Sastojak s = new Sastojak();
 				s.setNaziv(naziv);
 				s.setOpis(opis);
 				s.setMjernaJedinica(mjernaJedinica);
-				
+				s.setIzbrisan(false);
 				session.beginTransaction();
 				session.save(s);
 				session.getTransaction().commit();
@@ -121,10 +151,12 @@ public class UnosIzmjenaSastojkaController {
 			
 	
 		else {
+			
 			System.out.println("Tu sam 2");
 			Criteria criteria = session.createCriteria(Sastojak.class).add(Restrictions.like("id", ids));
 			List<Sastojak> lista = criteria.list();
 			Sastojak s = lista.get(0);
+			s.setIzbrisan(false);
 			s.setNaziv(naziv);
 			s.setOpis(opis);
 			s.setMjernaJedinica(mjernaJedinica);

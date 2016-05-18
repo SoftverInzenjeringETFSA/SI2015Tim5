@@ -103,7 +103,7 @@ public class UnosIzmjenaSastojka extends JFrame {
 				}
 				else
 				{
-				controller.izmjenaSastojka(naziv,opis,mjernaJedinica);
+				if(controller.izmjenaSastojka(naziv,opis,mjernaJedinica))
 				JOptionPane.showMessageDialog(null, "Uspjesno dodan/izmijenjen sastojak!");
 				textField.setText("");
 				textField_1.setText("");
@@ -197,8 +197,9 @@ public class UnosIzmjenaSastojka extends JFrame {
 				}
 				else
 				{
-				controller.izmjenaSastojka(naziv, opis,mjernaJedinica);
+				if(controller.izmjenaSastojka(naziv, opis,mjernaJedinica))
 				JOptionPane.showMessageDialog(null, "Uspjesno dodan/izmijenjen sastojak!");
+				
 				textField.setText("");
 				textField_1.setText("");
 				textArea.setText("");
