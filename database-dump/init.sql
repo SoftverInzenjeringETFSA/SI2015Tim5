@@ -21,9 +21,9 @@
 DROP SCHEMA IF EXISTS `si2015tim5` ;
 
 -- -----------------------------------------------------
--- Schema tim4
+-- Schema si2015tim5
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `si2015tim5 DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `si2015tim5` DEFAULT CHARACTER SET utf8 ;
 USE `si2015tim5` ;
 --
 -- Table structure for table `jelo`
