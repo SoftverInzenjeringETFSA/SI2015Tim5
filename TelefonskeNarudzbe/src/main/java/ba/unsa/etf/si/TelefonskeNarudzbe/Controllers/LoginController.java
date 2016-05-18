@@ -1,5 +1,9 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.Controllers;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -8,6 +12,7 @@ import Util.HibernateUtil;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
 
 public final class LoginController {
+	final static Logger logger = Logger.getLogger(LoginController.class);
 	
 	private static LoginController instance = null;
 	
@@ -46,7 +51,7 @@ public final class LoginController {
 	
 	private static void pocniLogin(String password) throws Exception {
 		try {
-			if (!zaposlenik.getPassword().equals(password))
+			if (!zaposlenik.getPassword().equals(kriptujPassword(password)))
 				throw new IllegalArgumentException("Pogrešan pw");
 		} catch (Exception ex) {
 			throw ex;
@@ -62,6 +67,26 @@ public final class LoginController {
 		sesija.close();
 	
 	}
+	 public static String kriptujPassword(String password)
+	    {
+	        String kriptovani = null;
+	        try {
+	            MessageDigest md = MessageDigest.getInstance("MD5");
+	            byte[] bytes = md.digest(password.getBytes());
+	             StringBuilder sb = new StringBuilder();
+	            for(int i=0; i< bytes.length ;i++)
+	            {
+	                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+	            }
+	            //Get complete hashed password in hex format
+	            kriptovani = sb.toString();
+	        }
+	        catch (NoSuchAlgorithmException e) {
+	            logger.info(e);
+	        }
+	        return kriptovani;
+	    }
+	}
 	
 
-}
+

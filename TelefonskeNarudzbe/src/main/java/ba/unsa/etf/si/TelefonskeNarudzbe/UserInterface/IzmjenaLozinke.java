@@ -8,13 +8,18 @@ import javax.swing.border.EmptyBorder;
 
 import org.apache.log4j.Logger;
 
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaRadnikaController;
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.awt.event.ActionEvent;
 
 public class IzmjenaLozinke extends JFrame {
@@ -35,7 +40,7 @@ public class IzmjenaLozinke extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IzmjenaLozinke frame = new IzmjenaLozinke();
+					IzmjenaLozinke frame = new IzmjenaLozinke(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					logger.info(e);
@@ -48,7 +53,7 @@ public class IzmjenaLozinke extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public IzmjenaLozinke() {
+	public IzmjenaLozinke(final Zaposlenik z) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -66,6 +71,22 @@ public class IzmjenaLozinke extends JFrame {
 		JButton btnPotvrdiIzmjene = new JButton("Potvrdi izmjene");
 		btnPotvrdiIzmjene.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (!Arrays.equals(passwordField_2.getPassword(), passwordField_1.getPassword())) {
+					JOptionPane.showMessageDialog(null, "passwordi se ne slazu!");
+					return;
+				}
+				if (passwordField_2.getPassword().length == 0 || passwordField_2.getPassword() == null) {
+					JOptionPane.showMessageDialog(null, "Popunite oba polja za password!");
+					return;
+				}
+				if (passwordField_1.getPassword().length == 0 || passwordField_1.getPassword() == null) {
+					JOptionPane.showMessageDialog(null, "Popunite oba polja za password!");
+					return;
+				}
+				char[] pass = passwordField_1.getPassword();
+				UnosIzmjenaRadnikaController r = new UnosIzmjenaRadnikaController();
+				String password = String.valueOf(pass);
+				r.izmijeniRadnika(z.getImePrezime(), z.getDatumRodenja().toString(), z.getUsername(), password, z.getRadnomjesto().getId(),z.getDodatneInformacije());
 				forma.dispose();
 			}
 		});

@@ -79,7 +79,8 @@ public class UnosIzmjenaRadnikaController {
 				Zaposlenik z= new Zaposlenik();
 				z.setDatumRodenja(datum);
 				z.setUsername(username);
-				z.setPassword(password);
+				String kriptovani = LoginController.kriptujPassword(password);
+				z.setPassword(kriptovani);
 				RadnoMjesto rm = vratiRadnoMjesto(radnoMjesto);
 				z.setRadnomjesto(rm);
 				z.setImePrezime(imePrezime);
@@ -105,7 +106,8 @@ public class UnosIzmjenaRadnikaController {
 			Zaposlenik z = lista.get(0);
 			z.setDatumRodenja(datum);
 			z.setUsername(username);
-			z.setPassword(password);
+			String kriptovani = LoginController.kriptujPassword(password);
+			z.setPassword(kriptovani);
 			RadnoMjesto rm = vratiRadnoMjesto(radnoMjesto);
 			z.setRadnomjesto(rm);
 			z.setImePrezime(imePrezime);

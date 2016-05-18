@@ -74,6 +74,7 @@ public class sef {
 	private UnosIzmjenaRadnika forma1;
 	private UnosIzmjenaRadnika forma2;
 	private UnosIzmjenaRadnika forma22;
+	private IzmjenaLozinke formaLozinka;
 	private UnosIzmjenaPopusta forma4;
 	private UnosIzmjenaPopusta forma5;
 	private UnosIzmjenaSastojka forma6;
@@ -718,12 +719,17 @@ public class sef {
 		btnIzmijeniSifru.addActionListener(new ActionListener() {
 			public final void actionPerformed(ActionEvent e) {
 				try {
-					dodajNovi = false;
+					/*dodajNovi = false;
 					int selected = table_1.getSelectedRow();
 					String username = (String) table_1.getValueAt(selected, 3);
 					Zaposlenik z = UnosIzmjenaRadnikaController.vratiRadnika(username);
 					forma22 = new UnosIzmjenaRadnika(z);
-					forma22.setVisible(true);
+					forma22.setVisible(true);*/
+					int selected = table_1.getSelectedRow();
+					String username = (String) table_1.getValueAt(selected, 3);
+					Zaposlenik z = UnosIzmjenaRadnikaController.vratiRadnika(username);
+					formaLozinka= new IzmjenaLozinke(z);
+					formaLozinka.setVisible(true);
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati radnika!");
 
