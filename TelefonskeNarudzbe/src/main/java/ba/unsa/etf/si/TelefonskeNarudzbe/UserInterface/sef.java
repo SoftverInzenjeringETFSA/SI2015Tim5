@@ -50,13 +50,13 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.ValidacijaController;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.KuharController;
 
 public class sef {
-	public static boolean dodajNovi = false;
-	private static JFrame frame;
-	private static JTable table;
-	private static JTable table_1;
-	private static JTable table_2;
-	private static JTable table_3 = new JTable();
-	private static JTable table_5;
+	public  boolean dodajNovi = false;
+	private  JFrame frame;
+	private  JTable table;
+	private  JTable table_1;
+	private  JTable table_2;
+	private  JTable table_3 = new JTable();
+	private  JTable table_5;
 	private JTable dostavljac_tbl = new JTable();
 	private JScrollPane scrollPane_dostavljac = new JScrollPane();
 	private JTable jelo_tbl = new JTable();
@@ -66,9 +66,9 @@ public class sef {
 	private JTable izvjestaj5_tbl = new JTable();
 	private JScrollPane scrollPane_izvjestaj5 = new JScrollPane();
 	private JScrollPane scrollPane_3 = new JScrollPane();
-	final static Logger logger = Logger.getLogger(sef.class);
+	final  Logger logger = Logger.getLogger(sef.class);
 	private String odabirIzvjestaja = new String();
-	private static sef window;
+	private  sef window;
 	private JButton dugmeGraficki;
 	private UnosIzmjenaJela forma;
 	private UnosIzmjenaJela forma3;
@@ -81,11 +81,12 @@ public class sef {
 	private UnosIzmjenaSastojka forma6;
 
 	private UnosIzmjenaSastojka forma7;
+	private IzvjestajController IzvjestajController = new IzvjestajController();
 
 	/**
 	 * Launch the application.
 	 */
-	public final static void main(String[] args) {
+	public void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -102,9 +103,9 @@ public class sef {
 	/**
 	 * Create the application.
 	 */
-	private static Zaposlenik logovani;
+	private Zaposlenik logovani;
 
-	public static Zaposlenik vratiLogovanog() {
+	public  Zaposlenik vratiLogovanog() {
 		return logovani;
 	}
 
@@ -119,7 +120,8 @@ public class sef {
 		frame.setVisible(true);
 	}
 
-	private final void Graficki() {
+	private  void Graficki() {
+		
 		Object[][] podaci = IzvjestajController.dajVremenaIsporuke();
 		final BarChart_AWT chart = new BarChart_AWT("Statistički izvještaj o vremenima isporuke", "", podaci);
 		chart.pack();
@@ -128,7 +130,7 @@ public class sef {
 
 	}
 
-	private final void OdjaviSe() throws Exception {
+	private void OdjaviSe() throws Exception {
 		try {
 			UnosIzmjenaPopustaController up = new UnosIzmjenaPopustaController();
 			if (forma != null) {
@@ -171,7 +173,7 @@ public class sef {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private final void initialize() {
+	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 1000, 700);
@@ -351,16 +353,17 @@ public class sef {
 					// datum kupljenje sa forme
 					String datumOdString = new String();
 					datumOdString = datumOd.getText();
-					if (IzvjestajController.validirajDatum(datumOdString) == false) {
+					ValidacijaController vc = new ValidacijaController();
+					if (vc.validirajDatum(datumOdString) == false) {
 						JOptionPane.showMessageDialog(frame, "Pogrešan datum od:");
 					}
 					String datumDoString = new String();
 					datumDoString = datumDo.getText();
-					if (IzvjestajController.validirajDatum(datumDoString) == false) {
+					if (vc.validirajDatum(datumDoString) == false) {
 						JOptionPane.showMessageDialog(frame, "Pogrešan datum do:");
 					}
-					if (IzvjestajController.validirajDatum(datumDoString)
-							&& IzvjestajController.validirajDatum(datumOdString)) {
+					if (vc.validirajDatum(datumDoString)
+							&& vc.validirajDatum(datumOdString)) {
 						try {
 							String[] kolone_izvjestaj_1 = { "ID", "SPISAK JELA", "DATUM", "OPIS", "ODGOVORNA OSOBA",
 									"ADRESA NARUČIOCA", "BROJ TELEFONA NARUČIOCA", "CIJENA" };
@@ -876,7 +879,7 @@ public class sef {
 		});
 	}
 
-	public final static void refreshTabelePopust() {
+	public void refreshTabelePopust() {
 		List<Popust> listaPopusta = UnosIzmjenaPopustaController.vratiSvePopuste();
 		String[] kolone_popust = { "Cijena od (KM)", "Cijena do (KM)", "Popust (%)" };
 		final DefaultTableModel tableModel4 = new DefaultTableModel(kolone_popust, 0);
@@ -893,7 +896,7 @@ public class sef {
 
 	}
 
-	public final static void refreshTabeleZaposlenici() {
+	public void refreshTabeleZaposlenici() {
 		UnosIzmjenaRadnikaController c = new UnosIzmjenaRadnikaController();
 		List<Zaposlenik> listaZaposlenika = c.vratiSveRadnike();
 		String[] kolone_radnici = { "Ime i prezime", "Datum rođenja", "Radno mjesto", "Korisničko ime", "Lozinka",
@@ -916,7 +919,7 @@ public class sef {
 		table_1.setModel(tableModel);
 	}
 
-	public final static void refreshTabeleJelo() {
+	public void refreshTabeleJelo() {
 
 		UnosIzmjenaJelaController jc = new UnosIzmjenaJelaController();
 		List<Jelo> listaJela = jc.vratiSvaJela();
@@ -936,7 +939,7 @@ public class sef {
 		table.setModel(tableModel2);
 	}
 
-	public final static void refreshTabeleSastojci() {
+	public void refreshTabeleSastojci() {
 
 		List<Sastojak> listaSastojaka = UnosIzmjenaSastojkaController.vratiSveSastojke();
 		String[] kolone_sastojci = { "Naziv", "Mjerna jedinica sastojka", "Opis" };
@@ -952,7 +955,7 @@ public class sef {
 
 	}
 
-	private final void ocistiFormuOdTabela() {
+	private void ocistiFormuOdTabela() {
 		table_3.setVisible(false);
 		dostavljac_tbl.setVisible(false);
 		scrollPane_dostavljac.setVisible(false);
@@ -965,7 +968,7 @@ public class sef {
 		scrollPane_izvjestaj5.setVisible(false);
 	}
 
-	public final static int vratiIzabraniSastojak() {
+	public int vratiIzabraniSastojak() {
 		int selected = table_2.getSelectedRow();
 		String naziv = (String) table_2.getValueAt(selected, 0);
 		Sastojak s = UnosIzmjenaSastojkaController.vratiSastojak(naziv);
@@ -973,7 +976,7 @@ public class sef {
 
 	}
 
-	public final static int vratiIzabraniPopust() {
+	public int vratiIzabraniPopust() {
 		int selected = table_5.getSelectedRow();
 		String cijenaOd = (String) table_5.getValueAt(selected, 0);
 		String cijenaDo = (String) table_5.getValueAt(selected, 1);
@@ -982,7 +985,7 @@ public class sef {
 
 	}
 
-	public final static int vratiIzabranoJelo() {
+	public int vratiIzabranoJelo() {
 		int selected = table.getSelectedRow();
 		String naziv = (String) table.getValueAt(selected, 0);
 		Jelo p = UnosIzmjenaJelaController.vratiJelo(naziv);
@@ -990,7 +993,7 @@ public class sef {
 
 	}
 
-	public final static int vratiIzabranogRadnika() {
+	public int vratiIzabranogRadnika() {
 		int selected = table_1.getSelectedRow();
 		String username = (String) table_1.getValueAt(selected, 3);
 		Zaposlenik s = UnosIzmjenaRadnikaController.vratiRadnika(username);

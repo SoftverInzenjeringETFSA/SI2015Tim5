@@ -24,14 +24,14 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.NarudzbaJeloVeza;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
 
 public class IzvjestajController {
-	private static Session s = null;
-	final static Logger logger = Logger.getLogger(IzvjestajController.class);
+	private Session s = null;
+	final Logger logger = Logger.getLogger(IzvjestajController.class);
 	
 	public IzvjestajController()
 	{
 	}
 	
-	public static Object[][] dajVremenaIsporuke(){
+	public  Object[][] dajVremenaIsporuke(){
 		s = HibernateUtil.getSessionFactory().openSession();
 		Criteria crit = s.createCriteria(Narudzba.class).add(Restrictions.isNotNull("vrijemeDostave"));
 	    List<Narudzba> narudzbe = crit.list();
@@ -95,7 +95,7 @@ public class IzvjestajController {
 		return zbir;
 	}
 	
-	public static Object[][] dajBrojNarudzbiPoJelu(String jelo) throws Exception
+	public Object[][] dajBrojNarudzbiPoJelu(String jelo) throws Exception
 	{
 		s = HibernateUtil.getSessionFactory().openSession();
 		List<Jelo> jela = s.createCriteria(Jelo.class)
@@ -114,7 +114,7 @@ public class IzvjestajController {
 	}
 	
 	//daje podatke na osnovu intervala
-	public static Object[][] dajNaruzbePoDatumu(String datumOdString, String datumDoString) throws Exception {
+	public Object[][] dajNaruzbePoDatumu(String datumOdString, String datumDoString) throws Exception {
 		DateFormat format = new SimpleDateFormat("dd.MM.yyyy.", Locale.ENGLISH);
 		Date datumOdStringBAZA = format.parse(datumOdString);
 		Date datumDoStringBAZA = format.parse(datumDoString);
@@ -127,7 +127,7 @@ public class IzvjestajController {
 	}
 	
 	//daje narudzbe po dostavljacu
-	public static Object[][] dajNaruzbePoDostavljacu(String ime) throws Exception {
+	public Object[][] dajNaruzbePoDostavljacu(String ime) throws Exception {
 		s = HibernateUtil.getSessionFactory().openSession();
 		Criteria crit = s.createCriteria(Zaposlenik.class)
 				.add(Restrictions.eq("imePrezime", ime));
@@ -142,7 +142,7 @@ public class IzvjestajController {
 	}
 	
 	//narudzbe po jelu
-	public static Object[][] dajNaruzbePoJelu(String jelo) throws Exception {
+	public Object[][] dajNaruzbePoJelu(String jelo) throws Exception {
 		s = HibernateUtil.getSessionFactory().openSession();
 		List<Jelo> jela = s.createCriteria(Jelo.class)
         		.add(Restrictions.eq("naziv", jelo))
@@ -162,7 +162,7 @@ public class IzvjestajController {
 	}
 
 	//daje sadržaj tabele za narudzbe po bilo kom kriteriju 
-	private static Object[][]  dajZaTabelu(List<Narudzba> lista)
+	private Object[][]  dajZaTabelu(List<Narudzba> lista)
 	{
 		Object[][] listaListi = new Object[lista.size()][8];
 		int i = 0;
@@ -187,7 +187,7 @@ public class IzvjestajController {
 	
 	
 	//daje jela iz jedne narudzbe (naziv+kolicina)
-	private static List<String> dajJelaNarudzbe(List<NarudzbaJeloVeza> veza)
+	private List<String> dajJelaNarudzbe(List<NarudzbaJeloVeza> veza)
 	{
 		List<String> narj = new ArrayList<String>();
 		for (NarudzbaJeloVeza o : veza)
@@ -207,7 +207,7 @@ public class IzvjestajController {
 	
 	
 	//treba dodati još validacije
-	public static Boolean validirajDatum(String datum){
+	public Boolean validirajDatum(String datum){
 		String[] parts = datum.split(Pattern.quote("."));
 		String dan = parts[0];
 		String mjesec = parts[1];

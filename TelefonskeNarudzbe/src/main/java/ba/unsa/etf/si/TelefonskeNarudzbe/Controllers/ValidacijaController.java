@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
@@ -76,5 +77,42 @@ public class ValidacijaController {
 		dobar = password.matches(".*[a-z].*");
 		if(!dobar) return false;
 		return dobar;
+	}
+	
+	public Boolean validirajDatum(String datum){
+		String[] parts = datum.split(Pattern.quote("."));
+		String dan = parts[0];
+		String mjesec = parts[1];
+		String godina = parts[2];
+		try {
+			int dd = Integer.parseInt(dan);
+			int mm = Integer.parseInt(mjesec);
+			int yyyy = Integer.parseInt(godina);
+			
+			if(mm == 1 || mm == 3 || mm == 05 || mm == 07 
+					|| mm == 8 || mm == 10 || mm == 12)
+			{
+				if(dd < 1 || dd> 31) return false; 
+			}
+		
+			if(mm == 4 || mm == 6 || mm == 9 || mm == 11)
+			{
+				if(dd < 1 || dd> 30) return false; 
+			}	
+			if(mm == 2)
+			{
+				if(dd < 1 || dd> 29) return false; 
+				if(dd == 29)
+				{
+					if(yyyy % 4 == 0 && yyyy % 100 != 0) return true;
+					if(yyyy % 4 == 0 && yyyy % 400 == 0) return true;
+					else return false;
+				}
+			}
+			return true;
+		} catch (Exception e) {
+			logger.info(e);
+			return false;
+		}
 	}
 }
