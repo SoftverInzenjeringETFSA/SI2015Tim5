@@ -113,7 +113,7 @@ public class UnosIzmjenaJelaController {
 							break;
 						}
 					}
-					if (listaKolicina.get(i) == 0.0)
+					if (listaKolicina.get(i).equals(0.0))
 						continue;
 					if (!postoji) {
 						session2.createCriteria(SastojciJeloVeza.class);
