@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import org.apache.log4j.Logger;
 
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaRadnikaController;
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.ValidacijaController;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Zaposlenik;
 
 import javax.swing.GroupLayout;
@@ -83,10 +84,17 @@ public class IzmjenaLozinke extends JFrame {
 					JOptionPane.showMessageDialog(null, "Popunite oba polja za password!");
 					return;
 				}
+				
 				char[] pass = passwordField_1.getPassword();
 				UnosIzmjenaRadnikaController r = new UnosIzmjenaRadnikaController();
 				String password = String.valueOf(pass);
-				r.izmijeniRadnika(z.getImePrezime(), z.getDatumRodenja().toString(), z.getUsername(), password, z.getRadnomjesto().getId(),z.getDodatneInformacije());
+				if(!ValidacijaController.validirajPassword(password)){
+					JOptionPane.showMessageDialog(null, "Password mora biti duzi od 8 znakova, i mora sadrzavati velika slova, mala slova i bar jedan broj!");
+					return;
+				}
+				if(r.izmijeniRadnika(z.getImePrezime(), z.getDatumRodenja().toString(), z.getUsername(), password, z.getRadnomjesto().getId(),z.getDodatneInformacije())){
+					JOptionPane.showMessageDialog(null, "Uspjesno promijenjena lozinka");
+				}
 				forma.dispose();
 			}
 		});

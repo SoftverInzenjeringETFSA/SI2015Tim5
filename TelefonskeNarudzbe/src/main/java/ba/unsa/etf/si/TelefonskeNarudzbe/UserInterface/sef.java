@@ -736,6 +736,7 @@ public class sef {
 					 * forma22 = new UnosIzmjenaRadnika(z);
 					 * forma22.setVisible(true);
 					 */
+					dodajNovi=false;
 					int selected = table_1.getSelectedRow();
 					String username = (String) table_1.getValueAt(selected, 3);
 					Zaposlenik z = UnosIzmjenaRadnikaController.vratiRadnika(username);

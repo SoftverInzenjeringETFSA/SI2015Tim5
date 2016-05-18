@@ -176,7 +176,12 @@ public class UnosIzmjenaRadnika extends JFrame {
 				}
 				String username = textField_1.getText();
 				char[] pass = passwordField.getPassword();
+				
 				String password = new String(pass);
+				if(!ValidacijaController.validirajPassword(password)){
+					JOptionPane.showMessageDialog(null, "Password mora biti duzi od 8 znakova, i mora sadrzavati velika slova, mala slova i bar jedan broj!");
+					return;
+				}
 				String imePrezime = textField.getText();
 				String opis = textArea.getText();
 				String datum = formattedTextField.getText();
@@ -299,13 +304,21 @@ public class UnosIzmjenaRadnika extends JFrame {
 					JOptionPane.showMessageDialog(null, "Popunite polje za password!");
 					return;
 				}
+				
 				if (passwordField_1.getPassword().length == 0 || passwordField_1.getPassword() == null) {
 					JOptionPane.showMessageDialog(null, "Isti password morate unijeti i u drugo polje!");
 					return;
 				}
+				
 				String username = textField_1.getText();
 				char[] pass = passwordField.getPassword();
 				String password = new String(pass);
+				
+				if(!ValidacijaController.validirajPassword(password)){
+					JOptionPane.showMessageDialog(null, "Password mora biti duzi od 8 znakova, i mora sadrzavati velika slova, mala slova i bar jedan broj!");
+					return;
+				}
+				
 				String imePrezime = textField.getText();
 				String opis = textArea.getText();
 				String datum = formattedTextField.getText();

@@ -66,4 +66,15 @@ public class ValidacijaController {
 			return true;
 		return false;
 	}
+	public static boolean validirajPassword(String password){
+		boolean dobar = true;
+		if(password.length()<8) return false;
+		dobar = password.matches(".*\\d+.*");
+		if(!dobar) return false;
+		dobar = password.matches(".*[A-Z].*");
+		if(!dobar) return false;
+		dobar = password.matches(".*[a-z].*");
+		if(!dobar) return false;
+		return dobar;
+	}
 }
