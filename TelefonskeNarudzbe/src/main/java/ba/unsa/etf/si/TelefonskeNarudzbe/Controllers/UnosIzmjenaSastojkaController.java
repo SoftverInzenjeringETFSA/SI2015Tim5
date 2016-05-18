@@ -66,8 +66,9 @@ public class UnosIzmjenaSastojkaController {
 		 Criteria criteria = sesija.createCriteria(SastojciJeloVeza.class);
 		 List<SastojciJeloVeza> lista=criteria.list();
 			List<SastojciJeloVeza> novalista=new ArrayList<SastojciJeloVeza>();
+			double epsilon=0.0001;
 			 for (int i=0; i<lista.size(); i++){
-				 if(lista.get(i).getJelo().getId()==jelo.getId() && lista.get(i).getKolicina()!=new Double(0.0))
+				 if(lista.get(i).getJelo().getId()==jelo.getId() && lista.get(i).getKolicina()-new Double(0.0)>epsilon)
 				 novalista.add(lista.get(i));
 		 }
 			 return novalista;
@@ -78,8 +79,9 @@ public class UnosIzmjenaSastojkaController {
 		 Criteria criteria = sesija.createCriteria(SastojciJeloVeza.class);
 		 List<SastojciJeloVeza> lista=criteria.list();
 			List<SastojciJeloVeza> novalista=new ArrayList<SastojciJeloVeza>();
+			double epsilon=0.0001;
 			 for (int i=0; i<lista.size(); i++){
-				 if(lista.get(i).getJelo().getId()==jelo.getId() && lista.get(i).getKolicina()!=new Double(0.0))
+				 if(lista.get(i).getJelo().getId()==jelo.getId() && lista.get(i).getKolicina()-new Double(0.0)>epsilon)
 				 novalista.add(lista.get(i));
 		 }
 				

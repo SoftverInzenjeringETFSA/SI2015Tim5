@@ -34,6 +34,7 @@ public class UnosIzmjenaSastojka extends JFrame {
 	private JTextField textField_1;
 	private UnosIzmjenaSastojka forma = this;
 	final static Logger logger = Logger.getLogger(UnosIzmjenaSastojka.class);
+
 	/**
 	 * Launch the application.
 	 */
@@ -45,15 +46,17 @@ public class UnosIzmjenaSastojka extends JFrame {
 					frame.setVisible(true);
 				} catch (Exception e) {
 					logger.info(e);
-					//e.printStackTrace();
+					// e.printStackTrace();
 				}
 			}
 		});
 	}
-	public void dajOkvir(){
+
+	public void dajOkvir() {
 		this.setVisible(false);
 		this.dispose();
 	}
+
 	/**
 	 * Create the frame.
 	 */
@@ -63,117 +66,104 @@ public class UnosIzmjenaSastojka extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
+
 		JLabel lblNaziv = new JLabel("Naziv:");
-		
+
 		textField = new JTextField();
 		textField.setColumns(10);
-		
+
 		JLabel lblMjernaJedinica = new JLabel("Mjerna jedinica:");
-		
+
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		
+
 		JLabel lblOpis = new JLabel("Opis:");
-		
+
 		final JTextArea textArea = new JTextArea();
-		
+
 		JButton btnNewButton = new JButton("Zavr\u0161i ure\u0111ivanje");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UnosIzmjenaSastojkaController controller = new UnosIzmjenaSastojkaController();
 				String naziv = textField.getText();
 				String mjernaJedinica = textField_1.getText();
-				String opis=textArea.getText();
-				if(naziv == null || naziv.isEmpty())
-				{
+				String opis = textArea.getText();
+				if (naziv == null || naziv.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Popunite polje naziv!");
-				}
-				else if (mjernaJedinica == null || mjernaJedinica.isEmpty())
-				{
+				} else if (mjernaJedinica == null || mjernaJedinica.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Popunite polje mjerna jedinica!");
-				}
-				else if (opis == null || opis.isEmpty())
-				{
+				} else if (opis == null || opis.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Popunite polje opis!");
-				}
-				else if(!ValidacijaController.manjeOd500(opis)){
+				} else if (!ValidacijaController.manjeOd500(opis)) {
 					JOptionPane.showMessageDialog(null, "Opis moze imati najvise 500 znakova!");
-					
-				}
-				else
-				{
-				if(controller.izmjenaSastojka(naziv,opis,mjernaJedinica))
-				JOptionPane.showMessageDialog(null, "Uspjesno dodan/izmijenjen sastojak!");
-				textField.setText("");
-				textField_1.setText("");
-				textArea.setText("");
-				setVisible(false); dispose();
+
+				} else {
+					if (controller.izmjenaSastojka(naziv, opis, mjernaJedinica)) {
+						JOptionPane.showMessageDialog(null, "Uspjesno dodan/izmijenjen sastojak!");
+					}
+					textField.setText("");
+					textField_1.setText("");
+					textArea.setText("");
+					setVisible(false);
+					dispose();
 				}
 			}
 		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblOpis)
-						.addComponent(lblNaziv)
-						.addComponent(lblMjernaJedinica))
-					.addGap(26)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(textArea)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(textField_1)
-									.addComponent(textField, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)))
-							.addContainerGap(82, Short.MAX_VALUE))))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(34)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNaziv))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblMjernaJedinica)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblOpis)
-						.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-					.addComponent(btnNewButton)
-					.addContainerGap())
-		);
+		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup().addContainerGap()
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING).addComponent(lblOpis)
+								.addComponent(lblNaziv).addComponent(lblMjernaJedinica))
+						.addGap(26)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+										.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 142,
+												GroupLayout.PREFERRED_SIZE)
+										.addContainerGap())
+								.addGroup(gl_contentPane.createSequentialGroup()
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addComponent(textArea)
+												.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+														.addComponent(textField_1).addComponent(textField,
+																GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)))
+										.addContainerGap(82, Short.MAX_VALUE)))));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup().addGap(34)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNaziv))
+						.addGap(18)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblMjernaJedinica)
+								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblOpis)
+								.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED, 32, Short.MAX_VALUE).addComponent(btnNewButton)
+						.addContainerGap()));
 		contentPane.setLayout(gl_contentPane);
 	}
+
 	public UnosIzmjenaSastojka(Sastojak s) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 402, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
+
 		JLabel lblNaziv = new JLabel("Naziv:");
-		
+
 		textField = new JTextField();
 		textField.setColumns(10);
 		textField.setText(s.getNaziv());
 		JLabel lblMjernaJedinica = new JLabel("Mjerna jedinica:");
-		
+
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
 		textField_1.setText(s.getMjernaJedinica());
 		JLabel lblOpis = new JLabel("Opis:");
-		
+
 		final JTextArea textArea = new JTextArea();
 		textArea.setText(s.getOpis());
 		JButton btnNewButton = new JButton("Zavr\u0161i ure\u0111ivanje");
@@ -182,73 +172,59 @@ public class UnosIzmjenaSastojka extends JFrame {
 				UnosIzmjenaSastojkaController controller = new UnosIzmjenaSastojkaController();
 				String naziv = textField.getText();
 				String mjernaJedinica = textField_1.getText();
-				String opis=textArea.getText();
-				if(naziv == null || naziv.isEmpty())
-				{
+				String opis = textArea.getText();
+				if (naziv == null || naziv.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Popunite polje naziv!");
-				}
-				else if (mjernaJedinica == null || mjernaJedinica.isEmpty())
-				{
+				} else if (mjernaJedinica == null || mjernaJedinica.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Popunite polje mjerna jedinica!");
-				}
-				else if (opis == null || opis.isEmpty())
-				{
+				} else if (opis == null || opis.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Popunite polje opis!");
-				}
-				else
-				{
-				if(controller.izmjenaSastojka(naziv, opis,mjernaJedinica))
-				JOptionPane.showMessageDialog(null, "Uspjesno dodan/izmijenjen sastojak!");
-				
-				textField.setText("");
-				textField_1.setText("");
-				textArea.setText("");
-				setVisible(false); dispose();
-				
+				} else {
+					if (UnosIzmjenaSastojkaController.izmjenaSastojka(naziv, opis, mjernaJedinica)) {
+						JOptionPane.showMessageDialog(null, "Uspjesno dodan/izmijenjen sastojak!");
+					}
+					textField.setText("");
+					textField_1.setText("");
+					textArea.setText("");
+					setVisible(false);
+					dispose();
+
 				}
 			}
 		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblOpis)
-						.addComponent(lblNaziv)
-						.addComponent(lblMjernaJedinica))
-					.addGap(26)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(textArea)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(textField_1)
-									.addComponent(textField, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)))
-							.addContainerGap(82, Short.MAX_VALUE))))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(34)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNaziv))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblMjernaJedinica)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblOpis)
-						.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-					.addComponent(btnNewButton)
-					.addContainerGap())
-		);
+		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup().addContainerGap()
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING).addComponent(lblOpis)
+								.addComponent(lblNaziv).addComponent(lblMjernaJedinica))
+						.addGap(26)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+										.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 142,
+												GroupLayout.PREFERRED_SIZE)
+										.addContainerGap())
+								.addGroup(gl_contentPane.createSequentialGroup()
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addComponent(textArea)
+												.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+														.addComponent(textField_1).addComponent(textField,
+																GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)))
+										.addContainerGap(82, Short.MAX_VALUE)))));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup().addGap(34)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNaziv))
+						.addGap(18)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblMjernaJedinica)
+								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblOpis)
+								.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED, 32, Short.MAX_VALUE).addComponent(btnNewButton)
+						.addContainerGap()));
 		contentPane.setLayout(gl_contentPane);
 	}
 
