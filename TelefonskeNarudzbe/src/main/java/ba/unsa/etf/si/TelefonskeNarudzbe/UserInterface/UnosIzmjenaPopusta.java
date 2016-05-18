@@ -123,9 +123,9 @@ public class UnosIzmjenaPopusta extends JFrame {
 					return;	
 				}
 				try{
-					double popust = Double.parseDouble(textField.getText());
+					int popust = Integer.parseInt(textField.getText());
 					if(popust<0){
-						JOptionPane.showMessageDialog(null, "Popust mora biti nenegativan broj!");
+						JOptionPane.showMessageDialog(null, "Popust mora biti nenegativan cijeli broj!");
 						return;
 					}
 					else if (popust>=100){
@@ -172,7 +172,7 @@ public class UnosIzmjenaPopusta extends JFrame {
 				catch(Exception ek)
 				{
 					logger.info(ek);
-					JOptionPane.showMessageDialog(null, "Popust mora biti nenegativan broj!");
+					JOptionPane.showMessageDialog(null, "Popust mora biti nenegativan cijeli broj!");
 					return;
 				}
 				
@@ -192,7 +192,8 @@ public class UnosIzmjenaPopusta extends JFrame {
 		
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setText(p.getIznos().toString());
+		
+		textField.setText(String.valueOf(p.getIznos()));
 		JButton btnNewButton = new JButton("Zavr\u0161i ure\u0111ivanje");
 		
 		
@@ -243,9 +244,9 @@ public class UnosIzmjenaPopusta extends JFrame {
 					return;	
 				}
 				try{
-					double popust = Double.parseDouble(textField.getText());
+					int popust = Integer.parseInt(textField.getText());
 					if(popust<0){
-						JOptionPane.showMessageDialog(null, "Popust mora biti nenegativan broj!");
+						JOptionPane.showMessageDialog(null, "Popust mora biti nenegativan cijeli broj!");
 						return;
 					}
 					else if (popust>=100){
@@ -289,7 +290,7 @@ public class UnosIzmjenaPopusta extends JFrame {
 				catch(Exception ek)
 				{
 					logger.info(ek);
-					JOptionPane.showMessageDialog(null, "Popust mora biti nenegativan broj!");
+					JOptionPane.showMessageDialog(null, "Popust mora biti nenegativan cijeli broj!");
 					return;
 				}
 				

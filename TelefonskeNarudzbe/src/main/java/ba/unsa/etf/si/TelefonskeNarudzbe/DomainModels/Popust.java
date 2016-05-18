@@ -25,7 +25,7 @@ public class Popust implements java.io.Serializable {
 	private Integer id;
 	private Double od;
 	private Double doo;
-	private Double iznos;
+	private int iznos;
 	
 
 	public Popust() {
@@ -65,12 +65,12 @@ public class Popust implements java.io.Serializable {
 	}
 
 	@Column(name = "iznos", nullable = false, precision = 22, scale = 0)
-	public Double getIznos() {
+	public int getIznos() {
 		return iznos;
 	}
 
 
-	public void setIznos(Double iznos) {
+	public void setIznos(int iznos) {
 		this.iznos = iznos;
 	}
 

@@ -68,7 +68,7 @@ public class NovaNarudzbaControllerTest extends TestCase {
 			popust = new Popust();
 			popust.setOd(50.0);
 			popust.setDoo(100.0);
-			popust.setIznos(20.0);
+			popust.setIznos(20);
 			s.save(popust);
 
 			kupac = new Kupac();

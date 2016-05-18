@@ -22,7 +22,7 @@ public class BrisanjePopusta {
 			Criteria criteria = session.createCriteria(Popust.class).add(Restrictions.eq("od", cijenaOd)).add(Restrictions.eq("doo", cijenaDo));
 			List<Popust> lista = criteria.list();
 			Popust p = lista.get(0);
-			p.setIznos(0.0);
+			p.setIznos(0);
 			t.commit();
 			session.close();
 
