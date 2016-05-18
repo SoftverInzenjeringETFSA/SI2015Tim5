@@ -168,7 +168,7 @@ CREATE TABLE `popust` (
 
 LOCK TABLES `popust` WRITE;
 /*!40000 ALTER TABLE `popust` DISABLE KEYS */;
-INSERT INTO `popust` VALUES (1,0,9,5),(2,10,19,10),(3,20,29,12.2),(4,30,39,21),(5,40,49,0),(6,50,10000,11);
+INSERT INTO `popust` VALUES (1,0,9,5),(2,10,50,10),(3,20,29,12.2),(4,30,39,21),(5,40,49,0),(6,50,10000,11);
 /*!40000 ALTER TABLE `popust` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -309,7 +309,7 @@ CREATE TABLE `zaposlenik` (
 
 LOCK TABLES `zaposlenik` WRITE;
 /*!40000 ALTER TABLE `zaposlenik` DISABLE KEYS */;
-INSERT INTO `zaposlenik` VALUES (1,'aissejfoi','ads','2014-5-5',1,NULL,NULL),(2,'dzanafer','pw','1994-12-25',1,'Dzana Feratovic','ccc'),(3,'ivona','emina','15/12/2009',2,'Ivona Ivkovic',''),(4,'admira','admira','12/12/1997',3,'Ivona Ivkovic','puuu'),(5,'emina','emina','1994-12-16',8,'Emina Huskic',NULL);
+INSERT INTO `zaposlenik` VALUES (1,'aissejfoi','ads','2014-5-5',1,NULL,NULL),(2,'dzanafer','62b82fc2ecfc846b911e978d33a9e14e','1994-12-25',1,'Dzana Feratovic','ccc'),(3,'ivona','nova','15/12/2009',2,'Ivona Ivkovic',''),(4,'admira','admira','12/12/1997',3,'Ivona Ivkovic','puuu'),(5,'emina','emina','1994-12-16',8,'Emina Huskic',NULL);
 /*!40000 ALTER TABLE `zaposlenik` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -322,4 +322,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-17 17:02:36
+-- Dump completed on 2016-05-18 12:31:47
