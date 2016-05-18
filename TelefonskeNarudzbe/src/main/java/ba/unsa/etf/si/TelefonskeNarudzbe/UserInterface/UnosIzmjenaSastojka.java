@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import org.apache.log4j.Logger;
 
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaSastojkaController;
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.ValidacijaController;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak;
 
 import javax.swing.JLabel;
@@ -95,6 +96,10 @@ public class UnosIzmjenaSastojka extends JFrame {
 				else if (opis == null || opis.isEmpty())
 				{
 					JOptionPane.showMessageDialog(null, "Popunite polje opis!");
+				}
+				else if(!ValidacijaController.manjeOd500(opis)){
+					JOptionPane.showMessageDialog(null, "Opis moze imati najvise 500 znakova!");
+					
 				}
 				else
 				{

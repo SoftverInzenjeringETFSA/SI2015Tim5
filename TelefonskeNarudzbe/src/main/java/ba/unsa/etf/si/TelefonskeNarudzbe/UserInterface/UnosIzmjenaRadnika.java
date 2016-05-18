@@ -12,6 +12,7 @@ import org.hibernate.Transaction;
 
 import Util.HibernateUtil;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaRadnikaController;
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.ValidacijaController;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Narudzba;
 
 import javax.swing.GroupLayout;
@@ -153,6 +154,18 @@ public class UnosIzmjenaRadnika extends JFrame {
 					JOptionPane.showMessageDialog(null, "Popunite polje za Korisnicko ime!");
 					return;
 				}
+				if(!ValidacijaController.manjeOd50(textField.getText())){
+					JOptionPane.showMessageDialog(null, "Ime i prezime moze imati najvise 50 znakova!");
+					return;
+				}
+				if(!ValidacijaController.manjeOd500(textArea.getText())){
+					JOptionPane.showMessageDialog(null, "Opis moze imati najvise 500 znakova!");
+					return;
+				}
+				if(!ValidacijaController.jeLiDuzeOd3Slova(textField.getText())){
+					JOptionPane.showMessageDialog(null, "Ime i prezime mora imati vise od 3 znaka!");
+					return;
+				}
 				if (passwordField.getPassword().length == 0 || passwordField.getPassword() == null) {
 					JOptionPane.showMessageDialog(null, "Popunite polje za password!");
 					return;
@@ -260,6 +273,18 @@ public class UnosIzmjenaRadnika extends JFrame {
 				}
 				if (textField.getText().isEmpty() || textField.getText() == null) {
 					JOptionPane.showMessageDialog(null, "Popunite polje za ime i prezime!");
+					return;
+				}
+				if(!ValidacijaController.manjeOd50(textField.getText())){
+					JOptionPane.showMessageDialog(null, "Ime i prezime moze imati najvise 50 znakova!");
+					return;
+				}
+				if(!ValidacijaController.manjeOd500(textArea.getText())){
+					JOptionPane.showMessageDialog(null, "Opis moze imati najvise 500 znakova!");
+					return;
+				}
+				if(!ValidacijaController.jeLiDuzeOd3Slova(textField.getText())){
+					JOptionPane.showMessageDialog(null, "Ime i prezime mora imati vise od 3 znaka!");
 					return;
 				}
 				if (formattedTextField.getText().isEmpty() || formattedTextField.getText() == null) {

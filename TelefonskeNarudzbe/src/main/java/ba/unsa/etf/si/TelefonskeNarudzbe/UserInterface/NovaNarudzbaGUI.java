@@ -229,7 +229,7 @@ if(provjeriJelSveUpisano2()==false) {JOptionPane.showMessageDialog(null, "Popuni
 
 			ukupnaCijena = cijenaBezPopusta - cijenaBezPopusta * popust / 100;
 
-			txtCijena.setText(Double.toString(cijenaBezPopusta));
+			txtCijena.setText(ValidacijaController.vratiDecimalan(cijenaBezPopusta));
 			txtPopust.setText(Double.toString(popust) + "%");
 			txtUkupno.setText(Double.toString(ukupnaCijena));
 		}
@@ -279,6 +279,10 @@ if(provjeriJelSveUpisano2()==false) {JOptionPane.showMessageDialog(null, "Popuni
 			nova.setCijena(Double.parseDouble(txtUkupno.getText()));
 			nova.setStatus(1);
 			nova.setVrijemePrijema(new Date(System.currentTimeMillis()));
+			if(!ValidacijaController.manjeOd500(txtDodatneInformacije.getText()) || !ValidacijaController.manjeOd500(txtAdresa.getText()) || !ValidacijaController.manjeOd500(txtInformacije.getText())){
+				//JOptionPane.showMessageDialog(null, "Opis ne smije imati preko 500 znakova!");
+				return false;
+			}
 			nova.setOpis(txtDodatneInformacije.getText());
 
 			kontroler.spremiNovogKupca(k);

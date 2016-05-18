@@ -1,5 +1,6 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Window;
 
@@ -13,6 +14,7 @@ import org.jboss.logging.Logger;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaJelaController;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaPopustaController;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaSastojkaController;
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.ValidacijaController;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Jelo;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.SastojciJeloVeza;
@@ -25,6 +27,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -124,7 +128,17 @@ public class UnosIzmjenaJela extends JFrame {
 					JOptionPane.showMessageDialog(null, "Cijena mora biti nenegativan broj!");
 					return;
 				}
+				
+				cijena = ValidacijaController.zaokruziNa2(cijena);
+				if(!ValidacijaController.jeLiDuzeOd3Slova(naziv)){
+					JOptionPane.showMessageDialog(null, "Naziv jela mora imati barem 3 slova!");
+					return;
+				}
 				String opis = textArea.getText();
+				if(!ValidacijaController.manjeOd500(opis)){
+					JOptionPane.showMessageDialog(null, "Opis jela moze imati maksimalno 500 znakova!");
+					return;
+				}
 				ArrayList<String> sastojakNaziv = new ArrayList<String>();
 				ArrayList<Double> sastojakKolicina = new ArrayList<Double>();
 				ArrayList<Sastojak> sastojci = new ArrayList<Sastojak>();
@@ -271,8 +285,27 @@ public class UnosIzmjenaJela extends JFrame {
 		textField.setText(j.getNaziv());
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setText(String.valueOf(j.getCijena()));
-		
+		textField_1.setText(ValidacijaController.vratiDecimalan(j.getCijena()));
+		textField_1.addFocusListener(new FocusListener() {            
+	        public void focusLost(FocusEvent arg0) {
+	        	try{
+	        		String t = textField_1.getText();
+	        		Double broj = Double.parseDouble(t);
+	        	//	Double d = ValidacijaController.zaokruziNa2(broj);
+	        		textField_1.setText(ValidacijaController.vratiDecimalan(broj));
+	        	  
+	          }
+	        	catch(Exception e){
+	        		logger.info(e);
+	        		textField_1.setBackground(Color.red);
+	        	}
+	        }
+
+	        public void focusGained(FocusEvent arg0) {
+	           textField_1.setBackground(Color.white);
+
+	        };
+	    });
 		JLabel lblNazivJela = new JLabel("Naziv jela:");
 
 		JLabel lblCijenakm = new JLabel("Cijena (KM):");
@@ -292,7 +325,17 @@ public class UnosIzmjenaJela extends JFrame {
 					JOptionPane.showMessageDialog(null, "Cijena mora biti nenegativan broj!");
 					return;
 				}
+				cijena = ValidacijaController.zaokruziNa2(cijena);
 				String opis = textArea.getText();
+				if(!ValidacijaController.jeLiDuzeOd3Slova(naziv)){
+					JOptionPane.showMessageDialog(null, "Naziv jela mora imati vise od 3 slova!");
+					return;
+				}
+				if (!ValidacijaController.manjeOd500(opis))
+				{
+					JOptionPane.showMessageDialog(null, "Opis moze imati najvise 500 znakova!");
+					return;
+				}
 				ArrayList<String> sastojakNaziv = new ArrayList<String>();
 				ArrayList<Double> sastojakKolicina = new ArrayList<Double>();
 				ArrayList<Sastojak> sastojci = new ArrayList<Sastojak>();

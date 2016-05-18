@@ -46,6 +46,7 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaJelaController;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaPopustaController;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaRadnikaController;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.UnosIzmjenaSastojkaController;
+import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.ValidacijaController;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.KuharController;
 
 public class sef {
@@ -513,7 +514,7 @@ public class sef {
 				continue;
 			Object[] o = new Object[3];
 			o[0] = j.getNaziv();
-			o[1] = j.getCijena();
+			o[1] = ValidacijaController.vratiDecimalan(j.getCijena());
 			o[2] = UnosIzmjenaSastojkaController.vratiSastojkeJela(j);
 			tableModel2.addRow(o);
 		}
@@ -914,7 +915,7 @@ public class sef {
 				continue;
 			Object[] o = new Object[3];
 			o[0] = j.getNaziv();
-			o[1] = j.getCijena();
+			o[1] = ValidacijaController.vratiDecimalan(j.getCijena());
 			o[2] = UnosIzmjenaSastojkaController.vratiSastojkeJela(j);
 			tableModel2.addRow(o);
 		}
