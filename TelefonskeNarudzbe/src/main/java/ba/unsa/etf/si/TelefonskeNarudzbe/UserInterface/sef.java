@@ -102,7 +102,11 @@ public class sef {
 	/**
 	 * Create the application.
 	 */
-	private Zaposlenik logovani;
+	private static Zaposlenik logovani;
+
+	public static Zaposlenik vratiLogovanog() {
+		return logovani;
+	}
 
 	public sef() {
 		initialize();
@@ -394,7 +398,7 @@ public class sef {
 					ocistiFormuOdTabela();
 					String dostavljac = new String();
 					dostavljac = kriterij.getText();
-					if(!ValidacijaController.jeLiDuzeOd3Slova(dostavljac)){
+					if (!ValidacijaController.jeLiDuzeOd3Slova(dostavljac)) {
 						JOptionPane.showMessageDialog(null, "Ime dostavljaca mora biti duze od 3 slova");
 						return;
 					}
@@ -524,7 +528,7 @@ public class sef {
 		}
 		table = new JTable(tableModel2);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
+
 		table.setBounds(10, 11, 671, 275);
 		table.getColumn("Cijena(KM)").setMaxWidth(70);
 
@@ -606,7 +610,7 @@ public class sef {
 
 		JScrollPane scrollPane_2 = new JScrollPane(table_2);
 		table_2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
+
 		scrollPane_2.setBounds(10, 11, 969, 552);
 		SastojciTab.add(scrollPane_2);
 
@@ -679,7 +683,7 @@ public class sef {
 
 		table_1 = new JTable(tableModel);
 		table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
+
 		tabbedPane.addTab("Korisni\u010Dki ra\u010Duni", null, KorisniciTab, null);
 		KorisniciTab.setLayout(null);
 		table_1.setBounds(1, 26, 450, 48);
@@ -724,16 +728,18 @@ public class sef {
 		btnIzmijeniSifru.addActionListener(new ActionListener() {
 			public final void actionPerformed(ActionEvent e) {
 				try {
-					/*dodajNovi = false;
+					/*
+					 * dodajNovi = false; int selected =
+					 * table_1.getSelectedRow(); String username = (String)
+					 * table_1.getValueAt(selected, 3); Zaposlenik z =
+					 * UnosIzmjenaRadnikaController.vratiRadnika(username);
+					 * forma22 = new UnosIzmjenaRadnika(z);
+					 * forma22.setVisible(true);
+					 */
 					int selected = table_1.getSelectedRow();
 					String username = (String) table_1.getValueAt(selected, 3);
 					Zaposlenik z = UnosIzmjenaRadnikaController.vratiRadnika(username);
-					forma22 = new UnosIzmjenaRadnika(z);
-					forma22.setVisible(true);*/
-					int selected = table_1.getSelectedRow();
-					String username = (String) table_1.getValueAt(selected, 3);
-					Zaposlenik z = UnosIzmjenaRadnikaController.vratiRadnika(username);
-					formaLozinka= new IzmjenaLozinke(z);
+					formaLozinka = new IzmjenaLozinke(z);
 					formaLozinka.setVisible(true);
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati radnika!");
@@ -750,10 +756,11 @@ public class sef {
 				try {
 					int selected = table_1.getSelectedRow();
 					String imePrezime = (String) table_1.getValueAt(selected, 0);
-					BrisanjeRadnika.BrisiRadnika(imePrezime);
-					((DefaultTableModel) table_1.getModel()).fireTableDataChanged();
-					table_1.repaint();
-					((DefaultTableModel) table_1.getModel()).removeRow(selected);
+					if (BrisanjeRadnika.BrisiRadnika(imePrezime)) {
+						((DefaultTableModel) table_1.getModel()).fireTableDataChanged();
+						table_1.repaint();
+						((DefaultTableModel) table_1.getModel()).removeRow(selected);
+					}
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati radnika!");
 
@@ -784,7 +791,7 @@ public class sef {
 
 		table_5 = new JTable(tableModel4);
 		table_5.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
+
 		JScrollPane scrollPane_5 = new JScrollPane(table_5);
 		scrollPane_5.setBounds(10, 11, 969, 475);
 		PopustiTab.add(scrollPane_5);
@@ -805,20 +812,20 @@ public class sef {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public final void actionPerformed(ActionEvent e) {
 				try {
-				dodajNovi = false;
-				int selected = table_5.getSelectedRow();
-				String cijenaOd = String.valueOf(table_5.getValueAt(selected, 0));
-				String cijenaDo = String.valueOf(table_5.getValueAt(selected, 1));
-				Popust p = UnosIzmjenaPopustaController.vratiPopust(cijenaOd, cijenaDo);
-				forma5 = new UnosIzmjenaPopusta(p);
-				((DefaultTableModel) table_5.getModel()).fireTableChanged(null);
-				table_5.repaint();
-				forma5.setVisible(true);
-			} catch (Exception ee) {
-				JOptionPane.showMessageDialog(null, "Morate odabrati popust!");
+					dodajNovi = false;
+					int selected = table_5.getSelectedRow();
+					String cijenaOd = String.valueOf(table_5.getValueAt(selected, 0));
+					String cijenaDo = String.valueOf(table_5.getValueAt(selected, 1));
+					Popust p = UnosIzmjenaPopustaController.vratiPopust(cijenaOd, cijenaDo);
+					forma5 = new UnosIzmjenaPopusta(p);
+					((DefaultTableModel) table_5.getModel()).fireTableChanged(null);
+					table_5.repaint();
+					forma5.setVisible(true);
+				} catch (Exception ee) {
+					JOptionPane.showMessageDialog(null, "Morate odabrati popust!");
 
-			}
-				
+				}
+
 			}
 		});
 		btnNewButton_1.setBounds(399, 537, 139, 30);
@@ -828,15 +835,16 @@ public class sef {
 		btnIzbriiPopust.addActionListener(new ActionListener() {
 			public final void actionPerformed(ActionEvent e) {
 				try {
-				int selected = table_5.getSelectedRow();
-				Double cijenaOd = Double.parseDouble(table_5.getValueAt(selected, 0).toString());
-				Double cijenaDo = Double.parseDouble(table_5.getValueAt(selected, 1).toString());
-				BrisanjePopusta bp = new BrisanjePopusta();
-				bp.BrisiPopust(cijenaOd, cijenaDo);
-				tableModel4.fireTableDataChanged();
-				((DefaultTableModel) table_5.getModel()).removeRow(selected);
+					int selected = table_5.getSelectedRow();
+					Double cijenaOd = Double.parseDouble(table_5.getValueAt(selected, 0).toString());
+					Double cijenaDo = Double.parseDouble(table_5.getValueAt(selected, 1).toString());
+					BrisanjePopusta bp = new BrisanjePopusta();
+					bp.BrisiPopust(cijenaOd, cijenaDo);
+					tableModel4.fireTableDataChanged();
+					((DefaultTableModel) table_5.getModel()).removeRow(selected);
 
-				table_5.repaint();} catch (Exception ee) {
+					table_5.repaint();
+				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati popust!");
 
 				}
