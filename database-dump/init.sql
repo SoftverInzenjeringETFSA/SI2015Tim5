@@ -15,6 +15,13 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+DROP SCHEMA IF EXISTS `si2015tim5` ;
+
+-- -----------------------------------------------------
+-- Schema si2015tim5
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `si2015tim5` DEFAULT CHARACTER SET utf8 ;
+USE `si2015tim5` ;
 --
 -- Table structure for table `jelo`
 --
