@@ -201,6 +201,7 @@ public class UnosIzmjenaPopusta extends JFrame {
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"0-9KM", "10-19KM", "20-29KM", "30-39KM", "40-49KM", ">=50KM"}));
 		comboBox.setEditable(false);
 		comboBox.setSelectedIndex((int) (p.getOd()/10));
+		comboBox.setEnabled(false);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)

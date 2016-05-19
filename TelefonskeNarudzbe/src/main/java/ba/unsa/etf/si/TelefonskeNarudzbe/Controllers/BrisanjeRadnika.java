@@ -26,7 +26,7 @@ public class BrisanjeRadnika {
 					.add(Restrictions.like("imePrezime", imePrezime).ignoreCase());
 			List<Zaposlenik> lista = criteria.list();
 			Zaposlenik z = lista.get(0);
-			if (z.getImePrezime().equals(logovani.getImePrezime())) {
+			if (z.getId()==logovani.getId()) {
 				JOptionPane.showMessageDialog(null, "Nije moguce izbrisati svoj nalog!");
 				return false;
 			}

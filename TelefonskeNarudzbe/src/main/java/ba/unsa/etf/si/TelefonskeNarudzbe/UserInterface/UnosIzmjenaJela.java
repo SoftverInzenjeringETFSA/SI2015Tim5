@@ -443,7 +443,14 @@ public class UnosIzmjenaJela extends JFrame {
 						.addComponent(btnZavriUreivanje).addGap(44)));
 
 	
-		DefaultTableModel model = new DefaultTableModel();
+		DefaultTableModel model = new DefaultTableModel(){
+			  @Override
+			    public boolean isCellEditable(int row, int column) {
+			       //all cells false
+			       if(column==0) return false;
+			       return true;
+			    }
+		};
 		Jelo jelo=UnosIzmjenaJelaController.vratiJelo(textField.getText().toString());
 		List<SastojciJeloVeza> sjv= UnosIzmjenaSastojkaController.vratiKolicineSastojakaJela(jelo);
 		
