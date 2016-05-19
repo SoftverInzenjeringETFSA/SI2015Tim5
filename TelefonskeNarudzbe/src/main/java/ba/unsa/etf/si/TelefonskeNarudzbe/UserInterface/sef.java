@@ -390,8 +390,7 @@ public class sef {
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							JOptionPane.showMessageDialog(frame, "Ne postoje narudzbe u tom periodu!");
-
-							e1.printStackTrace();
+							logger.info(e1);
 						}
 					}
 				}
@@ -572,7 +571,7 @@ public class sef {
 					forma.setVisible(true);
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati jelo!");
-
+					logger.info(e);
 				}
 			}
 		});
@@ -590,7 +589,7 @@ public class sef {
 					((DefaultTableModel) table.getModel()).removeRow(selected);
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati jelo!");
-
+					logger.info(e);
 				}
 			}
 		});
@@ -652,7 +651,7 @@ public class sef {
 					forma7.setVisible(true);
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati sastojak!");
-
+					logger.info(ee);
 				}
 			}
 		});
@@ -671,7 +670,7 @@ public class sef {
 					refreshTabeleJelo();
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati sastojak!");
-
+					logger.info(ee);
 				}
 			}
 		});
@@ -739,7 +738,7 @@ public class sef {
 					forma2.setVisible(true);
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati radnika!");
-
+					logger.info(ee);
 				}
 			}
 		});
@@ -766,7 +765,7 @@ public class sef {
 					formaLozinka.setVisible(true);
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati radnika!");
-
+					logger.info(ee);
 				}
 			}
 		});
@@ -786,7 +785,7 @@ public class sef {
 					}
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati radnika!");
-
+					logger.info(ee);
 				}
 			}
 
@@ -852,7 +851,7 @@ public class sef {
 					forma5.setVisible(true);
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati popust!");
-
+					logger.info(ee);
 				}
 
 			}
@@ -875,7 +874,7 @@ public class sef {
 					table_5.repaint();
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati popust!");
-
+					logger.info(ee);
 				}
 			}
 		});

@@ -316,7 +316,7 @@ if(provjeriJelSveUpisano2()==false) {JOptionPane.showMessageDialog(null, "Popuni
 			telefon.setPlaceholderCharacter(' ');
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.info(e);
 		}
 
 		frmInformacijeONarudbi = new JFrame();

@@ -84,56 +84,56 @@ public class UnosIzmjenaRadnika extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public UnosIzmjenaRadnika(final sef Sef) {
+	public UnosIzmjenaRadnika(final sef Sef) { 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 478, 453);
+		setBounds(100, 100, 518, 453);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
 		JLabel lblImeIPrezime = new JLabel("Ime i prezime:");
-		lblImeIPrezime.setBounds(65, 33, 67, 14);
+		lblImeIPrezime.setBounds(65, 33, 100, 14);
 
 		textField = new JTextField();
-		textField.setBounds(182, 30, 265, 20);
+		textField.setBounds(192, 30, 265, 20);
 		textField.setColumns(10);
 
 		JLabel lblDatumRoenja = new JLabel("Datum ro\u0111enja:");
-		lblDatumRoenja.setBounds(57, 71, 75, 14);
+		lblDatumRoenja.setBounds(57, 71, 108, 14);
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		final JFormattedTextField formattedTextField = new JFormattedTextField(format);
-		formattedTextField.setBounds(182, 68, 265, 20);
+		formattedTextField.setBounds(192, 63, 265, 20);
 		JLabel lblRadnoMjesto = new JLabel("Radno mjesto:");
-		lblRadnoMjesto.setBounds(62, 122, 70, 14);
+		lblRadnoMjesto.setBounds(62, 122, 103, 14);
 
 		final JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(182, 119, 265, 20);
+		comboBox.setBounds(192, 119, 265, 20);
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Sef", "Radnik na telefonu", "Kuhar", "Dostavlja\u010D" }));
 
 		JLabel lblNewLabel = new JLabel("Dodatne informacije:");
-		lblNewLabel.setBounds(32, 258, 100, 14);
+		lblNewLabel.setBounds(32, 258, 133, 14);
 
 		JLabel lblKorisnikoIme = new JLabel("Korisni\u010Dko ime:");
-		lblKorisnikoIme.setBounds(62, 160, 70, 14);
+		lblKorisnikoIme.setBounds(62, 160, 103, 14);
 
 		textField_1 = new JTextField();
-		textField_1.setBounds(182, 157, 265, 20);
+		textField_1.setBounds(192, 157, 265, 20);
 		textField_1.setColumns(10);
 
 		JLabel lblifra = new JLabel("Lozinka:");
-		lblifra.setBounds(93, 192, 39, 14);
+		lblifra.setBounds(93, 192, 72, 14);
 
 		passwordField = new JPasswordField();
-		passwordField.setBounds(182, 189, 265, 20);
+		passwordField.setBounds(192, 189, 265, 20);
 
 		JLabel lblPotvrdaLozinke = new JLabel("Potvrda lozinke:");
-		lblPotvrdaLozinke.setBounds(55, 223, 77, 14);
+		lblPotvrdaLozinke.setBounds(55, 223, 110, 14);
 
 		passwordField_1 = new JPasswordField();
-		passwordField_1.setBounds(182, 220, 265, 20);
+		passwordField_1.setBounds(192, 220, 265, 20);
 
 		final JTextArea textArea = new JTextArea();
-		textArea.setBounds(182, 258, 265, 99);
+		textArea.setBounds(192, 265, 265, 99);
 		JButton btnNewButton = new JButton("Zavr\u0161i ure\u0111ivanje");
 		btnNewButton.setBounds(178, 375, 154, 23);
 		btnNewButton.addActionListener(new ActionListener() {
@@ -205,7 +205,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("Datum mora biti u formatu dd/MM/yyyy");
-		lblNewLabel_1.setBounds(182, 96, 265, 14);
+		lblNewLabel_1.setBounds(192, 94, 265, 14);
 		lblNewLabel_1.setForeground(Color.RED);
 		contentPane.add(lblNewLabel_1);
 		contentPane.add(btnNewButton);
@@ -228,7 +228,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 
 	public UnosIzmjenaRadnika(Zaposlenik z, final int dodajNovi, final sef Sef) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 478, 453);
+		setBounds(100, 100, 502, 453);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -340,62 +340,71 @@ public class UnosIzmjenaRadnika extends JFrame {
 		});
 
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane
-				.setHorizontalGroup(
-						gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup().addContainerGap(150, Short.MAX_VALUE)
-										.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 154,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(125))
-								.addGroup(gl_contentPane.createSequentialGroup().addGap(27)
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-												.addComponent(lblNewLabel).addComponent(lblPotvrdaLozinke)
-												.addComponent(lblifra).addComponent(lblKorisnikoIme)
-												.addComponent(lblRadnoMjesto).addComponent(lblDatumRoenja)
-												.addComponent(lblImeIPrezime))
-										.addGap(50)
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-												.addComponent(textField, GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-												.addComponent(formattedTextField, 242, 242, Short.MAX_VALUE)
-												.addComponent(comboBox, 0, 242, Short.MAX_VALUE)
-												.addComponent(textField_1, GroupLayout.DEFAULT_SIZE, 242,
-														Short.MAX_VALUE)
-												.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 242,
-														Short.MAX_VALUE)
-												.addComponent(passwordField_1, GroupLayout.DEFAULT_SIZE, 242,
-														Short.MAX_VALUE))
-										.addContainerGap()));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup().addGap(25)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblImeIPrezime)
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblDatumRoenja)
-								.addComponent(formattedTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblRadnoMjesto)
-								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblKorisnikoIme).addComponent(textField_1, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblifra)
-								.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblPotvrdaLozinke)
-								.addComponent(passwordField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblNewLabel)
-								.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.RELATED, 103, Short.MAX_VALUE).addComponent(btnNewButton)
-						.addContainerGap()));
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(197, Short.MAX_VALUE)
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
+					.addGap(125))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(lblPotvrdaLozinke, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(lblifra, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(lblKorisnikoIme, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(lblRadnoMjesto, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(lblDatumRoenja, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+								.addComponent(lblImeIPrezime, GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+								.addPreferredGap(ComponentPlacement.RELATED)))
+						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE))
+					.addGap(50)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+						.addComponent(textField, GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+						.addComponent(formattedTextField, 242, 289, Short.MAX_VALUE)
+						.addComponent(comboBox, 0, 289, Short.MAX_VALUE)
+						.addComponent(textField_1, GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+						.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+						.addComponent(passwordField_1, GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE))
+					.addContainerGap())
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(25)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblImeIPrezime)
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblDatumRoenja)
+						.addComponent(formattedTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblRadnoMjesto)
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblKorisnikoIme)
+						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblifra)
+						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblPotvrdaLozinke)
+						.addComponent(passwordField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel)
+						.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+					.addComponent(btnNewButton)
+					.addContainerGap())
+		);
 
 		contentPane.setLayout(gl_contentPane);
 
