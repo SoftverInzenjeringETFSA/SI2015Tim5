@@ -108,7 +108,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 
 		final JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(182, 119, 265, 20);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Radnik na telefonu", "Kuhar", "Dostavlja\u010D" }));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Sef", "Radnik na telefonu", "Kuhar", "Dostavlja\u010D" }));
 
 		JLabel lblNewLabel = new JLabel("Dodatne informacije:");
 		lblNewLabel.setBounds(32, 258, 100, 14);
@@ -186,8 +186,8 @@ public class UnosIzmjenaRadnika extends JFrame {
 				String opis = textArea.getText();
 				String datum = formattedTextField.getText();
 				int ind = comboBox.getSelectedIndex();
-				int radnoMjesto = ind + 1; // Radnik na telefonu:1, Kuhar:2,
-											// Dostavljac:3
+				int radnoMjesto = ind + 1; // Sef:1, Primalac:2 Kuhar:3,
+											// Dostavljac:4
 				UnosIzmjenaRadnikaController r = new UnosIzmjenaRadnikaController();
 				if (!r.parsirajDatum(datum))
 				{

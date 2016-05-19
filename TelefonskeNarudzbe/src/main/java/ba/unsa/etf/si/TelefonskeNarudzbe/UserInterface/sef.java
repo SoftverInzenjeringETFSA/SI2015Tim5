@@ -519,7 +519,13 @@ public class sef {
 		UnosIzmjenaJelaController jc = new UnosIzmjenaJelaController();
 		List<Jelo> listaJela = jc.vratiSvaJela();
 		String[] kolone = { "Naziv jela", "Cijena(KM)", "Sastojci" };
-		DefaultTableModel tableModel2 = new DefaultTableModel(kolone, 0);
+		DefaultTableModel tableModel2 = new DefaultTableModel(kolone, 0){
+			  @Override
+			    public boolean isCellEditable(int row, int column) {
+			       //all cells false
+			       return false;
+			    }
+		};
 		for (Jelo j : listaJela) {
 			if (j.getIzbrisano() != null && j.getIzbrisano() == true)
 				continue;
@@ -597,7 +603,13 @@ public class sef {
 
 		List<Sastojak> listaSastojaka = UnosIzmjenaSastojkaController.vratiSveSastojke();
 		String[] kolone_sastojci = { "Naziv", "Mjerna jedinica sastojka", "Opis" };
-		final DefaultTableModel tableModel3 = new DefaultTableModel(kolone_sastojci, 0);
+		final DefaultTableModel tableModel3 = new DefaultTableModel(kolone_sastojci, 0){
+			  @Override
+			    public boolean isCellEditable(int row, int column) {
+			       //all cells false
+			       return false;
+			    }
+		};
 		for (Sastojak s : listaSastojaka) {
 			if (s.isIzbrisan())
 				continue;
@@ -670,7 +682,13 @@ public class sef {
 		String[] kolone_radnici = { "Ime i prezime", "Datum rođenja", "Radno mjesto", "Korisničko ime", "Lozinka",
 				"Dodatne informacije" };
 		JPanel KorisniciTab = new JPanel();
-		DefaultTableModel tableModel = new DefaultTableModel(kolone_radnici, 0);
+		DefaultTableModel tableModel = new DefaultTableModel(kolone_radnici, 0){
+			  @Override
+			    public boolean isCellEditable(int row, int column) {
+			       //all cells false
+			       return false;
+			    }
+		};
 		for (Zaposlenik z : listaZaposlenika) {
 			if (z.getRadnomjesto().getId() > 4)
 				continue;
@@ -783,7 +801,13 @@ public class sef {
 		UnosIzmjenaPopustaController pc = new UnosIzmjenaPopustaController();
 		List<Popust> listaPopusta = pc.vratiSvePopuste();
 		String[] kolone_popust = { "Cijena od (KM)", "Cijena do (KM)", "Popust (%)" };
-		final DefaultTableModel tableModel4 = new DefaultTableModel(kolone_popust, 0);
+		final DefaultTableModel tableModel4 = new DefaultTableModel(kolone_popust, 0){
+			  @Override
+			    public boolean isCellEditable(int row, int column) {
+			       //all cells false
+			       return false;
+			    }
+		};
 		for (Popust p : listaPopusta) {
 			if (p.getIznos() == 0)
 				continue;
@@ -883,7 +907,13 @@ public class sef {
 	public void refreshTabelePopust() {
 		List<Popust> listaPopusta = UnosIzmjenaPopustaController.vratiSvePopuste();
 		String[] kolone_popust = { "Cijena od (KM)", "Cijena do (KM)", "Popust (%)" };
-		final DefaultTableModel tableModel4 = new DefaultTableModel(kolone_popust, 0);
+		final DefaultTableModel tableModel4 = new DefaultTableModel(kolone_popust, 0){
+			  @Override
+			    public boolean isCellEditable(int row, int column) {
+			       //all cells false
+			       return false;
+			    }
+		};
 		for (Popust k : listaPopusta) {
 			if (k.getIznos() == 0)
 				continue;
@@ -903,7 +933,13 @@ public class sef {
 		String[] kolone_radnici = { "Ime i prezime", "Datum rođenja", "Radno mjesto", "Korisničko ime", "Lozinka",
 				"Dodatne informacije" };
 		JPanel KorisniciTab = new JPanel();
-		DefaultTableModel tableModel = new DefaultTableModel(kolone_radnici, 0);
+		DefaultTableModel tableModel = new DefaultTableModel(kolone_radnici, 0){
+			  @Override
+			    public boolean isCellEditable(int row, int column) {
+			       //all cells false
+			       return false;
+			    }
+		};
 		for (Zaposlenik z : listaZaposlenika) {
 			if (z.getRadnomjesto().getId() > 4)
 				continue;
@@ -925,7 +961,13 @@ public class sef {
 		UnosIzmjenaJelaController jc = new UnosIzmjenaJelaController();
 		List<Jelo> listaJela = jc.vratiSvaJela();
 		String[] kolone = { "Naziv jela", "Cijena(KM)", "Sastojci" };
-		DefaultTableModel tableModel2 = new DefaultTableModel(kolone, 0);
+		DefaultTableModel tableModel2 = new DefaultTableModel(kolone, 0){
+			  @Override
+			    public boolean isCellEditable(int row, int column) {
+			       //all cells false
+			       return false;
+			    }
+		};
 		for (int i = 0; i < listaJela.size(); i++) {
 			Jelo j = listaJela.get(i);
 			if (j.getIzbrisano() == true)
@@ -943,7 +985,13 @@ public class sef {
 
 		List<Sastojak> listaSastojaka = UnosIzmjenaSastojkaController.vratiSveSastojke();
 		String[] kolone_sastojci = { "Naziv", "Mjerna jedinica sastojka", "Opis" };
-		final DefaultTableModel tableModel3 = new DefaultTableModel(kolone_sastojci, 0);
+		final DefaultTableModel tableModel3 = new DefaultTableModel(kolone_sastojci, 0){
+			  @Override
+			    public boolean isCellEditable(int row, int column) {
+			       //all cells false
+			       return false;
+			    }
+		};
 		for (Sastojak s : listaSastojaka) {
 			Object[] o = new Object[3];
 			o[0] = s.getNaziv();
@@ -951,6 +999,7 @@ public class sef {
 			o[2] = s.getOpis();
 			tableModel3.addRow(o);
 		}
+		
 		table_2.setModel(tableModel3);
 
 	}

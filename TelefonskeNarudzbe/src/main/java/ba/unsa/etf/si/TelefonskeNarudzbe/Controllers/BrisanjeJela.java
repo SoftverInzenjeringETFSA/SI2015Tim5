@@ -34,7 +34,6 @@ public class BrisanjeJela {
 			t = session2.beginTransaction();
 			for (SastojciJeloVeza sjv: l){
 				if(sjv.getJelo().getId()==j.getId()){
-					JOptionPane.showMessageDialog(null, "sastojak: "+sjv.getSastojak().getNaziv());
 					t = session2.beginTransaction();
 					t.begin();
 					session2.delete(sjv);
