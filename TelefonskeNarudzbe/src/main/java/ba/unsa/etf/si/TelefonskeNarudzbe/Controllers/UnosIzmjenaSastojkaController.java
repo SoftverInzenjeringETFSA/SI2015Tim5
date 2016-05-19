@@ -23,106 +23,110 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface.sef;
 
 public class UnosIzmjenaSastojkaController {
 	final static Logger logger = Logger.getLogger(UnosIzmjenaSastojkaController.class);
-	public static List<Sastojak> vratiSveSastojke()
-	{
-		  Session sesija = HibernateUtil.getSessionFactory().openSession();
-	        Criteria criteria = sesija.createCriteria(Sastojak.class);
-			List<Sastojak> lista = criteria.list();
-			sesija.close();
-			return lista;
-	}
-	public static List<String> vratiListuSastojakaJela(Jelo jelo)
-	{
-		 Session sesija = HibernateUtil.getSessionFactory().openSession();
-		 Criteria criteria = sesija.createCriteria(SastojciJeloVeza.class);
-		 List<SastojciJeloVeza> lista=criteria.list();
-			List<String> novalista=new ArrayList<String>();
-			 for (int i=0; i<lista.size(); i++){
-				 if(lista.get(i).getJelo().getId()==jelo.getId())
-				 novalista.add(lista.get(i).getSastojak().getNaziv());
-		 }
-				
-		
-				sesija.close();
-		return novalista;
-	}
-	public static List<String> vratiListuKolicinaSastojakaJela(Jelo jelo)
-	{
-		 Session sesija = HibernateUtil.getSessionFactory().openSession();
-		 Criteria criteria = sesija.createCriteria(SastojciJeloVeza.class);
-		 List<SastojciJeloVeza> lista=criteria.list();
-			List<String> novalista=new ArrayList<String>();
-			 for (int i=0; i<lista.size(); i++){
-				 if(lista.get(i).getJelo().getId()==jelo.getId())
-				 novalista.add(String.valueOf(lista.get(i).getKolicina()));
-		 }
-				
-		
-				sesija.close();
-		return novalista;
-	}
-	public static List<SastojciJeloVeza> vratiKolicineSastojakaJela (Jelo jelo){
+
+	public static List<Sastojak> vratiSveSastojke() {
 		Session sesija = HibernateUtil.getSessionFactory().openSession();
-		 Criteria criteria = sesija.createCriteria(SastojciJeloVeza.class);
-		 List<SastojciJeloVeza> lista=criteria.list();
-			List<SastojciJeloVeza> novalista=new ArrayList<SastojciJeloVeza>();
-			double epsilon=0.0001;
-			 for (int i=0; i<lista.size(); i++){
-				 if(lista.get(i).getJelo().getId()==jelo.getId() && lista.get(i).getKolicina()-new Double(0.0)>epsilon)
-				 novalista.add(lista.get(i));
-		 }
-			 return novalista;
+		Criteria criteria = sesija.createCriteria(Sastojak.class);
+		List<Sastojak> lista = criteria.list();
+		sesija.close();
+		return lista;
 	}
-	public static String vratiSastojkeJela(Jelo jelo)
-	{
-		 Session sesija = HibernateUtil.getSessionFactory().openSession();
-		 Criteria criteria = sesija.createCriteria(SastojciJeloVeza.class);
-		 List<SastojciJeloVeza> lista=criteria.list();
-			List<SastojciJeloVeza> novalista=new ArrayList<SastojciJeloVeza>();
-			double epsilon=0.0001;
-			 for (int i=0; i<lista.size(); i++){
-				 if(lista.get(i).getJelo().getId()==jelo.getId() && lista.get(i).getKolicina()-new Double(0.0)>epsilon)
-				 novalista.add(lista.get(i));
-		 }
-				
-		 String sastojci = "";
-				for (SastojciJeloVeza oo : novalista) {
-									sastojci+=oo.getSastojak().getNaziv()+", ";
-				}
-				sesija.close();
+
+	public static List<String> vratiListuSastojakaJela(Jelo jelo) {
+		Session sesija = HibernateUtil.getSessionFactory().openSession();
+		Criteria criteria = sesija.createCriteria(SastojciJeloVeza.class);
+		List<SastojciJeloVeza> lista = criteria.list();
+		List<String> novalista = new ArrayList<String>();
+		for (int i = 0; i < lista.size(); i++) {
+			if (lista.get(i).getJelo().getId() == jelo.getId())
+				novalista.add(lista.get(i).getSastojak().getNaziv());
+		}
+
+		sesija.close();
+		return novalista;
+	}
+
+	public static List<String> vratiListuKolicinaSastojakaJela(Jelo jelo) {
+		Session sesija = HibernateUtil.getSessionFactory().openSession();
+		Criteria criteria = sesija.createCriteria(SastojciJeloVeza.class);
+		List<SastojciJeloVeza> lista = criteria.list();
+		List<String> novalista = new ArrayList<String>();
+		for (int i = 0; i < lista.size(); i++) {
+			if (lista.get(i).getJelo().getId() == jelo.getId())
+				novalista.add(String.valueOf(lista.get(i).getKolicina()));
+		}
+
+		sesija.close();
+		return novalista;
+	}
+
+	public static List<SastojciJeloVeza> vratiKolicineSastojakaJela(Jelo jelo) {
+		Session sesija = HibernateUtil.getSessionFactory().openSession();
+		Criteria criteria = sesija.createCriteria(SastojciJeloVeza.class);
+		List<SastojciJeloVeza> lista = criteria.list();
+		List<SastojciJeloVeza> novalista = new ArrayList<SastojciJeloVeza>();
+		double epsilon = 0.0001;
+		for (int i = 0; i < lista.size(); i++) {
+			if (lista.get(i).getJelo().getId() == jelo.getId()
+					&& lista.get(i).getKolicina() - new Double(0.0) > epsilon)
+				novalista.add(lista.get(i));
+		}
+		return novalista;
+	}
+
+	public static String vratiSastojkeJela(Jelo jelo) {
+		Session sesija = HibernateUtil.getSessionFactory().openSession();
+		Criteria criteria = sesija.createCriteria(SastojciJeloVeza.class);
+		List<SastojciJeloVeza> lista = criteria.list();
+		List<SastojciJeloVeza> novalista = new ArrayList<SastojciJeloVeza>();
+		double epsilon = 0.0001;
+		for (int i = 0; i < lista.size(); i++) {
+			if (lista.get(i).getJelo().getId() == jelo.getId()
+					&& lista.get(i).getKolicina() - new Double(0.0) > epsilon)
+				novalista.add(lista.get(i));
+		}
+
+		String sastojci = "";
+		for (SastojciJeloVeza oo : novalista) {
+			if(oo.getSastojak().isIzbrisan()) continue;
+			sastojci += oo.getSastojak().getNaziv() + ", ";
+		}
+		sesija.close();
 		return sastojci;
 	}
-	public static Sastojak vratiSastojak(String naziv)
-	{
+
+	public static Sastojak vratiSastojak(String naziv) {
 		Session sesija = HibernateUtil.getSessionFactory().openSession();
-        Criteria criteria = sesija.createCriteria(Sastojak.class).add(Restrictions.eq("naziv", naziv));
+		Criteria criteria = sesija.createCriteria(Sastojak.class).add(Restrictions.eq("naziv", naziv));
 		Sastojak s = (Sastojak) criteria.uniqueResult();
 		sesija.close();
 		return s;
 	}
-	public static boolean izmjenaSastojka(String naziv, String opis, String mjernaJedinica, int dodajNovi, sef Sef)
-	{
+
+	public static boolean izmjenaSastojka(String naziv, String opis, String mjernaJedinica, int dodajNovi, sef Sef) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction t= session.beginTransaction();
-		int ids =-1;
-		int ide=-1;
-		if(dodajNovi!=-1) ids=dodajNovi;
-		boolean izbrisan=false;
-		if( session.createCriteria(Sastojak.class).add(Restrictions.like("naziv", naziv).ignoreCase()).list().size()!=0){
-			Sastojak postojeci= (Sastojak) session.createCriteria(Sastojak.class).add(Restrictions.like("naziv", naziv).ignoreCase()).list().get(0);
-			if(!postojeci.isIzbrisan())
-			{
+		Transaction t = session.beginTransaction();
+		int ids = -1;
+		int ide = -1;
+		if (dodajNovi != -1)
+			ids = dodajNovi;
+		boolean izbrisan = false;
+		if (session.createCriteria(Sastojak.class).add(Restrictions.like("naziv", naziv).ignoreCase()).list()
+				.size() != 0) {
+			Sastojak postojeci = (Sastojak) session.createCriteria(Sastojak.class)
+					.add(Restrictions.like("naziv", naziv).ignoreCase()).list().get(0);
+			if (!postojeci.isIzbrisan()) {
 				JOptionPane.showMessageDialog(null, "Već postoji sastojak sa tim nazivom.");
 				session.close();
 				return false;
 			}
-			ide=postojeci.getId();
-			izbrisan=true;
-			}
-		
-		try{
-			if (session.createCriteria(Sastojak.class).add(Restrictions.eq("id", ids)).uniqueResult() == null){
-				if(izbrisan){
+			ide = postojeci.getId();
+			izbrisan = true;
+		}
+
+		try {
+			if (session.createCriteria(Sastojak.class).add(Restrictions.eq("id", ids)).uniqueResult() == null) {
+				if (izbrisan) {
 					Criteria criteria = session.createCriteria(Sastojak.class).add(Restrictions.like("id", ide));
 					List<Sastojak> lista = criteria.list();
 					Sastojak s = lista.get(0);
@@ -131,7 +135,7 @@ public class UnosIzmjenaSastojkaController {
 					s.setOpis(opis);
 					s.setMjernaJedinica(mjernaJedinica);
 
-					session.update(s);		
+					session.update(s);
 					t.commit();
 					session.close();
 					Sef.refreshTabeleSastojci();
@@ -149,36 +153,31 @@ public class UnosIzmjenaSastojkaController {
 				session.getTransaction().commit();
 				Sef.refreshTabeleSastojci();
 			}
-			
-			
-	
-		else {
-			
-			System.out.println("Tu sam 2");
-			Criteria criteria = session.createCriteria(Sastojak.class).add(Restrictions.like("id", ids));
-			List<Sastojak> lista = criteria.list();
-			Sastojak s = lista.get(0);
-			s.setIzbrisan(false);
-			s.setNaziv(naziv);
-			s.setOpis(opis);
-			s.setMjernaJedinica(mjernaJedinica);
-		
-	
-			session.update(s);		
-			t.commit();
-			session.close();
-			Sef.refreshTabeleSastojci();
-			System.out.println("Sastojak je izmijenjen");
-			return true;
-		}
-		}
-		catch (Exception e) {
+
+			else {
+
+				System.out.println("Tu sam 2");
+				Criteria criteria = session.createCriteria(Sastojak.class).add(Restrictions.like("id", ids));
+				List<Sastojak> lista = criteria.list();
+				Sastojak s = lista.get(0);
+				s.setIzbrisan(false);
+				s.setNaziv(naziv);
+				s.setOpis(opis);
+				s.setMjernaJedinica(mjernaJedinica);
+
+				session.update(s);
+				t.commit();
+				session.close();
+				Sef.refreshTabeleSastojci();
+				System.out.println("Sastojak je izmijenjen");
+				return true;
+			}
+		} catch (Exception e) {
 			logger.info(e);
-		//	e.printStackTrace();
+			// e.printStackTrace();
 			return false;
 		}
 		return true;
-		
+
 	}
 }
-

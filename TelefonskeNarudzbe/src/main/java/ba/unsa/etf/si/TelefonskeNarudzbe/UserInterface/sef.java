@@ -656,6 +656,7 @@ public class sef {
 					BrisanjeSastojka br = new BrisanjeSastojka();
 					br.BrisiSastojak(naziv);
 					((DefaultTableModel) table_2.getModel()).removeRow(selected);
+					refreshTabeleJelo();
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati sastojak!");
 
@@ -935,7 +936,6 @@ public class sef {
 			o[2] = UnosIzmjenaSastojkaController.vratiSastojkeJela(j);
 			tableModel2.addRow(o);
 		}
-
 		table.setModel(tableModel2);
 	}
 

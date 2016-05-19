@@ -12,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 
 import Util.HibernateUtil;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Sastojak;
+import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.SastojciJeloVeza;
 
 public class BrisanjeSastojka {
 	final static Logger logger = Logger.getLogger(BrisanjeSastojka.class);
@@ -27,6 +28,18 @@ public class BrisanjeSastojka {
 			session.update(s);
 			t.commit();
 			session.close();
+			Session session2 = HibernateUtil.getSessionFactory().openSession();
+			Criteria criteria2 = session2.createCriteria(SastojciJeloVeza.class);
+			List<SastojciJeloVeza> l = criteria2.list();
+			t = session2.beginTransaction();
+			for (SastojciJeloVeza sjv: l){
+				if(sjv.getSastojak().getId()==s.getId()){
+					t = session2.beginTransaction();
+					t.begin();
+					session2.delete(sjv);
+					t.commit();
+				}
+			}
 			JOptionPane.showMessageDialog(null, "Sastojak uspjesno izbrisan!");
 		} catch (Exception e) {
 			logger.info(e);
