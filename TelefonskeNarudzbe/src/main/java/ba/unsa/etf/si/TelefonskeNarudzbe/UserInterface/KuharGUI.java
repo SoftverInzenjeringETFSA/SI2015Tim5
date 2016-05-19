@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JList;
 import javax.swing.JTextArea;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -252,7 +253,7 @@ public class KuharGUI {
 
 		list = new JList(model);
 		scrollPane.setViewportView(list);
-
+list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(179, 11, 235, 162);
 		glavniPanel.add(scrollPane_1);

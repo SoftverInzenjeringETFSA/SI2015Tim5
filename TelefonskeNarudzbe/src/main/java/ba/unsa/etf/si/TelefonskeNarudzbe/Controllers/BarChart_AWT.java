@@ -33,15 +33,16 @@ public class BarChart_AWT extends JFrame
    }
    private CategoryDataset createDataset(Object[][] podacig )
    {
-        
+        int br=10;
       final DefaultCategoryDataset dataset =  new DefaultCategoryDataset( );  
      
       String x="0";
       Double y=(double) 0;
       for(Object[] o: podacig){
+    	  
     	 x=o[2].toString().substring(0,o[2].toString().length()-1);
-      dataset.addValue( Double.parseDouble( x ) , "Postotak narudzbi" , (String)o[0] );
-     
+      dataset.addValue( Double.parseDouble( x ) , "Postotak narudžbi" , "<"+String.valueOf(br)+" m" );
+     br+=10;
       }           
 
      

@@ -27,6 +27,8 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.Narudzba;
 import java.awt.Color;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
@@ -245,6 +247,7 @@ public class DostavljacGUI {
 		glavniPanel.add(scrollPane);
 
 		listaNarudzbi = new JList(model);
+		listaNarudzbi.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(listaNarudzbi);
 		panel = new JPanel();
 		panel.setBounds(173, 11, 256, 254);

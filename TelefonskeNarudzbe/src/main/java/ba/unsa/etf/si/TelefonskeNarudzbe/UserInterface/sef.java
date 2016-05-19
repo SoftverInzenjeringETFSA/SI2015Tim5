@@ -269,7 +269,7 @@ public class sef {
 				btnGenerisiIzvjetaj.setVisible(false);
 				odabirIzvjestaja = new String();
 				if (list.isSelectionEmpty()) {
-					JOptionPane.showMessageDialog(frame, "Morate odabrati tip izvjestaja!");
+					JOptionPane.showMessageDialog(frame, "Morate odabrati tip izvještaja!");
 					return;
 				}
 				odabirIzvjestaja = list.getSelectedValue().toString();
@@ -331,7 +331,7 @@ public class sef {
 		btnPrikaiIzvjetaj.setBounds(600, 46, 196, 23);
 		IzvjestajiTab.add(btnPrikaiIzvjetaj);
 
-		dugmeGraficki = new JButton("Prikaži izvještaj");
+		dugmeGraficki = new JButton("Prikaži grafički");
 		dugmeGraficki.setBounds(599, 191, 197, 23);
 		IzvjestajiTab.add(dugmeGraficki);
 		dugmeGraficki.setVisible(false);
@@ -342,9 +342,12 @@ public class sef {
 		});
 		// btn za prikaz izvještaja
 		btnGenerisiIzvjetaj.addActionListener(new ActionListener() {
+			
 			public final void actionPerformed(ActionEvent e) {
+				dugmeGraficki.setVisible(false);
 				String odabrano = list.getSelectedValue().toString();
 				if (!odabrano.equals(odabirIzvjestaja)) {
+					dugmeGraficki.setVisible(false);
 					JOptionPane.showMessageDialog(frame, "Kliknite prvo na odaberi izvještaj!");
 					return;
 				}
@@ -401,7 +404,7 @@ public class sef {
 					String dostavljac = new String();
 					dostavljac = kriterij.getText();
 					if (!ValidacijaController.jeLiDuzeOd3Slova(dostavljac)) {
-						JOptionPane.showMessageDialog(null, "Ime dostavljaca mora biti duze od 3 slova");
+						JOptionPane.showMessageDialog(null, "Ime dostavljača mora biti duze od 3 slova");
 						return;
 					}
 					try {
@@ -465,6 +468,7 @@ public class sef {
 
 				// cetvrti izvjestaj
 				if (odabrano.equals("Statistički izvještaj o vremenu isporuke narudžbi")) {
+					
 					ocistiFormuOdTabela();
 					String[] kolone_izvjestaj_6 = { "Vremenski rok(minute)", "Broj narudžbi", "Procenat" };
 					Object[][] podaci_izvjestaj_6 = IzvjestajController.dajVremenaIsporuke();
@@ -476,6 +480,7 @@ public class sef {
 					IzvjestajiTab.add(scrollPane_izvjestaj4);
 					izvjestaj4_tbl.setVisible(true);
 					scrollPane_izvjestaj4.setVisible(true);
+					dugmeGraficki.setVisible(true);
 
 				}
 				// kraj cetvrtog

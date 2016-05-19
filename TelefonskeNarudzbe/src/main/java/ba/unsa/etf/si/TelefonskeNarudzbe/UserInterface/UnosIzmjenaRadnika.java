@@ -139,7 +139,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (!Arrays.equals(passwordField.getPassword(), passwordField_1.getPassword())) {
-					JOptionPane.showMessageDialog(null, "passwordi se ne slazu!");
+					JOptionPane.showMessageDialog(null, "Passwordi se ne slažu!");
 					return;
 				}
 				if (textField.getText().isEmpty() || textField.getText() == null) {
@@ -147,23 +147,23 @@ public class UnosIzmjenaRadnika extends JFrame {
 					return;
 				}
 				if (formattedTextField.getText().isEmpty() || formattedTextField.getText() == null) {
-					JOptionPane.showMessageDialog(null, "Popunite polje za datum rodjenja!");
+					JOptionPane.showMessageDialog(null, "Popunite polje za datum rođenja!");
 					return;
 				}
 				if (textField_1.getText().isEmpty() || textField_1.getText() == null) {
-					JOptionPane.showMessageDialog(null, "Popunite polje za Korisnicko ime!");
+					JOptionPane.showMessageDialog(null, "Popunite polje za Korisničko ime!");
 					return;
 				}
 				if(!ValidacijaController.manjeOd50(textField.getText())){
-					JOptionPane.showMessageDialog(null, "Ime i prezime moze imati najvise 50 znakova!");
+					JOptionPane.showMessageDialog(null, "Ime i prezime moze imati najviše 50 znakova!");
 					return;
 				}
 				if(!ValidacijaController.manjeOd500(textArea.getText())){
-					JOptionPane.showMessageDialog(null, "Opis moze imati najvise 500 znakova!");
+					JOptionPane.showMessageDialog(null, "Opis moze imati najviše 500 znakova!");
 					return;
 				}
 				if(!ValidacijaController.jeLiDuzeOd3Slova(textField.getText())){
-					JOptionPane.showMessageDialog(null, "Ime i prezime mora imati vise od 3 znaka!");
+					JOptionPane.showMessageDialog(null, "Ime i prezime mora imati više od 3 znaka!");
 					return;
 				}
 				if (passwordField.getPassword().length == 0 || passwordField.getPassword() == null) {
@@ -179,7 +179,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 				
 				String password = new String(pass);
 				if(!ValidacijaController.validirajPassword(password)){
-					JOptionPane.showMessageDialog(null, "Password mora biti duzi od 8 znakova, i mora sadrzavati velika slova, mala slova i bar jedan broj!");
+					JOptionPane.showMessageDialog(null, "Password mora biti duži od 8 znakova, i mora sadržavati velika slova, mala slova i bar jedan broj!");
 					return;
 				}
 				String imePrezime = textField.getText();
@@ -195,7 +195,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 					return;
 				}
 				if (r.izmijeniRadnika(imePrezime, datum, username, password, radnoMjesto, opis,-1, Sef)) {
-					JOptionPane.showMessageDialog(null, "Radnik uspjesno dodan/izmijenjen!");
+					JOptionPane.showMessageDialog(null, "Radnik uspješno dodan/izmijenjen!");
 					setVisible(false);
 					dispose();
 				}
@@ -273,7 +273,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (!Arrays.equals(passwordField.getPassword(), passwordField_1.getPassword())) {
-					JOptionPane.showMessageDialog(null, "passwordi se ne slazu!");
+					JOptionPane.showMessageDialog(null, "passwordi se ne slažu!");
 					return;
 				}
 				if (textField.getText().isEmpty() || textField.getText() == null) {
@@ -281,23 +281,23 @@ public class UnosIzmjenaRadnika extends JFrame {
 					return;
 				}
 				if(!ValidacijaController.manjeOd50(textField.getText())){
-					JOptionPane.showMessageDialog(null, "Ime i prezime moze imati najvise 50 znakova!");
+					JOptionPane.showMessageDialog(null, "Ime i prezime moze imati najviše 50 znakova!");
 					return;
 				}
 				if(!ValidacijaController.manjeOd500(textArea.getText())){
-					JOptionPane.showMessageDialog(null, "Opis moze imati najvise 500 znakova!");
+					JOptionPane.showMessageDialog(null, "Opis može imati najviše 500 znakova!");
 					return;
 				}
 				if(!ValidacijaController.jeLiDuzeOd3Slova(textField.getText())){
-					JOptionPane.showMessageDialog(null, "Ime i prezime mora imati vise od 3 znaka!");
+					JOptionPane.showMessageDialog(null, "Ime i prezime mora imati više od 3 znaka!");
 					return;
 				}
 				if (formattedTextField.getText().isEmpty() || formattedTextField.getText() == null) {
-					JOptionPane.showMessageDialog(null, "Popunite polje za datum rodjenja!");
+					JOptionPane.showMessageDialog(null, "Popunite polje za datum rođenja!");
 					return;
 				}
 				if (textField_1.getText().isEmpty() || textField_1.getText() == null) {
-					JOptionPane.showMessageDialog(null, "Popunite polje za Korisnicko ime!");
+					JOptionPane.showMessageDialog(null, "Popunite polje za Korisničko ime!");
 					return;
 				}
 				if (passwordField.getPassword().length == 0 || passwordField.getPassword() == null) {
@@ -315,7 +315,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 				String password = new String(pass);
 				
 				if(!ValidacijaController.validirajPassword(password)){
-					JOptionPane.showMessageDialog(null, "Password mora biti duzi od 8 znakova, i mora sadrzavati velika slova, mala slova i bar jedan broj!");
+					JOptionPane.showMessageDialog(null, "Password mora biti duži od 8 znakova, i mora sadržavati velika slova, mala slova i bar jedan broj!");
 					return;
 				}
 				
@@ -331,7 +331,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 					return;
 				}
 				if (r.izmijeniRadnika(imePrezime, datum, username, password, radnoMjesto, opis, dodajNovi, Sef)) {
-					JOptionPane.showMessageDialog(null, "Radnik uspjesno dodan/izmijenjen!");
+					JOptionPane.showMessageDialog(null, "Radnik uspješno dodan/izmijenjen!");
 					setVisible(false);
 					dispose();
 				}

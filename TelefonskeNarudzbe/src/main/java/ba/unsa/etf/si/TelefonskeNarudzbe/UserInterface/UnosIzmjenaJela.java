@@ -328,12 +328,12 @@ public class UnosIzmjenaJela extends JFrame {
 				cijena = ValidacijaController.zaokruziNa2(cijena);
 				String opis = textArea.getText();
 				if(!ValidacijaController.jeLiDuzeOd3Slova(naziv)){
-					JOptionPane.showMessageDialog(null, "Naziv jela mora imati vise od 3 slova!");
+					JOptionPane.showMessageDialog(null, "Naziv jela mora imati više od 3 slova!");
 					return;
 				}
 				if (!ValidacijaController.manjeOd500(opis))
 				{
-					JOptionPane.showMessageDialog(null, "Opis moze imati najvise 500 znakova!");
+					JOptionPane.showMessageDialog(null, "Opis može imati najviše 500 znakova!");
 					return;
 				}
 				ArrayList<String> sastojakNaziv = new ArrayList<String>();

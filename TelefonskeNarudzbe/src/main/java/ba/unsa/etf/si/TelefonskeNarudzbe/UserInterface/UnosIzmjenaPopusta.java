@@ -162,7 +162,7 @@ public class UnosIzmjenaPopusta extends JFrame {
 					
 					UnosIzmjenaPopustaController c=new UnosIzmjenaPopustaController();
 					c.izmjenaPopusta(cijenaOd, cijenaDo, popust, Sef);
-					JOptionPane.showMessageDialog(null, "Popust uspjesno dodan/izmijenjen!");
+					JOptionPane.showMessageDialog(null, "Popust uspješno dodan/izmijenjen!");
 					setVisible(false); //you can't see me!
 					dispose(); //Destroy the JFrame object
 			
@@ -282,7 +282,7 @@ public class UnosIzmjenaPopusta extends JFrame {
 					
 					UnosIzmjenaPopustaController c=new UnosIzmjenaPopustaController();
 					c.izmjenaPopusta(cijenaOd, cijenaDo, popust, Sef);
-					JOptionPane.showMessageDialog(null, "Popust uspjesno dodan/izmijenjen!");
+					JOptionPane.showMessageDialog(null, "Popust uspješno dodan/izmijenjen!");
 					setVisible(false); //you can't see me!
 					dispose(); //Destroy the JFrame object
 				}
