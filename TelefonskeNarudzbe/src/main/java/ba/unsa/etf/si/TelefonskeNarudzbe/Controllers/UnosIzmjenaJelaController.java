@@ -40,16 +40,15 @@ public class UnosIzmjenaJelaController {
 		return j;
 	}
 
-	public static boolean izmjenaJela(String naziv, String opis, Double cijena, List<Sastojak> listaSastojaka,
-			List<Double> listaKolicina) {
+	public boolean izmjenaJela(String naziv, String opis, Double cijena, List<Sastojak> listaSastojaka,
+			List<Double> listaKolicina, int dodajNovi,sef Sef) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction t = session.beginTransaction();
 
 		Session session2 = HibernateUtil.getSessionFactory().openSession();
 		Transaction t2 = session2.beginTransaction();
-		int ids = -1;
-		if (!sef.dodajNovi)
-			ids = sef.vratiIzabranoJelo();
+		int ids =-1;
+		if(dodajNovi!=-1) ids=dodajNovi;
 		try {
 			if (session.createCriteria(Jelo.class).add(Restrictions.eq("id", ids))
 					.setProjection(Projections.property("id")).uniqueResult() == null) {
@@ -130,7 +129,7 @@ public class UnosIzmjenaJelaController {
 				System.out.println("Jelo je izmijenjeno");
 				return true;
 			}
-			sef.refreshTabeleJelo();
+			Sef.refreshTabeleJelo();
 
 		} catch (Exception e) {
 			logger.info(e);

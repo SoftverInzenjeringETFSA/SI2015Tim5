@@ -41,7 +41,7 @@ public class IzmjenaLozinke extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IzmjenaLozinke frame = new IzmjenaLozinke(null);
+					IzmjenaLozinke frame = new IzmjenaLozinke(null, -1, null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					logger.info(e);
@@ -54,7 +54,7 @@ public class IzmjenaLozinke extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public IzmjenaLozinke(final Zaposlenik z) {
+	public IzmjenaLozinke(final Zaposlenik z, final int dodajNovi, final sef Sef) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -92,7 +92,7 @@ public class IzmjenaLozinke extends JFrame {
 					JOptionPane.showMessageDialog(null, "Password mora biti duzi od 8 znakova, i mora sadrzavati velika slova, mala slova i bar jedan broj!");
 					return;
 				}
-				if(r.izmijeniRadnika(z.getImePrezime(), z.getDatumRodenja().toString(), z.getUsername(), password, z.getRadnomjesto().getId(),z.getDodatneInformacije())){
+				if(r.izmijeniRadnika(z.getImePrezime(), z.getDatumRodenja().toString(), z.getUsername(), password, z.getRadnomjesto().getId(),z.getDodatneInformacije(), dodajNovi, Sef)){
 					JOptionPane.showMessageDialog(null, "Uspjesno promijenjena lozinka");
 				}
 				forma.dispose();

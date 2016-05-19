@@ -42,7 +42,7 @@ public class UnosIzmjenaSastojka extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UnosIzmjenaSastojka frame = new UnosIzmjenaSastojka();
+					UnosIzmjenaSastojka frame = new UnosIzmjenaSastojka(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					logger.info(e);
@@ -60,7 +60,7 @@ public class UnosIzmjenaSastojka extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public UnosIzmjenaSastojka() {
+	public UnosIzmjenaSastojka(final sef Sef) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 402, 300);
 		contentPane = new JPanel();
@@ -98,7 +98,7 @@ public class UnosIzmjenaSastojka extends JFrame {
 					JOptionPane.showMessageDialog(null, "Opis moze imati najvise 500 znakova!");
 
 				} else {
-					if (controller.izmjenaSastojka(naziv, opis, mjernaJedinica)) {
+					if (controller.izmjenaSastojka(naziv, opis, mjernaJedinica, -1, Sef)) {
 						JOptionPane.showMessageDialog(null, "Uspjesno dodan/izmijenjen sastojak!");
 					}
 					textField.setText("");
@@ -145,7 +145,7 @@ public class UnosIzmjenaSastojka extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 
-	public UnosIzmjenaSastojka(Sastojak s) {
+	public UnosIzmjenaSastojka(Sastojak s, final int dodajNovi,final sef Sef) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 402, 300);
 		contentPane = new JPanel();
@@ -180,7 +180,7 @@ public class UnosIzmjenaSastojka extends JFrame {
 				} else if (opis == null || opis.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Popunite polje opis!");
 				} else {
-					if (UnosIzmjenaSastojkaController.izmjenaSastojka(naziv, opis, mjernaJedinica)) {
+					if (UnosIzmjenaSastojkaController.izmjenaSastojka(naziv, opis, mjernaJedinica, dodajNovi, Sef)) {
 						JOptionPane.showMessageDialog(null, "Uspjesno dodan/izmijenjen sastojak!");
 					}
 					textField.setText("");

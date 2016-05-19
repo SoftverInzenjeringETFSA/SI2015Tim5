@@ -50,7 +50,7 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.ValidacijaController;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.KuharController;
 
 public class sef {
-	public  boolean dodajNovi = false;
+	public  int dodajNovi = -1;
 	private  JFrame frame;
 	private  JTable table;
 	private  JTable table_1;
@@ -66,9 +66,9 @@ public class sef {
 	private JTable izvjestaj5_tbl = new JTable();
 	private JScrollPane scrollPane_izvjestaj5 = new JScrollPane();
 	private JScrollPane scrollPane_3 = new JScrollPane();
-	final  Logger logger = Logger.getLogger(sef.class);
+	final static Logger logger = Logger.getLogger(sef.class);
 	private String odabirIzvjestaja = new String();
-	private  sef window;
+	private static sef window;
 	private JButton dugmeGraficki;
 	private UnosIzmjenaJela forma;
 	private UnosIzmjenaJela forma3;
@@ -86,7 +86,7 @@ public class sef {
 	/**
 	 * Launch the application.
 	 */
-	public void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -545,8 +545,8 @@ public class sef {
 		btnDodajNovoJelo.addActionListener(new ActionListener() {
 
 			public final void actionPerformed(ActionEvent arg0) {
-				dodajNovi = true;
-				forma3 = new UnosIzmjenaJela();
+				dodajNovi = -1;
+				forma3 = new UnosIzmjenaJela(sef.this);
 				forma3.setVisible(true);
 			}
 		});
@@ -558,11 +558,11 @@ public class sef {
 
 			public final void actionPerformed(ActionEvent arg0) {
 				try {
-					dodajNovi = false;
 					int selected = table.getSelectedRow();
 					String naziv = (String) table.getValueAt(selected, 0);
 					Jelo j = UnosIzmjenaJelaController.vratiJelo(naziv);
-					forma = new UnosIzmjenaJela(j);
+					dodajNovi=j.getId();
+					forma = new UnosIzmjenaJela(j, dodajNovi, sef.this);
 					forma.setVisible(true);
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati jelo!");
@@ -620,8 +620,8 @@ public class sef {
 		JButton btnDodajSastojak = new JButton("Dodaj sastojak");
 		btnDodajSastojak.addActionListener(new ActionListener() {
 			public final void actionPerformed(ActionEvent e) {
-				dodajNovi = true;
-				forma6 = new UnosIzmjenaSastojka();
+				dodajNovi = -1;
+				forma6 = new UnosIzmjenaSastojka(sef.this);
 				forma6.setVisible(true);
 			}
 		});
@@ -632,11 +632,11 @@ public class sef {
 		button_1.addActionListener(new ActionListener() {
 			public final void actionPerformed(ActionEvent e) {
 				try {
-					dodajNovi = false;
 					int selected = table_2.getSelectedRow();
 					String naziv = (String) table_2.getValueAt(selected, 0);
 					Sastojak s = UnosIzmjenaSastojkaController.vratiSastojak(naziv);
-					forma7 = new UnosIzmjenaSastojka(s);
+					dodajNovi=s.getId();
+					forma7 = new UnosIzmjenaSastojka(s,dodajNovi, sef.this);
 					forma7.setVisible(true);
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati sastojak!");
@@ -700,8 +700,8 @@ public class sef {
 		JButton btnDodajNovogRadnika = new JButton("Dodaj novog radnika");
 		btnDodajNovogRadnika.addActionListener(new ActionListener() {
 			public final void actionPerformed(ActionEvent arg0) {
-				dodajNovi = true;
-				forma1 = new UnosIzmjenaRadnika();
+				dodajNovi = -1;
+				forma1 = new UnosIzmjenaRadnika(sef.this);
 				forma1.setVisible(true);
 			}
 		});
@@ -712,11 +712,11 @@ public class sef {
 		btnNewButton.addActionListener(new ActionListener() {
 			public final void actionPerformed(ActionEvent e) {
 				try {
-					dodajNovi = false;
 					int selected = table_1.getSelectedRow();
 					String username = (String) table_1.getValueAt(selected, 3);
 					Zaposlenik z = UnosIzmjenaRadnikaController.vratiRadnika(username);
-					forma2 = new UnosIzmjenaRadnika(z);
+					dodajNovi=z.getId();
+					forma2 = new UnosIzmjenaRadnika(z, dodajNovi, sef.this);
 					forma2.setVisible(true);
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati radnika!");
@@ -739,11 +739,11 @@ public class sef {
 					 * forma22 = new UnosIzmjenaRadnika(z);
 					 * forma22.setVisible(true);
 					 */
-					dodajNovi=false;
 					int selected = table_1.getSelectedRow();
 					String username = (String) table_1.getValueAt(selected, 3);
 					Zaposlenik z = UnosIzmjenaRadnikaController.vratiRadnika(username);
-					formaLozinka = new IzmjenaLozinke(z);
+					dodajNovi=z.getId();
+					formaLozinka = new IzmjenaLozinke(z, dodajNovi, sef.this);
 					formaLozinka.setVisible(true);
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati radnika!");
@@ -760,7 +760,7 @@ public class sef {
 				try {
 					int selected = table_1.getSelectedRow();
 					String imePrezime = (String) table_1.getValueAt(selected, 0);
-					if (BrisanjeRadnika.BrisiRadnika(imePrezime)) {
+					if (BrisanjeRadnika.BrisiRadnika(imePrezime, vratiLogovanog())) {
 						((DefaultTableModel) table_1.getModel()).fireTableDataChanged();
 						table_1.repaint();
 						((DefaultTableModel) table_1.getModel()).removeRow(selected);
@@ -804,8 +804,8 @@ public class sef {
 		btnDodajPopust.addActionListener(new ActionListener() {
 
 			public final void actionPerformed(ActionEvent arg0) {
-				dodajNovi = true;
-				forma4 = new UnosIzmjenaPopusta();
+				dodajNovi = -1;
+				forma4 = new UnosIzmjenaPopusta(sef.this);
 				forma4.setVisible(true);
 			}
 		});
@@ -816,12 +816,12 @@ public class sef {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public final void actionPerformed(ActionEvent e) {
 				try {
-					dodajNovi = false;
 					int selected = table_5.getSelectedRow();
 					String cijenaOd = String.valueOf(table_5.getValueAt(selected, 0));
 					String cijenaDo = String.valueOf(table_5.getValueAt(selected, 1));
 					Popust p = UnosIzmjenaPopustaController.vratiPopust(cijenaOd, cijenaDo);
-					forma5 = new UnosIzmjenaPopusta(p);
+					dodajNovi = p.getId();
+					forma5 = new UnosIzmjenaPopusta(p, sef.this);
 					((DefaultTableModel) table_5.getModel()).fireTableChanged(null);
 					table_5.repaint();
 					forma5.setVisible(true);

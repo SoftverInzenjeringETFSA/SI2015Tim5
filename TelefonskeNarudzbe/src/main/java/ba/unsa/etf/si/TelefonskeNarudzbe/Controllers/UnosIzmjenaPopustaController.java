@@ -53,7 +53,7 @@ public class UnosIzmjenaPopustaController {
 		return lista;
 	}
 
-	public boolean izmjenaPopusta(double cijenaOd, double cijenaDo, int popust) {
+	public boolean izmjenaPopusta(double cijenaOd, double cijenaDo, int popust, sef Sef) {
 		try {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			Transaction t = session.beginTransaction();
@@ -78,7 +78,7 @@ public class UnosIzmjenaPopustaController {
 				p.setIznos(popust);
 				session.update(p);
 				t.commit();
-				sef.refreshTabelePopust();
+				Sef.refreshTabelePopust();
 				return true;
 				
 			}

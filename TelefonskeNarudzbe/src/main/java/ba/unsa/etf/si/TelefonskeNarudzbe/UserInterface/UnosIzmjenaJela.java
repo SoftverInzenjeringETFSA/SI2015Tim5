@@ -83,7 +83,7 @@ public class UnosIzmjenaJela extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UnosIzmjenaJela frame = new UnosIzmjenaJela();
+					UnosIzmjenaJela frame = new UnosIzmjenaJela(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					logger.info(e);
@@ -96,7 +96,7 @@ public class UnosIzmjenaJela extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public UnosIzmjenaJela() {
+	public UnosIzmjenaJela(final sef Sef) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 455, 410);
 		contentPane = new JPanel();
@@ -168,7 +168,7 @@ public class UnosIzmjenaJela extends JFrame {
 					return;
 				} else {
 					UnosIzmjenaJelaController c = new UnosIzmjenaJelaController();
-					c.izmjenaJela(naziv, opis, cijena, sastojci, sastojakKolicina);
+					c.izmjenaJela(naziv, opis, cijena, sastojci, sastojakKolicina, -1, Sef);
 					JOptionPane.showMessageDialog(null, "Jelo je dodano/izmijenjeno");
 					setVisible(false); dispose();
 				}
@@ -273,7 +273,7 @@ public class UnosIzmjenaJela extends JFrame {
 
 	}
 	
-	public UnosIzmjenaJela(Jelo j) {
+	public UnosIzmjenaJela(Jelo j, final int dodajNovi, final sef Sef) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 455, 410);
 		contentPane = new JPanel();
@@ -367,8 +367,8 @@ public class UnosIzmjenaJela extends JFrame {
 				} else {
 				
 					UnosIzmjenaJelaController c = new UnosIzmjenaJelaController();
-					c.izmjenaJela(naziv, opis, cijena, sastojci, sastojakKolicina);
-					sef.refreshTabeleJelo();
+					c.izmjenaJela(naziv, opis, cijena, sastojci, sastojakKolicina, dodajNovi,Sef);
+					Sef.refreshTabeleJelo();
 					JOptionPane.showMessageDialog(null, "Jelo je dodano/izmijenjeno");
 					setVisible(false); dispose();
 				}

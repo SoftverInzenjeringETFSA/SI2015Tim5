@@ -43,7 +43,7 @@ public class UnosIzmjenaPopusta extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UnosIzmjenaPopusta frame = new UnosIzmjenaPopusta();
+					UnosIzmjenaPopusta frame = new UnosIzmjenaPopusta(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					logger.info(e);
@@ -60,7 +60,7 @@ public class UnosIzmjenaPopusta extends JFrame {
 	 * Create the frame.
 	 */
 	
-	public UnosIzmjenaPopusta() {
+	public UnosIzmjenaPopusta(final sef Sef) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 340, 300);
 		contentPane = new JPanel();
@@ -163,7 +163,7 @@ public class UnosIzmjenaPopusta extends JFrame {
 				
 					
 					UnosIzmjenaPopustaController c=new UnosIzmjenaPopustaController();
-					c.izmjenaPopusta(cijenaOd, cijenaDo, popust);
+					c.izmjenaPopusta(cijenaOd, cijenaDo, popust, Sef);
 					JOptionPane.showMessageDialog(null, "Popust uspjesno dodan/izmijenjen!");
 					setVisible(false); //you can't see me!
 					dispose(); //Destroy the JFrame object
@@ -179,7 +179,7 @@ public class UnosIzmjenaPopusta extends JFrame {
 			}
 		});
 	}
-	public UnosIzmjenaPopusta(Popust p) {
+	public UnosIzmjenaPopusta(Popust p,final sef Sef) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 340, 300);
 		contentPane = new JPanel();
@@ -282,7 +282,7 @@ public class UnosIzmjenaPopusta extends JFrame {
 				
 					
 					UnosIzmjenaPopustaController c=new UnosIzmjenaPopustaController();
-					c.izmjenaPopusta(cijenaOd, cijenaDo, popust);
+					c.izmjenaPopusta(cijenaOd, cijenaDo, popust, Sef);
 					JOptionPane.showMessageDialog(null, "Popust uspjesno dodan/izmijenjen!");
 					setVisible(false); //you can't see me!
 					dispose(); //Destroy the JFrame object

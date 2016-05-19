@@ -100,13 +100,13 @@ public class UnosIzmjenaSastojkaController {
 		sesija.close();
 		return s;
 	}
-	public static boolean izmjenaSastojka(String naziv, String opis, String mjernaJedinica)
+	public static boolean izmjenaSastojka(String naziv, String opis, String mjernaJedinica, int dodajNovi, sef Sef)
 	{
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction t= session.beginTransaction();
 		int ids =-1;
 		int ide=-1;
-		if(!sef.dodajNovi) ids=sef.vratiIzabraniSastojak();
+		if(dodajNovi!=-1) ids=dodajNovi;
 		boolean izbrisan=false;
 		if( session.createCriteria(Sastojak.class).add(Restrictions.like("naziv", naziv).ignoreCase()).list().size()!=0){
 			Sastojak postojeci= (Sastojak) session.createCriteria(Sastojak.class).add(Restrictions.like("naziv", naziv).ignoreCase()).list().get(0);
@@ -134,7 +134,7 @@ public class UnosIzmjenaSastojkaController {
 					session.update(s);		
 					t.commit();
 					session.close();
-					sef.refreshTabeleSastojci();
+					Sef.refreshTabeleSastojci();
 					System.out.println("Sastojak je izmijenjen");
 					return true;
 				}
@@ -147,7 +147,7 @@ public class UnosIzmjenaSastojkaController {
 				session.beginTransaction();
 				session.save(s);
 				session.getTransaction().commit();
-				sef.refreshTabeleSastojci();
+				Sef.refreshTabeleSastojci();
 			}
 			
 			
@@ -167,7 +167,7 @@ public class UnosIzmjenaSastojkaController {
 			session.update(s);		
 			t.commit();
 			session.close();
-			sef.refreshTabeleSastojci();
+			Sef.refreshTabeleSastojci();
 			System.out.println("Sastojak je izmijenjen");
 			return true;
 		}

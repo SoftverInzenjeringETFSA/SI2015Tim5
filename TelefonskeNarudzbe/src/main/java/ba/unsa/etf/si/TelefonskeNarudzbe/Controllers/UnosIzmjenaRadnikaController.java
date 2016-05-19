@@ -63,11 +63,11 @@ public class UnosIzmjenaRadnikaController {
 			return false;
 		}
 	}
-	public boolean izmijeniRadnika(String imePrezime, String datum, String username, String password, int radnoMjesto, String opis ){
+	public boolean izmijeniRadnika(String imePrezime, String datum, String username, String password, int radnoMjesto, String opis, int dodajNovi, sef Sef ){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction t= session.beginTransaction();
 		int ids =-1;
-		if(!sef.dodajNovi) ids=sef.vratiIzabranogRadnika();
+		if(dodajNovi!=-1) ids=dodajNovi;
 		try{
 			if (session.createCriteria(Zaposlenik.class).add(Restrictions.eq("id", ids)).setProjection(Projections.property("id")).uniqueResult() == null){
 				if( session.createCriteria(Zaposlenik.class).add(Restrictions.like("username", username).ignoreCase()).list().size()!=0){
@@ -88,7 +88,7 @@ public class UnosIzmjenaRadnikaController {
 				session.beginTransaction();
 				session.saveOrUpdate(z);
 				session.getTransaction().commit();	
-				sef.refreshTabeleZaposlenici();
+				Sef.refreshTabeleZaposlenici();
 			}
 			
 			
@@ -115,7 +115,7 @@ public class UnosIzmjenaRadnikaController {
 			session.update(z);		
 			t.commit();
 			session.close();
-			sef.refreshTabeleZaposlenici();
+			Sef.refreshTabeleZaposlenici();
 		return true;
 		}
 			return true;

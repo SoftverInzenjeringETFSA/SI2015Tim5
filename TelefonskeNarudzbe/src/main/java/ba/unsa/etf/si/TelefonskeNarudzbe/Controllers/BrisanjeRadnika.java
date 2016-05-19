@@ -18,7 +18,7 @@ import Util.HibernateUtil;
 public class BrisanjeRadnika {
 	final static Logger logger = Logger.getLogger(BrisanjeRadnika.class);
 
-	public static boolean BrisiRadnika(String imePrezime) {
+	public static boolean BrisiRadnika(String imePrezime, Zaposlenik logovani) {
 		try {
 			Session session = HibernateUtil.getSessionFactory().openSession();
 			Transaction t = session.beginTransaction();
@@ -26,7 +26,7 @@ public class BrisanjeRadnika {
 					.add(Restrictions.like("imePrezime", imePrezime).ignoreCase());
 			List<Zaposlenik> lista = criteria.list();
 			Zaposlenik z = lista.get(0);
-			if (z.getImePrezime().equals(sef.vratiLogovanog().getImePrezime())) {
+			if (z.getImePrezime().equals(logovani.getImePrezime())) {
 				JOptionPane.showMessageDialog(null, "Nije moguce izbrisati svoj nalog!");
 				return false;
 			}

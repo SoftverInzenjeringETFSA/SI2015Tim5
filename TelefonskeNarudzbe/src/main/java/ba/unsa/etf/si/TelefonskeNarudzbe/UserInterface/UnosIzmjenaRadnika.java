@@ -63,7 +63,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UnosIzmjenaRadnika frame = new UnosIzmjenaRadnika();
+					UnosIzmjenaRadnika frame = new UnosIzmjenaRadnika(null);
 					frame.setVisible(true);
 					// Session session = (Session)
 					// HibernateUtil.getSessionFactory().openSession();
@@ -84,7 +84,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public UnosIzmjenaRadnika() {
+	public UnosIzmjenaRadnika(final sef Sef) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 478, 453);
 		contentPane = new JPanel();
@@ -194,7 +194,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 				//	JOptionPane.showMessageDialog(null, "Datum mora biti u formatu dd/MM/yyyy");
 					return;
 				}
-				if (r.izmijeniRadnika(imePrezime, datum, username, password, radnoMjesto, opis)) {
+				if (r.izmijeniRadnika(imePrezime, datum, username, password, radnoMjesto, opis,-1, Sef)) {
 					JOptionPane.showMessageDialog(null, "Radnik uspjesno dodan/izmijenjen!");
 					setVisible(false);
 					dispose();
@@ -226,7 +226,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 
 	}
 
-	public UnosIzmjenaRadnika(Zaposlenik z) {
+	public UnosIzmjenaRadnika(Zaposlenik z, final int dodajNovi, final sef Sef) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 478, 453);
 		contentPane = new JPanel();
@@ -330,7 +330,7 @@ public class UnosIzmjenaRadnika extends JFrame {
 					//JOptionPane.showMessageDialog(null, "Datum mora biti u formatu dd/MM/yyyy");
 					return;
 				}
-				if (r.izmijeniRadnika(imePrezime, datum, username, password, radnoMjesto, opis)) {
+				if (r.izmijeniRadnika(imePrezime, datum, username, password, radnoMjesto, opis, dodajNovi, Sef)) {
 					JOptionPane.showMessageDialog(null, "Radnik uspjesno dodan/izmijenjen!");
 					setVisible(false);
 					dispose();
