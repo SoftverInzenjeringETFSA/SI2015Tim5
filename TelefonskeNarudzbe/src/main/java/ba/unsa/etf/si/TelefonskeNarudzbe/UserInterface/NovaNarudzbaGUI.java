@@ -75,6 +75,7 @@ public class NovaNarudzbaGUI {
 	private MaskFormatter telefon;
 	final static Logger logger = Logger.getLogger(NovaNarudzbaGUI.class);
 	private static final boolean ProvjeriDaLiJeSveUpisano = false;
+	private double ukupnaCijena;
 
 	// otvara novi prozor
 
@@ -149,7 +150,6 @@ public class NovaNarudzbaGUI {
 		}
 
 		catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
 			logger.info(e);
 		}
 	}
@@ -212,7 +212,7 @@ if(kolicinaJela<=0) throw new Exception("Količina mora biti pozitivna!");
 	private void obracunajCijenu() {
 		double cijenaBezPopusta = 0;
 		double popust;
-		double ukupnaCijena = 0;
+		ukupnaCijena = 0;
 if(provjeriJelSveUpisano2()==false) {JOptionPane.showMessageDialog(null, "Popunite sva polja"); return ;}
 		try {
 			for (Jelo j : narucenaJela) {
@@ -240,12 +240,21 @@ if(provjeriJelSveUpisano2()==false) {JOptionPane.showMessageDialog(null, "Popuni
 		}
 
 	}
-
+	
+	private Boolean provjeriUkupnuCijenu() {
+		if(ukupnaCijena<10.00) {
+			JOptionPane.showMessageDialog(null, "Ukupna cijena narudzbe ne smije biti manja od 10KM!");
+			return true;
+		}
+		
+		return false;
+	}
+	
 	// provjerava da li je uneseno sve sto je potrebno za narudzbu
 	private Boolean provjeriJelSveUpisano() {
 		
 		if (txtCijena.getText().equals("") || txtPopust.getText().equals("") || txtUkupno.getText().equals("")
-				|| txtAdresa.getText().equals("") || txtBrTelefona.getText().equals("   -   -   ") || narucenaJela.isEmpty()) {
+				|| txtAdresa.getText().equals("") || txtBrTelefona.getText().equals("   -   -   ") || narucenaJela.isEmpty() || provjeriUkupnuCijenu()) {
 			return false;
 		}
 

@@ -50,7 +50,7 @@ public class NovaNarudzbaController {
 		try {
 			s = HibernateUtil.getSessionFactory().openSession();
 			List<Jelo> lista = new ArrayList<Jelo>();
-			Criteria k = s.createCriteria(Jelo.class);
+			Criteria k = s.createCriteria(Jelo.class).add(Restrictions.eq("izbrisano", false));
 
 			lista = (List<Jelo>) k.list();
 
