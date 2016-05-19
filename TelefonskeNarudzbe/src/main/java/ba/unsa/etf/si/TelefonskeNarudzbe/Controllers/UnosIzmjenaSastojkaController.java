@@ -106,11 +106,10 @@ public class UnosIzmjenaSastojkaController {
 	public static boolean izmjenaSastojka(String naziv, String opis, String mjernaJedinica, int dodajNovi, sef Sef) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction t = session.beginTransaction();
-		int ids = -1;
 		int ide = -1;
-		if (dodajNovi != -1)
-			ids = dodajNovi;
+		int ids = dodajNovi;
 		boolean izbrisan = false;
+		if (ids==-1){
 		if (session.createCriteria(Sastojak.class).add(Restrictions.like("naziv", naziv).ignoreCase()).list()
 				.size() != 0) {
 			Sastojak postojeci = (Sastojak) session.createCriteria(Sastojak.class)
@@ -123,7 +122,7 @@ public class UnosIzmjenaSastojkaController {
 			ide = postojeci.getId();
 			izbrisan = true;
 		}
-
+		}
 		try {
 			if (session.createCriteria(Sastojak.class).add(Restrictions.eq("id", ids)).uniqueResult() == null) {
 				if (izbrisan) {
