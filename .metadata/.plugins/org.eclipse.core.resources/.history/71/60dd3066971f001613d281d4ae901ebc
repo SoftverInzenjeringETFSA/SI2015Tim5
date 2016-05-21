@@ -125,7 +125,7 @@ public class KuharController {
 									nazivijela.add(o.getJelo().getNaziv());
 									String sastojak = "";
 									for (SastojciJeloVeza oo : vezasj) {
-										if (Math.abs(oo.getKolicina() - 0) > PRECISION_LEVEL) {
+										if (Math.abs(oo.getKolicina() - 0) < PRECISION_LEVEL) {
 											sastojak += oo.getSastojak().getNaziv() + " "
 													+ Double.toString(oo.getKolicina()) + " * "
 													+ oo.getSastojak().getMjernaJedinica() + "\n";

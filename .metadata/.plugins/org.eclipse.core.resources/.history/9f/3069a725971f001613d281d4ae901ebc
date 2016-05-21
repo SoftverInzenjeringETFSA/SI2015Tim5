@@ -92,8 +92,6 @@ public class KuharController {
 	// ima vise pristupa bazi, na bilo koji null se baca izuzetak
 	public String dajNarudzbe(int id) throws Exception {
 		try {
-			final float PRECISION_LEVEL = 0.001f;
-
 			String narudzba = "";
 			Integer brJela = 0;
 			ArrayList<String> nazivi = new ArrayList<String>();
@@ -125,25 +123,23 @@ public class KuharController {
 									nazivijela.add(o.getJelo().getNaziv());
 									String sastojak = "";
 									for (SastojciJeloVeza oo : vezasj) {
-										if (Math.abs(oo.getKolicina() - 0) > PRECISION_LEVEL) {
-											sastojak += oo.getSastojak().getNaziv() + " "
-													+ Double.toString(oo.getKolicina()) + " * "
-													+ oo.getSastojak().getMjernaJedinica() + "\n";
+										if(oo.getKolicina()!=0){
+										sastojak += oo.getSastojak().getNaziv() + " "
+												+ Double.toString(oo.getKolicina()) + " * "
+												+ oo.getSastojak().getMjernaJedinica() + "\n";
 
-											int indeks = idovi.indexOf(oo.getSastojak().getId());
-											if (indeks == -1) {
-												idovi.add(oo.getSastojak().getId());
-												kolicine.add(brJela * oo.getKolicina());
-												nazivi.add(oo.getSastojak().getNaziv());
-												jedinice.add(oo.getSastojak().getMjernaJedinica());
-											} else {
-												kolicine.set(indeks,
-														(kolicine.get(indeks) + brJela * oo.getKolicina()));
-											}
+										int indeks = idovi.indexOf(oo.getSastojak().getId());
+										if (indeks == -1) {
+											idovi.add(oo.getSastojak().getId());
+											kolicine.add(brJela * oo.getKolicina());
+											nazivi.add(oo.getSastojak().getNaziv());
+											jedinice.add(oo.getSastojak().getMjernaJedinica());
+										} else {
+											kolicine.set(indeks, (kolicine.get(indeks) + brJela * oo.getKolicina()));
 										}
-									}
+									}}
 									sastojci.add(sastojak);
-
+									
 								} else {
 									kolicinejela.set(indekss, kolicinejela.get(indekss) + o.getKolicina());
 								}
