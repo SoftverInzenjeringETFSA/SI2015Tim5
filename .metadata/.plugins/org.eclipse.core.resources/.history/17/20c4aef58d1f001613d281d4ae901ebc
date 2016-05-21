@@ -137,9 +137,9 @@ public class KuharController {
 										} else {
 											kolicine.set(indeks, (kolicine.get(indeks) + brJela * oo.getKolicina()));
 										}
-									}}
+									}
 									sastojci.add(sastojak);
-									
+									}
 								} else {
 									kolicinejela.set(indekss, kolicinejela.get(indekss) + o.getKolicina());
 								}

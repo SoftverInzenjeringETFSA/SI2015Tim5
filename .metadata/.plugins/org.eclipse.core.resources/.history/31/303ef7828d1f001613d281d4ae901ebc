@@ -123,7 +123,6 @@ public class KuharController {
 									nazivijela.add(o.getJelo().getNaziv());
 									String sastojak = "";
 									for (SastojciJeloVeza oo : vezasj) {
-										if(oo.getKolicina()!=0){
 										sastojak += oo.getSastojak().getNaziv() + " "
 												+ Double.toString(oo.getKolicina()) + " * "
 												+ oo.getSastojak().getMjernaJedinica() + "\n";
@@ -137,9 +136,8 @@ public class KuharController {
 										} else {
 											kolicine.set(indeks, (kolicine.get(indeks) + brJela * oo.getKolicina()));
 										}
-									}}
+									}
 									sastojci.add(sastojak);
-									
 								} else {
 									kolicinejela.set(indekss, kolicinejela.get(indekss) + o.getKolicina());
 								}

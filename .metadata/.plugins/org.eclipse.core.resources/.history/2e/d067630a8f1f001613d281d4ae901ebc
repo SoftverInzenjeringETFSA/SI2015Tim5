@@ -35,12 +35,12 @@ public final class LoginController {
 		zaposlenik = (Zaposlenik) sesija.createCriteria(Zaposlenik.class).add(Restrictions.eq("username", username)).uniqueResult();
 		if (zaposlenik != null) {
 			if(zaposlenik.getRadnomjesto().getId()>4){
-				throw new Exception("Zaposlenik je otpušten");
+				throw new Exception("Zaposlenik je otpušten")
 			}
 			pocniLogin(password);
 		}
 		else{
-			throw new IllegalArgumentException("Pogrešno korisničko ime");
+			throw new IllegalArgumentException("Pogrešan username");
 		}
 	}
 	
@@ -55,7 +55,7 @@ public final class LoginController {
 	private static void pocniLogin(String password) throws Exception {
 		try {
 			if (!zaposlenik.getPassword().equals(kriptujPassword(password)))
-				throw new IllegalArgumentException("Pogrešna šifra");
+				throw new IllegalArgumentException("Pogrešan pw");
 		} catch (Exception ex) {
 			throw ex;
 		}

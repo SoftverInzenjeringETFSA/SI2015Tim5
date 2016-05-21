@@ -125,21 +125,6 @@ public class RacunPDF {
 					ukupno.addCell(cell);
 				}
 				document.add(ukupno);
-				
-				PdfPTable ukupnoo = new PdfPTable(3);
-				ukupno.setWidthPercentage(100);
-				ukupno.setSpacingBefore(10f);
-				ukupno.setSpacingAfter(10f);
-
-				String[] kolonee = { " ", " Sa popustom:", Double.toString(narudzba.getCijena()) };
-
-				for (String celija : kolonee) {
-					PdfPCell cell = new PdfPCell(new Paragraph(celija));
-					cell.setPadding(16);
-					cell.setBorder(Rectangle.NO_BORDER);
-					ukupnoo.addCell(cell);
-				}
-				document.add(ukupnoo);
 
 				PdfPTable kupac = new PdfPTable(3);
 				kupac.setWidthPercentage(100);
@@ -153,13 +138,7 @@ public class RacunPDF {
 					cell.setBorder(Rectangle.NO_BORDER);
 					kupac.addCell(cell);
 				}
-				Integer num=narudzba.getKupac().getBrojTelefona();
-				int razlika=9-num.toString().length();
-				String x=narudzba.getKupac().getBrojTelefona().toString();
-				for(int i=0;i<razlika;i++){
-					x="0"+x;
-				}
-				String[] kolone2 = { " ", " Broj telefona: ", x };
+				String[] kolone2 = { " ", " Broj telefona: ", narudzba.getKupac().getBrojTelefona().toString() };
 
 				for (String celija : kolone2) {
 					PdfPCell cell = new PdfPCell(new Paragraph(celija));
