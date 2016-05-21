@@ -46,7 +46,10 @@ public class UnosIzmjenaJelaController {
 		try {
 			FileInputStream inputStream = new FileInputStream(f);
 			byte[] fileBytes = new byte[(int) f.length()];
-			inputStream.read(fileBytes);
+			int broj=0;
+			while((broj=inputStream.read(fileBytes))>0) {
+				//radi
+			}
 			inputStream.close();
 			byte[] sacuvaj = fileBytes;
 			return sacuvaj;
