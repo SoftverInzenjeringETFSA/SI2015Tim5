@@ -223,10 +223,10 @@ public class UnosIzmjenaJela extends JFrame {
                         odabranaSlika = fc.getSelectedFile();
                     }
                     else {
-                    	//odabranaSlika=null;
-                        JOptionPane.showMessageDialog(null,"Dodano/izmijenjeno jelo nema sliku.");
+                        JOptionPane.showMessageDialog(null,"Da biste dodali sliku jela, odaberite sliku i opciju 'Open' ");
                     }
-                } catch (Exception iOException) {
+                } catch (Exception ee) {
+                	logger.info(ee);
                 }
             }
         });
@@ -436,10 +436,10 @@ public class UnosIzmjenaJela extends JFrame {
                         odabranaSlika = fc.getSelectedFile();
                     }
                     else {
-                        JOptionPane.showMessageDialog(null,"Dodano/izmijenjeno jelo nema sliku.");
-                        //odabranaSlika=null;
+                        JOptionPane.showMessageDialog(null,"Da biste dodali sliku jela, odaberite sliku i opciju 'Open' ");
                     }
-                } catch (Exception iOException) {
+                } catch (Exception ee) {
+                	logger.info(ee);
                 }
             }
         });
