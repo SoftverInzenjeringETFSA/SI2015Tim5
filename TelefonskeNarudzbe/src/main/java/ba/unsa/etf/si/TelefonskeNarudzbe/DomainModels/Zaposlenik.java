@@ -22,7 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 
-@Table(name = "zaposlenik", catalog = "si2015tim5")
+@Table(name = "zaposlenik", catalog = "tim5")
 public class Zaposlenik implements java.io.Serializable {
 
 	private int id;
