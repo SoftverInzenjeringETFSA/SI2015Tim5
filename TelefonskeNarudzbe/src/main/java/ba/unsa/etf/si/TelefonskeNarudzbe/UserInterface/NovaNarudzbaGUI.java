@@ -84,6 +84,7 @@ public class NovaNarudzbaGUI {
 	final static Logger logger = Logger.getLogger(NovaNarudzbaGUI.class);
 	private static final boolean ProvjeriDaLiJeSveUpisano = false;
 	private double ukupnaCijena;
+	private ValidacijaController kontrolerV;
 
 	// otvara novi prozor
 
@@ -238,7 +239,7 @@ if(kolicinaJela<=0) throw new Exception("Količina mora biti pozitivna!");
 			else
 				popust = 0;
 
-			ukupnaCijena = cijenaBezPopusta - cijenaBezPopusta * popust / 100;
+			ukupnaCijena = kontrolerV.zaokruziNa2(cijenaBezPopusta - cijenaBezPopusta * popust / 100);
 
 			txtCijena.setText(ValidacijaController.vratiDecimalan(cijenaBezPopusta));
 			txtPopust.setText(Double.toString(popust) + "%");
