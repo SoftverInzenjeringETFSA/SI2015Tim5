@@ -92,8 +92,6 @@ public class UnosIzmjenaSastojka extends JFrame {
 					JOptionPane.showMessageDialog(null, "Popunite polje naziv!");
 				} else if (mjernaJedinica == null || mjernaJedinica.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Popunite polje mjerna jedinica!");
-				} else if (opis == null || opis.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Popunite polje opis!");
 				} else if (!ValidacijaController.manjeOd500(opis)) {
 					JOptionPane.showMessageDialog(null, "Opis može imati najviše 500 znakova!");
 
@@ -177,8 +175,6 @@ public class UnosIzmjenaSastojka extends JFrame {
 					JOptionPane.showMessageDialog(null, "Popunite polje naziv!");
 				} else if (mjernaJedinica == null || mjernaJedinica.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Popunite polje mjerna jedinica!");
-				} else if (opis == null || opis.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Popunite polje opis!");
 				} else {
 					if (UnosIzmjenaSastojkaController.izmjenaSastojka(naziv, opis, mjernaJedinica, dodajNovi, Sef)) {
 						JOptionPane.showMessageDialog(null, "Uspješno dodan/izmijenjen sastojak!");

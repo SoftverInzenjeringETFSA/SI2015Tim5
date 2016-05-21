@@ -2,8 +2,11 @@ package ba.unsa.etf.si.TelefonskeNarudzbe.Controllers;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
@@ -89,6 +92,12 @@ public class ValidacijaController {
 			int mm = Integer.parseInt(mjesec);
 			int yyyy = Integer.parseInt(godina);
 			
+			Date sada = new Date();
+			DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+			String reportDate = df.format(sada);
+			
+			if(validirajDatume(datum, reportDate) == false) return false;
+			
 			if(mm == 1 || mm == 3 || mm == 05 || mm == 07 
 					|| mm == 8 || mm == 10 || mm == 12)
 			{
@@ -114,5 +123,25 @@ public class ValidacijaController {
 			logger.info(e);
 			return false;
 		}
+	}
+	public boolean validirajDatume(String datumOdString, String datumDoString) {
+		String[] parts1 = datumOdString.split(Pattern.quote("."));
+		String dan1 = parts1[0];
+		String mjesec1 = parts1[1];
+		String godina1 = parts1[2];
+		String[] parts2 = datumDoString.split(Pattern.quote("."));
+		String dan2 = parts2[0];
+		String mjesec2 = parts2[1];
+		String godina2 = parts2[2];
+		int dd1 = Integer.parseInt(dan1);
+		int mm1 = Integer.parseInt(mjesec1);
+		int yyyy1 = Integer.parseInt(godina1);
+		int dd2 = Integer.parseInt(dan2);
+		int mm2 = Integer.parseInt(mjesec2);
+		int yyyy2 = Integer.parseInt(godina2);
+		if(yyyy2 < yyyy1) return false;
+		if(yyyy2 == yyyy1 && mm2 < mm1) return false;
+		if(yyyy2 == yyyy1 && mm2 == mm1 && dd2 < dd1) return false;
+		return true;
 	}
 }

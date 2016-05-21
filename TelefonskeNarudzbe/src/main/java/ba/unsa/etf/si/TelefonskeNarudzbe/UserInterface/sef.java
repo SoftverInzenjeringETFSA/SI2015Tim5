@@ -23,6 +23,7 @@ import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
@@ -365,8 +366,13 @@ public class sef {
 					if (vc.validirajDatum(datumDoString) == false) {
 						JOptionPane.showMessageDialog(frame, "Pogrešan datum do:");
 					}
+					if(vc.validirajDatume(datumOdString, datumDoString) == false)
+					{
+						JOptionPane.showMessageDialog(frame, "Pogrešan interval!");
+					}
 					if (vc.validirajDatum(datumDoString)
-							&& vc.validirajDatum(datumOdString)) {
+							&& vc.validirajDatum(datumOdString)
+								&& vc.validirajDatume(datumOdString, datumDoString)) {
 						try {
 							String[] kolone_izvjestaj_1 = { "ID", "SPISAK JELA", "DATUM", "OPIS", "ODGOVORNA OSOBA",
 									"ADRESA NARUČIOCA", "BROJ TELEFONA NARUČIOCA", "CIJENA" };
@@ -374,12 +380,12 @@ public class sef {
 									datumDoString);
 
 							table_3 = new JTable(podaci_izvjestaj_1, kolone_izvjestaj_1);
+							table_3.setEnabled(false);
 							table_3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 							table_3.setBounds(109, 340, 340, -61);
 							table_3.getColumn("ID").setMaxWidth(70);
 							table_3.getColumn("CIJENA").setMaxWidth(70);
 							IzvjestajiTab.add(table_3);
-
 							scrollPane_3 = new JScrollPane(table_3);
 							scrollPane_3.setBounds(10, 218, 969, 388);
 							IzvjestajiTab.add(scrollPane_3);
@@ -413,6 +419,7 @@ public class sef {
 								"ADRESA NARUČIOCA", "BROJ TELEFONA NARUČIOCA", "CIJENA" };
 
 						dostavljac_tbl = new JTable(podaci_izvjestaj_1, kolone_izvjestaj_1);
+						dostavljac_tbl.setEnabled(false);
 						dostavljac_tbl.setBounds(109, 340, 340, -61);
 						dostavljac_tbl.getColumn("ID").setMaxWidth(70);
 						dostavljac_tbl.getColumn("CIJENA").setMaxWidth(70);
@@ -445,6 +452,7 @@ public class sef {
 								"ADRESA NARUČIOCA", "BROJ TELEFONA NARUČIOCA", "CIJENA" };
 
 						jelo_tbl = new JTable(podaci_izvjestaj_1, kolone_izvjestaj_1);
+						jelo_tbl.setEnabled(false);
 						jelo_tbl.setBounds(109, 340, 340, -61);
 						jelo_tbl.getColumn("ID").setMaxWidth(70);
 						jelo_tbl.getColumn("CIJENA").setMaxWidth(70);
@@ -468,11 +476,12 @@ public class sef {
 
 				// cetvrti izvjestaj
 				if (odabrano.equals("Statistički izvještaj o vremenu isporuke narudžbi")) {
-					
-					ocistiFormuOdTabela();
 					String[] kolone_izvjestaj_6 = { "Vremenski rok(minute)", "Broj narudžbi", "Procenat" };
 					Object[][] podaci_izvjestaj_6 = IzvjestajController.dajVremenaIsporuke();
+					ocistiFormuOdTabela();
+					
 					izvjestaj4_tbl = new JTable(podaci_izvjestaj_6, kolone_izvjestaj_6);
+					izvjestaj4_tbl.setEnabled(false);
 					izvjestaj4_tbl.setBounds(109, 340, 340, -61);
 					IzvjestajiTab.add(izvjestaj4_tbl);
 					scrollPane_izvjestaj4 = new JScrollPane(izvjestaj4_tbl);
@@ -495,6 +504,7 @@ public class sef {
 						String[] kolone_izvjestaj_2 = { "Izabrano jelo", "Broj narudžbi izabranog jela" };
 						podaci_izvjestaj_2 = IzvjestajController.dajBrojNarudzbiPoJelu(jelo);
 						izvjestaj5_tbl = new JTable(podaci_izvjestaj_2, kolone_izvjestaj_2);
+						izvjestaj5_tbl.setEnabled(false);
 						izvjestaj5_tbl.setBounds(109, 340, 340, -61);
 						IzvjestajiTab.add(izvjestaj5_tbl);
 						scrollPane_izvjestaj5 = new JScrollPane(izvjestaj5_tbl);
