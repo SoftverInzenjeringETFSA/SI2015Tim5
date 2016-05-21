@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.jboss.logging.Logger;
 
@@ -25,10 +26,12 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -51,6 +54,9 @@ public class UnosIzmjenaJela extends JFrame {
 	private JTable table;
 	private JTextArea textArea;
 	private JTable table_1;
+	private File odabranaSlika=null;
+	private JLabel lblSlika;
+	private JButton btnOdaberiSliku;
 
 	/**
 	 * Launch the application.
@@ -95,10 +101,11 @@ public class UnosIzmjenaJela extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @wbp.parser.constructor
 	 */
 	public UnosIzmjenaJela(final sef Sef) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 455, 410);
+		setBounds(100, 100, 455, 389);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -168,7 +175,7 @@ public class UnosIzmjenaJela extends JFrame {
 					return;
 				} else {
 					UnosIzmjenaJelaController c = new UnosIzmjenaJelaController();
-					c.izmjenaJela(naziv, opis, cijena, sastojci, sastojakKolicina, -1, Sef);
+					c.izmjenaJela(naziv, opis, cijena, sastojci, sastojakKolicina, -1, Sef,odabranaSlika);
 					JOptionPane.showMessageDialog(null, "Jelo je dodano/izmijenjeno");
 					setVisible(false); dispose();
 				}
@@ -201,58 +208,83 @@ public class UnosIzmjenaJela extends JFrame {
 		textArea = new JTextArea();
 
 		JScrollPane scrollPane = new JScrollPane();
+		
+		JLabel lblSlika = new JLabel("Slika:");
+		
+		JButton btnSlika = new JButton("Odaberi sliku");
+		btnSlika.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	JFileChooser fc = new JFileChooser("C:\\");
+            	fc.addChoosableFileFilter(new FileNameExtensionFilter("Image Files", "jpg", "png"));
+                int res = fc.showOpenDialog(null);
+                
+                try {
+                    if (res == JFileChooser.APPROVE_OPTION) {
+                        odabranaSlika = fc.getSelectedFile();
+                    }
+                    else {
+                    	//odabranaSlika=null;
+                        JOptionPane.showMessageDialog(null,"Dodano/izmijenjeno jelo nema sliku.");
+                    }
+                } catch (Exception iOException) {
+                }
+            }
+        });
+		
+			
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup().addContainerGap(44, Short.MAX_VALUE)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING).addComponent(lblNazivJela)
-								.addComponent(lblCijenakm).addComponent(lblSastojci)
-								.addComponent(lblOpis))
-						.addGap(42)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 211,
-												GroupLayout.PREFERRED_SIZE)
-										.addContainerGap())
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPane.createSequentialGroup()
-												.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 208,
-														GroupLayout.PREFERRED_SIZE)
-												.addContainerGap())
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addGroup(gl_contentPane.createSequentialGroup()
-														.addComponent(btnZavriUreivanje).addContainerGap())
-												.addGroup(gl_contentPane.createSequentialGroup()
-														.addGroup(gl_contentPane
-																.createParallelGroup(Alignment.LEADING, false)
-																.addComponent(textField_1).addComponent(textField,
-																		GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
-														.addContainerGap(75, Short.MAX_VALUE)))))));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup().addGap(22)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNazivJela))
-						.addGap(18)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblCijenakm, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE))
-						.addGap(20)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_contentPane.createSequentialGroup().addComponent(lblSastojci).addGap(52))
-								.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 61,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(18)))
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_contentPane.createSequentialGroup().addComponent(lblOpis).addGap(114))
-								.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 97,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(18)))
-						.addComponent(btnZavriUreivanje).addGap(44)));
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(44, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblSlika)
+						.addComponent(lblNazivJela)
+						.addComponent(lblCijenakm)
+						.addComponent(lblSastojci)
+						.addComponent(lblOpis))
+					.addGap(42)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(textField_1)
+							.addComponent(textField, GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
+						.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 208, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+							.addComponent(btnZavriUreivanje, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnSlika, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)))
+					.addContainerGap(73, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(22)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNazivJela))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblCijenakm, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(20)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(lblSastojci)
+							.addGap(52))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblOpis)
+						.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
+					.addGap(15)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblSlika)
+						.addComponent(btnSlika))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnZavriUreivanje)
+					.addGap(38))
+		);
 
 		UnosIzmjenaSastojkaController sc = new UnosIzmjenaSastojkaController();
 		List<Sastojak> sastojci = sc.vratiSveSastojke();
@@ -275,7 +307,7 @@ public class UnosIzmjenaJela extends JFrame {
 	
 	public UnosIzmjenaJela(Jelo j, final int dodajNovi, final sef Sef) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 455, 410);
+		setBounds(100, 100, 455, 398);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -367,7 +399,7 @@ public class UnosIzmjenaJela extends JFrame {
 				} else {
 				
 					UnosIzmjenaJelaController c = new UnosIzmjenaJelaController();
-					c.izmjenaJela(naziv, opis, cijena, sastojci, sastojakKolicina, dodajNovi,Sef);
+					c.izmjenaJela(naziv, opis, cijena, sastojci, sastojakKolicina, dodajNovi,Sef,odabranaSlika);
 					Sef.refreshTabeleJelo();
 					JOptionPane.showMessageDialog(null, "Jelo je dodano/izmijenjeno");
 					setVisible(false); dispose();
@@ -389,58 +421,84 @@ public class UnosIzmjenaJela extends JFrame {
 		textArea.setText(j.getOpis());
 		
 		JScrollPane scrollPane = new JScrollPane();
+		
+		lblSlika = new JLabel("Slika:");
+		
+		btnOdaberiSliku = new JButton("Odaberi sliku");
+		btnOdaberiSliku.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	JFileChooser fc = new JFileChooser("C:\\");
+            	fc.addChoosableFileFilter(new FileNameExtensionFilter("Image Files", "jpg", "png", "jpeg"));
+                int res = fc.showOpenDialog(null);
+                
+                try {
+                    if (res == JFileChooser.APPROVE_OPTION) {
+                        odabranaSlika = fc.getSelectedFile();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null,"Dodano/izmijenjeno jelo nema sliku.");
+                        //odabranaSlika=null;
+                    }
+                } catch (Exception iOException) {
+                }
+            }
+        });
+		
+		
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup().addContainerGap(44, Short.MAX_VALUE)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING).addComponent(lblNazivJela)
-								.addComponent(lblCijenakm).addComponent(lblSastojci)
-								.addComponent(lblOpis))
-						.addGap(42)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 211,
-												GroupLayout.PREFERRED_SIZE)
-										.addContainerGap())
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPane.createSequentialGroup()
-												.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 208,
-														GroupLayout.PREFERRED_SIZE)
-												.addContainerGap())
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addGroup(gl_contentPane.createSequentialGroup()
-														.addComponent(btnZavriUreivanje).addContainerGap())
-												.addGroup(gl_contentPane.createSequentialGroup()
-														.addGroup(gl_contentPane
-																.createParallelGroup(Alignment.LEADING, false)
-																.addComponent(textField_1).addComponent(textField,
-																		GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
-														.addContainerGap(75, Short.MAX_VALUE)))))));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup().addGap(22)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNazivJela))
-						.addGap(18)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblCijenakm, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE))
-						.addGap(20)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_contentPane.createSequentialGroup().addComponent(lblSastojci).addGap(52))
-								.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 61,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(18)))
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_contentPane.createSequentialGroup().addComponent(lblOpis).addGap(114))
-								.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 97,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(18)))
-						.addComponent(btnZavriUreivanje).addGap(44)));
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(44, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblNazivJela)
+						.addComponent(lblCijenakm)
+						.addComponent(lblSastojci)
+						.addComponent(lblOpis)
+						.addComponent(lblSlika))
+					.addGap(42)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(textField_1)
+							.addComponent(textField, GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+							.addComponent(btnZavriUreivanje, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnOdaberiSliku, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
+						.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 208, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(73, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(22)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNazivJela))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblCijenakm, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(20)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(lblSastojci)
+							.addGap(52))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblOpis)
+						.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnOdaberiSliku)
+						.addComponent(lblSlika))
+					.addGap(12)
+					.addComponent(btnZavriUreivanje)
+					.addGap(21))
+		);
 
 	
 		DefaultTableModel model = new DefaultTableModel(){

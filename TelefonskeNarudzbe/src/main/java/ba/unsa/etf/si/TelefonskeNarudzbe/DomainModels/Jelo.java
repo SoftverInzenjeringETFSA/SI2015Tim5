@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -26,6 +27,8 @@ public class Jelo implements java.io.Serializable {
 	private String opis;
 	private String naziv;
 	private Boolean izbrisano;
+	private byte[] slika;
+	
 	@Column(name = "izbrisano", unique = false, nullable = true)
 	public Boolean getIzbrisano() {
 		return izbrisano;
@@ -80,6 +83,16 @@ public class Jelo implements java.io.Serializable {
 
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
+	}
+	
+	@Column(name="slika", nullable=true)
+	@Lob
+	public byte[] getSlika() {
+		return slika;
+	}
+	
+	public void setSlika(byte[] slika) {
+		this.slika=slika;
 	}
 
 	@Column(name = "cijena", nullable = false, precision = 22, scale = 0)

@@ -1,5 +1,4 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface;
-
 import ba.unsa.etf.si.TelefonskeNarudzbe.UserInterface.TelefonPocetnaGUI;
 import ba.unsa.etf.si.TelefonskeNarudzbe.Controllers.*;
 import ba.unsa.etf.si.TelefonskeNarudzbe.DomainModels.*;
@@ -7,6 +6,9 @@ import ba.unsa.etf.si.TelefonskeNarudzbe.*;
 import Util.HibernateUtil;
 
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.ItemSelectable;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +35,19 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JTextField;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 
 import javax.swing.SwingConstants;
+import javax.imageio.ImageIO;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -171,6 +179,9 @@ if(kolicinaJela<=0) throw new Exception("Količina mora biti pozitivna!");
 			njv.setKolicina(kolicinaJela);
 
 			njvLista.add(njv);
+			
+			
+			if(j.getSlika()!=null) prikaziSlikuJela(j);
 		}
 
 		catch (Exception e) {
@@ -213,7 +224,7 @@ if(kolicinaJela<=0) throw new Exception("Količina mora biti pozitivna!");
 		double cijenaBezPopusta = 0;
 		double popust;
 		ukupnaCijena = 0;
-if(provjeriJelSveUpisano2()==false) {JOptionPane.showMessageDialog(null, "Popunite sva polja"); return ;}
+		if(provjeriJelSveUpisano2()==false) {JOptionPane.showMessageDialog(null, "Popunite sva polja"); return ;}
 		try {
 			for (Jelo j : narucenaJela) {
 				cijenaBezPopusta += j.getCijena();
@@ -313,6 +324,49 @@ if(provjeriJelSveUpisano2()==false) {JOptionPane.showMessageDialog(null, "Popuni
 			return false;
 		}
 
+	}
+	
+	public static BufferedImage  byteArrayToImage(byte[] bytes){  
+        BufferedImage bufferedImage=null;
+        try {
+            InputStream inputStream = new ByteArrayInputStream(bytes);
+            bufferedImage =ImageIO.read(inputStream);
+        } catch (Exception ex) {
+            logger.info(ex);
+        }
+        return bufferedImage;
+	}
+	
+	private void prikaziSlikuJela(Jelo j) {
+		try{
+			 JLabel labela=new JLabel();
+			 labela.setSize(200,150);
+			 
+			 BufferedImage image = byteArrayToImage(j.getSlika());
+			 ImageIcon icon = new ImageIcon(image.getScaledInstance(labela.getWidth(), labela.getHeight(), Image.SCALE_DEFAULT));	 
+	         
+	         labela.setIcon(icon);
+	         
+	         JLabel tekst=new JLabel("Jelo dodano u narudzbu:");
+	         tekst.setFont(new Font("Serif", Font.PLAIN, 16));
+	         
+	         JLabel kol=new JLabel();
+	         kol.setText("X"+" "+txtKolicina.getText());
+	         kol.setFont(new Font("Serif", Font.PLAIN, 16));
+	         
+	         JFrame p=new JFrame();
+	         p.setLayout(new FlowLayout());
+	         p.add(tekst);
+	         p.add(labela);
+	         p.add(kol);
+	         p.setVisible(true);
+	         p.pack();
+		}
+        	
+        	catch(Exception e) {
+        		System.out.println("NESTO NIJE OKEJ");
+        		logger.info(e);
+        	}
 	}
 
 	private void initialize() {

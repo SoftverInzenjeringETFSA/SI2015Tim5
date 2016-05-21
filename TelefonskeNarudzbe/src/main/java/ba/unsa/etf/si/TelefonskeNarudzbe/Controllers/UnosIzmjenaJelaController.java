@@ -1,5 +1,7 @@
 package ba.unsa.etf.si.TelefonskeNarudzbe.Controllers;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -39,9 +41,25 @@ public class UnosIzmjenaJelaController {
 		sesija.close();
 		return j;
 	}
+	
+	private byte[] vratiArrayByte(File f) {
+		try {
+			FileInputStream inputStream = new FileInputStream(f);
+			byte[] fileBytes = new byte[(int) f.length()];
+			inputStream.read(fileBytes);
+			inputStream.close();
+			byte[] sacuvaj = fileBytes;
+			return sacuvaj;
+		}
 
+		catch (Exception e) {
+			logger.info(e);
+			return null;
+		}
+	}
+	
 	public boolean izmjenaJela(String naziv, String opis, Double cijena, List<Sastojak> listaSastojaka,
-			List<Double> listaKolicina, int dodajNovi, sef Sef) {
+			List<Double> listaKolicina, int dodajNovi, sef Sef, File slika) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction t = session.beginTransaction();
 
@@ -78,6 +96,7 @@ public class UnosIzmjenaJelaController {
 						j.setNaziv(naziv);
 						j.setOpis(opis);
 						j.setCijena(cijena);
+						j.setSlika(vratiArrayByte(slika));
 						session.beginTransaction();
 						session.update(j);
 						session.getTransaction().commit();
@@ -103,6 +122,7 @@ public class UnosIzmjenaJelaController {
 					j.setOpis(opis);
 					j.setCijena(cijena);
 					j.setIzbrisano(false);
+					j.setSlika(vratiArrayByte(slika));
 					session.beginTransaction();
 					session.save(j);
 					session.getTransaction().commit();
@@ -128,6 +148,7 @@ public class UnosIzmjenaJelaController {
 					j.setOpis(opis);
 					j.setCijena(cijena);
 					j.setIzbrisano(false);
+					j.setSlika(vratiArrayByte(slika));
 					session.update(j);
 					t.commit();
 					session.close();
