@@ -28,8 +28,14 @@ public class UnosIzmjenaSastojkaController {
 		Session sesija = HibernateUtil.getSessionFactory().openSession();
 		Criteria criteria = sesija.createCriteria(Sastojak.class);
 		List<Sastojak> lista = criteria.list();
+		List<Sastojak> vrati=new ArrayList<Sastojak> ();
+		
+		for(Sastojak s:lista) {
+			if(s.isIzbrisan()) continue;
+			vrati.add(s);
+		}
 		sesija.close();
-		return lista;
+		return vrati;
 	}
 
 	public static List<String> vratiListuSastojakaJela(Jelo jelo) {
